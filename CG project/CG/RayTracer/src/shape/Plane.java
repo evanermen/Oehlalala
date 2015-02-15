@@ -28,7 +28,7 @@ public class Plane implements Shape {
 	}
 	
 	@Override
-	public boolean intersect(Ray ray) {
+	public Point intersect(Ray ray) {
 		Ray transformed = transformation.transformInverse(ray);
 		Vector normal = new Vector(0,0,1);
 		
@@ -38,9 +38,16 @@ public class Plane implements Shape {
 		double divisor = direction.dot(normal);
 		double divident = -(rayOrigin.subtract(0, 0, 0)).dot(normal);
 		
-		if (direction.dot(normal)== 0) {return false;}
-		else if (divident/divisor <  0){return false;}
-		else return true;
+		if (direction.dot(normal)== 0 || divident/divisor <  0){return null;}
+		else { 
+				Point intersection = transformed.origin.add(transformed.direction.scale(divident/divisor));
+				return intersection;
+		}
+	}
+
+	@Override
+	public Vector getColor(Point point) {
+		return new Vector(255,0,0);
 	}
 
 }

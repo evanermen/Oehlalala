@@ -69,6 +69,8 @@ public class Sphere implements Shape {
 	}
 	
 	public Vector getColor(Point point){
+		Vector normal = point.subtract(0, 0, 0).
+				//HIER de inverse transpose van de tranformatie nemen voor de normaal
 		return new Vector(0,255,0);
 	}
 }

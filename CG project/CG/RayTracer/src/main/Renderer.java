@@ -105,7 +105,7 @@ public class Renderer {
 		shapes.add(new Sphere(t3, 4));
 		shapes.add(new Sphere(t4, 4));
 		shapes.add(new Sphere(t5, 4));
-		//shapes.add(new Plane(identity));
+		shapes.add(new Plane(identity));
 
 		// render the scene
 		for (int x = 0; x < width; ++x) {
@@ -122,6 +122,7 @@ public class Renderer {
 						color = shape.getColor(intersection);
 						break;
 					}
+				}
 				panel.set(x, y, 255, (int)color.x, (int)color.y, (int)color.z);
 			}
 			reporter.update(height);
@@ -135,3 +136,4 @@ public class Renderer {
 		}
 	}
 }
+
