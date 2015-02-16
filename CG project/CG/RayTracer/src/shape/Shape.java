@@ -1,8 +1,8 @@
 package shape;
 
+import utils.RBGColor;
 import math.Point;
 import math.Ray;
-import math.Vector;
 
 /**
  * Interface which should be implemented by all {@link Shape}s.
@@ -21,5 +21,5 @@ public interface Shape {
 	 */
 	public Point intersect(Ray ray);
 	
-	public Vector getColor(Point point);
+	public RBGColor getColor(Point point);
 }

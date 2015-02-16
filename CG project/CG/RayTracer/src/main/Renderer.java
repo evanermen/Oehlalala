@@ -16,9 +16,9 @@ import math.Ray;
 import math.Transformation;
 import math.Vector;
 import sampling.Sample;
-import shape.Plane;
 import shape.Shape;
 import shape.Sphere;
+import utils.RBGColor;
 import camera.PerspectiveCamera;
 
 /**
@@ -38,7 +38,7 @@ public class Renderer {
 		int width = 640;
 		int height = 640;
 		Point cameraOrigin = new Point(0,0,0);
-		Vector lookAt = new Vector(-0.3, -.30, 1);
+		Vector lookAt = new Vector(0, 0, 1);
 		Vector up = new Vector(0,1,0);
 		double fov = 90;
 		
@@ -92,7 +92,8 @@ public class Renderer {
 		reporter.addProgressListener(frame);
 		
 		// initialize the scene
-		Transformation t1 = Transformation.createTranslation(0, 0, 50);
+		Transformation turn =  Transformation.createRotationX(90);
+		Transformation t1 = Transformation.createTranslation(0, 0, 50).append(turn);
 		Transformation t2 = Transformation.createTranslation(4, -4, 12);
 		Transformation t3 = Transformation.createTranslation(-4, -4, 12);
 		Transformation t4 = Transformation.createTranslation(4, 4, 12);
@@ -105,16 +106,21 @@ public class Renderer {
 		shapes.add(new Sphere(t3, 4));
 		shapes.add(new Sphere(t4, 4));
 		shapes.add(new Sphere(t5, 4));
-		shapes.add(new Plane(identity));
+		//shapes.add(new Plane(identity));
 
+		//initialize the lights
+		
+		//initialize the tracer
+		
+		
 		// render the scene
 		for (int x = 0; x < width; ++x) {
 			for (int y = 0; y < height; ++y) {
 				// create a ray through the center of the pixel.
 				Ray ray = camera.generateRay(new Sample(x + 0.5, y + 0.5));
-
+				//HIER moet dat world.background wornden
+				RBGColor color = new RBGColor();
 				boolean hit = false;
-				Vector color = new Vector();
 				for (Shape shape : shapes){
 					Point intersection = shape.intersect(ray);
 					if (intersection != null) {
@@ -123,7 +129,8 @@ public class Renderer {
 						break;
 					}
 				}
-				panel.set(x, y, 255, (int)color.x, (int)color.y, (int)color.z);
+				System.out.println(color.r);
+				panel.set(x, y, 255, (float)color.r, (float)color.b, (float)color.g);
 			}
 			reporter.update(height);
 		}

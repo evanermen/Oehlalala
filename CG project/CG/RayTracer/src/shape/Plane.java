@@ -4,6 +4,7 @@ import math.Point;
 import math.Ray;
 import math.Transformation;
 import math.Vector;
+import utils.RBGColor;
 
 /**
  * Represents an infinite plane.
@@ -46,8 +47,8 @@ public class Plane implements Shape {
 	}
 
 	@Override
-	public Vector getColor(Point point) {
-		return new Vector(255,0,0);
+	public RBGColor getColor(Point point) {
+		return new RBGColor(255,0,0);
 	}
 
 }

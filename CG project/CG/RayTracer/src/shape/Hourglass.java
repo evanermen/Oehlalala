@@ -32,7 +32,7 @@ public class Hourglass implements Shape{
 	
 	@Override
 	//http://mrl.nyu.edu/~dzorin/rend05/lecture2.pdf
-	public boolean intersect(Ray ray) {
+	public Point intersect(Ray ray) {
 		Ray transformed = transformation.transformInverse(ray);
 		Vector center = new Vector(0,0,1);
 		

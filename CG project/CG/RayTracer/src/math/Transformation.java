@@ -61,6 +61,10 @@ public class Transformation implements Cloneable {
 		return inverse;
 	}
 
+	public Matrix getNormalTransformationMatrix(){
+		//HIER misschien omgekeerde: eerst transpose dan inverse?
+		return inverse.transpose();
+	}
 	/**
 	 * Returns the inverse of this {@link Transformation}.
 	 * 
@@ -143,6 +147,7 @@ public class Transformation implements Cloneable {
 	public Vector transformInverse(Vector vector) throws NullPointerException {
 		return inverse.transform(vector);
 	}
+	
 
 	/**
 	 * Transforms the given {@link Ray} with this {@link Transformation}.
