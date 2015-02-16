@@ -20,6 +20,7 @@ import shape.Shape;
 import shape.Sphere;
 import utils.RGBColor;
 import world.World;
+import Tracer.SimpleTracer;
 import Tracer.Tracer;
 import camera.PerspectiveCamera;
 
@@ -119,28 +120,13 @@ public class Renderer {
 		
 		
 		//TRACER
-		tracer = new SimpleTracer(world, panel);
+		tracer = new SimpleTracer(world, panel, camera);
+		
 		//render the scene
 		for (int x = 0; x < width; ++x) {
 			for (int y = 0; y < height; ++y) {
-				//tracer.trace();
-				// create a ray through the center of the pixel.
-				Ray ray = camera.generateRay(new Sample(x + 0.5, y + 0.5));
-				//HIER moet dat world.background wornden
-				RGBColor color = new RGBColor();
-				boolean hit = false;
-				List<Shape> shapes = world.objects;
-				for (Shape shape : shapes){
-					Point intersection = shape.intersect(ray);
-					if (intersection != null) {
-						hit = true;
-						color = shape.getColor(intersection);
-						break;
-					}
+				tracer.trace(x, y);
 				}
-				System.out.println(color.r);
-				panel.set(x, y, 255, (float)color.r, (float)color.g, (float)color.b);
-			}
 			reporter.update(height);
 		}
 		reporter.done();
