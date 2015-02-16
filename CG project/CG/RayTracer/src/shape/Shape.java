@@ -1,6 +1,6 @@
 package shape;
 
-import utils.RBGColor;
+import utils.RGBColor;
 import math.Point;
 import math.Ray;
 
@@ -21,5 +21,5 @@ public interface Shape {
 	 */
 	public Point intersect(Ray ray);
 	
-	public RBGColor getColor(Point point);
+	public RGBColor getColor(Point point);
 }

@@ -1,6 +1,6 @@
 package shape;
 
-import utils.RBGColor;
+import utils.RGBColor;
 import math.Point;
 import math.Ray;
 import math.Transformation;
@@ -69,10 +69,10 @@ public class Sphere implements Shape {
 		//return t0 >= 0; //|| t1 >= 0;
 	}
 	
-	public RBGColor getColor(Point point){
+	public RGBColor getColor(Point point){
 		Vector transformedNormal = transformation.getNormalTransformationMatrix().transform(point.subtract(0,0,0));
 		Vector normalizedTN = transformedNormal.normalize().add(1,1,1).scale(0.5);
 		System.out.println("normalizedTN = " + normalizedTN.x);
-		return new RBGColor(normalizedTN.x, normalizedTN.y, normalizedTN.z);
+		return new RGBColor(normalizedTN.x, normalizedTN.y, normalizedTN.z);
 	}
 }

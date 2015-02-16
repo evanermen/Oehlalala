@@ -18,7 +18,9 @@ import math.Vector;
 import sampling.Sample;
 import shape.Shape;
 import shape.Sphere;
-import utils.RBGColor;
+import utils.RGBColor;
+import world.World;
+import Tracer.Tracer;
 import camera.PerspectiveCamera;
 
 /**
@@ -28,6 +30,8 @@ import camera.PerspectiveCamera;
  * @version 1.0
  */
 public class Renderer {
+	
+	
 	/**
 	 * Entry point of your renderer.
 	 * 
@@ -41,6 +45,10 @@ public class Renderer {
 		Vector lookAt = new Vector(0, 0, 1);
 		Vector up = new Vector(0,1,0);
 		double fov = 90;
+		
+		World world = new World();
+		Tracer tracer;
+		
 		
 		
 
@@ -100,27 +108,28 @@ public class Renderer {
 		Transformation t5 = Transformation.createTranslation(-4, 4, 12);
 		Transformation identity = Transformation.createIdentity();
 
-		List<Shape> shapes = new ArrayList<Shape>();
-		shapes.add(new Sphere(t1, 5));
-		shapes.add(new Sphere(t2, 4));
-		shapes.add(new Sphere(t3, 4));
-		shapes.add(new Sphere(t4, 4));
-		shapes.add(new Sphere(t5, 4));
+		world.addObject(new Sphere(t1, 5));
+		world.addObject(new Sphere(t2, 4));
+		world.addObject(new Sphere(t3, 4));
+		world.addObject(new Sphere(t4, 4));
+		world.addObject(new Sphere(t5, 4));
 		//shapes.add(new Plane(identity));
 
 		//initialize the lights
 		
-		//initialize the tracer
 		
-		
-		// render the scene
+		//TRACER
+		tracer = new SimpleTracer(world, panel);
+		//render the scene
 		for (int x = 0; x < width; ++x) {
 			for (int y = 0; y < height; ++y) {
+				//tracer.trace();
 				// create a ray through the center of the pixel.
 				Ray ray = camera.generateRay(new Sample(x + 0.5, y + 0.5));
 				//HIER moet dat world.background wornden
-				RBGColor color = new RBGColor();
+				RGBColor color = new RGBColor();
 				boolean hit = false;
+				List<Shape> shapes = world.objects;
 				for (Shape shape : shapes){
 					Point intersection = shape.intersect(ray);
 					if (intersection != null) {
@@ -130,7 +139,7 @@ public class Renderer {
 					}
 				}
 				System.out.println(color.r);
-				panel.set(x, y, 255, (float)color.r, (float)color.b, (float)color.g);
+				panel.set(x, y, 255, (float)color.r, (float)color.g, (float)color.b);
 			}
 			reporter.update(height);
 		}

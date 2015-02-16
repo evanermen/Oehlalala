@@ -5,25 +5,36 @@ import java.util.List;
 
 import lights.Light;
 import math.Vector;
+import utils.RGBColor;
+
+
 import shape.Shape;
-import camera.Camera;
 
 public class World {
 
-	private Vector backgroundColor;
+	public RGBColor bg;
 	//private Light ambient;
-	private List<Shape> objects;
-	private List<Light> lights;
+	public List<Shape> objects;
+	public List<Light> lights;
 	
 	public World(){
-		backgroundColor = new Vector();
+		bg = new RGBColor();
 		//ambient = New Ambient();
 		objects = new ArrayList<Shape>();
-		lights = new ArrayList<Light>();
-		
-		
-		
-		
-		
+		lights = new ArrayList<Light>();	
+	}
+	
+	public World(RGBColor backgroundColor, ArrayList<Shape> objects, ArrayList<Light> lights ){
+		this.bg = backgroundColor;
+		this.objects = objects;
+		this.lights = lights;
+	}
+	
+	public void addObject(Shape shape){
+		this.objects.add(shape);
+	}
+	
+	public void addLight(Light light){
+		this.lights.add(light);
 	}
 }

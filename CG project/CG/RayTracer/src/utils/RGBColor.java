@@ -1,18 +1,18 @@
 package utils;
 
-public class RBGColor {
+public class RGBColor {
 	public double r;
 	public double g;
 	public double b;
 
 
-	public RBGColor(){
+	public RGBColor(){
 		r = 0;
 		g = 0;
 		b = 0;
 	}
 	
-	public RBGColor(double red, double green, double blue){
+	public RGBColor(double red, double green, double blue){
 		r = red;
 		g = green;
 		b = blue;
