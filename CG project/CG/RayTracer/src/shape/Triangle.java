@@ -90,6 +90,8 @@ public class Triangle extends Shape {
 		return transformation;
 	}
 
+	
+	// ??? normaal aan juiste kant??
 	@Override
 	public Vector getNormal(Point point) {
 		Vector divident = v1.subtract(v0).cross(v2.subtract(v0));

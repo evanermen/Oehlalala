@@ -4,13 +4,15 @@ import math.Point;
 import math.Ray;
 import math.Transformation;
 import math.Vector;
+import tracer.Intersection;
+import utils.RGBColor;
 
 /**
  * Represents a finite, two-sided cone
  * @author eline vanermen
  *
  */
-public class Hourglass implements Shape{
+public class Hourglass extends Shape{
 	public Transformation transformation;
 	double angle;
 	double height;
@@ -22,17 +24,16 @@ public class Hourglass implements Shape{
 		if (height < 0)
 			throw new IllegalArgumentException(
 					"the given height cannot be smaller than zero!");
-		if (angle < 0 || angle > 2*Math.PI)
+		if (angle < 0 || angle > 90)
 			throw new IllegalArgumentException(
-					"the given angle must be between 0 and 2*Pi cannot be smaller than zero!");
+					"the given angle must be between 0 and 90 cannot be smaller than zero!");
 		this.transformation = transformation;
 		this.angle = angle;
 		this.height = height;
 	}
 	
 	@Override
-	//http://mrl.nyu.edu/~dzorin/rend05/lecture2.pdf
-	public Point intersect(Ray ray) {
+	public Intersection intersect(Ray ray) {
 		Ray transformed = transformation.transformInverse(ray);
 		Vector center = new Vector(0,0,1);
 		
@@ -40,10 +41,40 @@ public class Hourglass implements Shape{
 		Point rayOrigin = transformed.origin;
 		Vector z = new Vector(0,0,1);
 		
-		//double a = Math.cos(angle)* Math.cos(angle)  *  (direction.subtract(z.scale(direction.dot(z))).dot(direction.subtract(z.scale(direction.dot(z)))));
-		//double b = 2 * Math.cos(angle) * Math.cos(angle)  *  direction.subtract(direction.scale(direction.dot(z));
+		double a = direction.y*direction.y + direction.z*direction.z - direction.x*direction.x;
+		double b = 2*rayOrigin.y*direction.y + 2*rayOrigin.z*direction.z - 2*rayOrigin.x*direction.x;
+		double c = rayOrigin.y*rayOrigin.y + rayOrigin.z*rayOrigin.z - rayOrigin.x*rayOrigin.x;
 		
-		return false;
+		double d = b * b - 4.0 * a * c;
+
+		if (d < 0)
+			return null;
+		double dr = Math.sqrt(d);
+		double q = b < 0 ? -0.5 * (b - dr) : -0.5 * (b + dr);
+
+		double t0 = q / a;
+		double t1 = c / q;
+		
+		if(t0>t1)
+		return new Intersection(ray, t1, this);
+		else return new Intersection(ray, t0, this);
+		
+	}
+
+	@Override
+	public RGBColor getColor(Point point) {
+		return new RGBColor(0,0,255);
+	}
+
+	@Override
+	public Transformation getTransformation() {
+		return transformation;
+	}
+
+	@Override
+	public Vector getNormal(Point point) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

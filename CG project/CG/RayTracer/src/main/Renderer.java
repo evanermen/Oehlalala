@@ -6,24 +6,18 @@ import gui.RenderFrame;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
 import math.Point;
-import math.Ray;
 import math.Transformation;
 import math.Vector;
-import sampling.Sample;
 import shape.Cube;
-import shape.Plane;
-import shape.Shape;
+import shape.Hourglass;
 import shape.Sphere;
 import shape.Triangle;
 import tracer.SimpleTracer;
 import tracer.Tracer;
-import utils.RGBColor;
 import world.World;
 import camera.PerspectiveCamera;
 
@@ -45,8 +39,8 @@ public class Renderer {
 	public static void main(String[] arguments) {
 		int width = 640;
 		int height = 640;
-		Point cameraOrigin = new Point(-20 ,-20 ,0);
-		Vector lookAt = new Vector(0.5, 0.5, 0);
+		Point cameraOrigin = new Point(0 ,-10 ,-10);
+		Vector lookAt = new Vector(0,1, 1);
 		Vector up = new Vector(0,0,1);
 		double fov = 90;
 		
@@ -117,9 +111,10 @@ public class Renderer {
 		Transformation scale = Transformation.createScale(10, 10, 10);
 
 		//world.addObject(new Cube(t1.append(t6).append(turn3), 5));
-		world.addObject(new Triangle(identity, new Point(0,-10,-10), new Point(0,10,20), new Point(10,0,5)));
-		world.addObject(new Cube(identity, 5));
+		//world.addObject(new Triangle(identity, new Point(0,-10,-10), new Point(0,10,20), new Point(10,0,5)));
+		//world.addObject(new Cube(identity, 5));
 		//world.addObject(new Sphere(t4, 4));
+		world.addObject(new Hourglass(identity, 6, 5));
 		//world.addObject(new Sphere(t5.append(t6), 4));
 		//world.addObject(new Plane(turn3));
 
