@@ -1,8 +1,11 @@
 package shape;
 
-import utils.RGBColor;
 import math.Point;
 import math.Ray;
+import math.Transformation;
+import math.Vector;
+import tracer.Intersection;
+import utils.RGBColor;
 
 /**
  * Interface which should be implemented by all {@link Shape}s.
@@ -10,7 +13,10 @@ import math.Ray;
  * @author Niels Billen
  * @version 1.0
  */
-public interface Shape {
+public abstract class Shape {
+	
+	private Transformation transformation;
+	
 	/**
 	 * Returns whether the given {@link Ray} intersects this {@link Shape}.
 	 * False when the given ray is null.
@@ -19,7 +25,11 @@ public interface Shape {
 	 *            the ray to intersect with.
 	 * @return true when the given {@link Ray} intersects this {@link Shape}.
 	 */
-	public Point intersect(Ray ray);
+	public abstract Intersection intersect(Ray ray);
 	
-	public RGBColor getColor(Point point);
+	public abstract RGBColor getColor(Point point);
+	
+	public abstract Transformation getTransformation();
+	
+	public abstract Vector getNormal(Point point);
 }

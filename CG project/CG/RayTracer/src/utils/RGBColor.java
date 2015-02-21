@@ -1,5 +1,7 @@
 package utils;
 
+import math.Vector;
+
 public class RGBColor {
 	public double r;
 	public double g;
@@ -16,5 +18,11 @@ public class RGBColor {
 		r = red;
 		g = green;
 		b = blue;
+	}
+
+	public RGBColor(Vector v) {
+		r = v.x;
+		g = v.y;
+		b = v.z;
 	}
 }

@@ -4,6 +4,7 @@ import math.Point;
 import math.Ray;
 import math.Transformation;
 import math.Vector;
+import tracer.Intersection;
 import utils.RGBColor;
 
 /**
@@ -11,7 +12,7 @@ import utils.RGBColor;
  * @author eline vanermen
  *
  */
-public class Plane implements Shape {
+public class Plane extends Shape {
 
 	private Transformation transformation;
 
@@ -29,7 +30,7 @@ public class Plane implements Shape {
 	}
 	
 	@Override
-	public Point intersect(Ray ray) {
+	public Intersection intersect(Ray ray) {
 		Ray transformed = transformation.transformInverse(ray);
 		Vector normal = new Vector(0,0,1);
 		
@@ -41,14 +42,23 @@ public class Plane implements Shape {
 		
 		if (direction.dot(normal)== 0 || divident/divisor <  0){return null;}
 		else { 
-				Point intersection = transformed.origin.add(transformed.direction.scale(divident/divisor));
+				Intersection intersection = new Intersection(ray, divident/divisor, this);
 				return intersection;
 		}
 	}
 
 	@Override
 	public RGBColor getColor(Point point) {
-		return new RGBColor(255,0,0);
+		Vector normal = getNormal(point);
+		return new RGBColor(normal);
 	}
 
+	public Vector getNormal(Point point){
+		return transformation.getNormalTransformationMatrix().transform(new Vector(0,0,1)).normalize();
+	}
+
+	@Override
+	public Transformation getTransformation() {
+		return transformation;
+	}
 }

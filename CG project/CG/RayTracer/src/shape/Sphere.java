@@ -1,10 +1,11 @@
 package shape;
 
-import utils.RGBColor;
 import math.Point;
 import math.Ray;
 import math.Transformation;
 import math.Vector;
+import tracer.Intersection;
+import utils.RGBColor;
 
 /**
  * Represents a three dimensional sphere.
@@ -12,7 +13,7 @@ import math.Vector;
  * @author Niels Billen
  * @version 1.0
  */
-public class Sphere implements Shape {
+public class Sphere extends Shape {
 	public Transformation transformation;
 	public final double radius;
 
@@ -45,7 +46,7 @@ public class Sphere implements Shape {
 	 * @see shape.Shape#intersect(geometry3d.Ray3D)
 	 */
 	@Override
-	public Point intersect(Ray ray) {
+	public Intersection intersect(Ray ray) {
 		Ray transformed = transformation.transformInverse(ray);
 
 		Vector o = transformed.origin.toVector3D();
@@ -64,15 +65,27 @@ public class Sphere implements Shape {
 		double t0 = q / a;
 		double t1 = c / q;
 		
-		Point intersection = transformed.origin.add(transformed.direction.scale(t0));
-		return intersection;
+		if(t0>t1)
+		return new Intersection(ray, t1, this);
+		else return new Intersection(ray, t0, this);
 		//return t0 >= 0; //|| t1 >= 0;
 	}
 	
-	public RGBColor getColor(Point point){
+	public Vector getNormal(Point point){
 		Vector transformedNormal = transformation.getNormalTransformationMatrix().transform(point.subtract(0,0,0));
-		Vector normalizedTN = transformedNormal.normalize().add(1,1,1).scale(0.5);
-		System.out.println("normalizedTN = " + normalizedTN.x);
-		return new RGBColor(normalizedTN.x, normalizedTN.y, normalizedTN.z);
+		return transformedNormal.normalize().abs();
 	}
+	
+	
+	public RGBColor getColor(Point point){
+		Vector normal = getNormal(point);
+		//System.out.println("normalizedTN = " + normalizedTN.x);
+		return new RGBColor(normal.x, normal.y, normal.z);
+	}
+
+	@Override
+	public Transformation getTransformation() {
+		return this.transformation;
+	}
+	
 }

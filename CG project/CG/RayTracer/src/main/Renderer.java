@@ -16,12 +16,15 @@ import math.Ray;
 import math.Transformation;
 import math.Vector;
 import sampling.Sample;
+import shape.Cube;
+import shape.Plane;
 import shape.Shape;
 import shape.Sphere;
+import shape.Triangle;
+import tracer.SimpleTracer;
+import tracer.Tracer;
 import utils.RGBColor;
 import world.World;
-import Tracer.SimpleTracer;
-import Tracer.Tracer;
 import camera.PerspectiveCamera;
 
 /**
@@ -42,9 +45,9 @@ public class Renderer {
 	public static void main(String[] arguments) {
 		int width = 640;
 		int height = 640;
-		Point cameraOrigin = new Point(0,0,0);
-		Vector lookAt = new Vector(0, 0, 1);
-		Vector up = new Vector(0,1,0);
+		Point cameraOrigin = new Point(-20,-20,2);
+		Vector lookAt = new Vector(0.5, 0.5, 0);
+		Vector up = new Vector(0,0,1);
 		double fov = 90;
 		
 		World world = new World();
@@ -101,20 +104,24 @@ public class Renderer {
 		reporter.addProgressListener(frame);
 		
 		// initialize the scene
-		Transformation turn =  Transformation.createRotationX(90);
-		Transformation t1 = Transformation.createTranslation(0, 0, 50).append(turn);
+		Transformation turn =  Transformation.createRotationX(30);
+		Transformation turn2 =  Transformation.createRotationZ(23);
+		Transformation turn3 = Transformation.createRotationY(80);
+		Transformation t1 = Transformation.createTranslation(0, 0, 0).append(turn).append(turn2).append(turn3);
 		Transformation t2 = Transformation.createTranslation(4, -4, 12);
-		Transformation t3 = Transformation.createTranslation(-4, -4, 12);
+		Transformation t3 = Transformation.createTranslation(15, 15, 0);
 		Transformation t4 = Transformation.createTranslation(4, 4, 12);
 		Transformation t5 = Transformation.createTranslation(-4, 4, 12);
+		Transformation t6 = Transformation.createTranslation(0, 0, 10);
 		Transformation identity = Transformation.createIdentity();
+		Transformation scale = Transformation.createScale(10, 10, 10);
 
-		world.addObject(new Sphere(t1, 5));
-		world.addObject(new Sphere(t2, 4));
-		world.addObject(new Sphere(t3, 4));
-		world.addObject(new Sphere(t4, 4));
-		world.addObject(new Sphere(t5, 4));
-		//shapes.add(new Plane(identity));
+		//world.addObject(new Cube(t1.append(t6).append(turn3), 5));
+		world.addObject(new Triangle(scale.append(turn3).append(turn)));
+		world.addObject(new Cube(identity.append(turn), 2));
+		//world.addObject(new Sphere(t4, 4));
+		//world.addObject(new Sphere(t5.append(t6), 4));
+		//world.addObject(new Plane(identity));
 
 		//initialize the lights
 		

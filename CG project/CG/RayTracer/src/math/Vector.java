@@ -308,6 +308,10 @@ public class Vector implements Cloneable, Comparable<Vector> {
 		return divide(length());
 	}
 
+	public Vector abs(){
+		return new Vector(Math.abs(x), Math.abs(y), Math.abs(z));
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
