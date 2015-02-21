@@ -45,7 +45,7 @@ public class Renderer {
 	public static void main(String[] arguments) {
 		int width = 640;
 		int height = 640;
-		Point cameraOrigin = new Point(-20,-20,2);
+		Point cameraOrigin = new Point(-20 ,-20 ,0);
 		Vector lookAt = new Vector(0.5, 0.5, 0);
 		Vector up = new Vector(0,0,1);
 		double fov = 90;
@@ -106,7 +106,7 @@ public class Renderer {
 		// initialize the scene
 		Transformation turn =  Transformation.createRotationX(30);
 		Transformation turn2 =  Transformation.createRotationZ(23);
-		Transformation turn3 = Transformation.createRotationY(80);
+		Transformation turn3 = Transformation.createRotationY(50);
 		Transformation t1 = Transformation.createTranslation(0, 0, 0).append(turn).append(turn2).append(turn3);
 		Transformation t2 = Transformation.createTranslation(4, -4, 12);
 		Transformation t3 = Transformation.createTranslation(15, 15, 0);
@@ -117,11 +117,11 @@ public class Renderer {
 		Transformation scale = Transformation.createScale(10, 10, 10);
 
 		//world.addObject(new Cube(t1.append(t6).append(turn3), 5));
-		world.addObject(new Triangle(scale.append(turn3).append(turn)));
-		world.addObject(new Cube(identity.append(turn), 2));
+		world.addObject(new Triangle(identity, new Point(0,-10,-10), new Point(0,10,20), new Point(10,0,5)));
+		world.addObject(new Cube(identity, 5));
 		//world.addObject(new Sphere(t4, 4));
 		//world.addObject(new Sphere(t5.append(t6), 4));
-		//world.addObject(new Plane(identity));
+		//world.addObject(new Plane(turn3));
 
 		//initialize the lights
 		
