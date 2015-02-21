@@ -4,7 +4,7 @@ import math.Point;
 import math.Ray;
 import math.Transformation;
 import math.Vector;
-import tracer.Intersection;
+import utils.Intersection;
 import utils.RGBColor;
 
 /**

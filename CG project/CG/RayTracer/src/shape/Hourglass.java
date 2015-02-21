@@ -4,7 +4,7 @@ import math.Point;
 import math.Ray;
 import math.Transformation;
 import math.Vector;
-import tracer.Intersection;
+import utils.Intersection;
 import utils.RGBColor;
 
 /**
@@ -24,9 +24,9 @@ public class Hourglass extends Shape{
 		if (height < 0)
 			throw new IllegalArgumentException(
 					"the given height cannot be smaller than zero!");
-		if (angle < 0 || angle > 90)
+		if (angle < 0 || angle > Math.PI/2)
 			throw new IllegalArgumentException(
-					"the given angle must be between 0 and 90 cannot be smaller than zero!");
+					"the given angle must be between 0 and Pi/2 cannot be smaller than zero!");
 		this.transformation = transformation;
 		this.angle = angle;
 		this.height = height;
@@ -35,15 +35,13 @@ public class Hourglass extends Shape{
 	@Override
 	public Intersection intersect(Ray ray) {
 		Ray transformed = transformation.transformInverse(ray);
-		Vector center = new Vector(0,0,1);
-		
+				
 		Vector direction = transformed.direction;
 		Point rayOrigin = transformed.origin;
-		Vector z = new Vector(0,0,1);
 		
-		double a = direction.y*direction.y + direction.z*direction.z - direction.x*direction.x;
-		double b = 2*rayOrigin.y*direction.y + 2*rayOrigin.z*direction.z - 2*rayOrigin.x*direction.x;
-		double c = rayOrigin.y*rayOrigin.y + rayOrigin.z*rayOrigin.z - rayOrigin.x*rayOrigin.x;
+		double a = direction.y*direction.y + direction.z*direction.z - angle*direction.x*direction.x;
+		double b = 2*rayOrigin.y*direction.y + 2*rayOrigin.z*direction.z - angle*2*rayOrigin.x*direction.x;
+		double c = rayOrigin.y*rayOrigin.y + rayOrigin.z*rayOrigin.z - angle*rayOrigin.x*rayOrigin.x;
 		
 		double d = b * b - 4.0 * a * c;
 
@@ -55,15 +53,17 @@ public class Hourglass extends Shape{
 		double t0 = q / a;
 		double t1 = c / q;
 		
-		if(t0>t1)
-		return new Intersection(ray, t1, this);
-		else return new Intersection(ray, t0, this);
-		
+		Intersection i0 = new Intersection(ray, t0, this);
+		Intersection i1 = new Intersection(ray, t1, this);
+		if(t0<t1 && Math.abs(i0.point.x)<height) return i0;
+		else if(t1<t0 && Math.abs(i1.point.x)<height)return i1;
+		else return null;	
+
 	}
 
 	@Override
 	public RGBColor getColor(Point point) {
-		return new RGBColor(0,0,255);
+		return new RGBColor(getNormal(point));
 	}
 
 	@Override
@@ -73,8 +73,12 @@ public class Hourglass extends Shape{
 
 	@Override
 	public Vector getNormal(Point point) {
-		// TODO Auto-generated method stub
-		return null;
+		double phi = Math.atan(point.y/point.z);
+		System.out.println("point = "+ point.x + ", " + point.y + ", " + point.z);
+		//Vector normal =  new Vector(-Math.sin(angle), Math.cos(angle)*Math.sin(phi), Math.cos(angle)*Math.sin(phi));
+		Vector normal = new Vector(2*point.x, -2*point.y, 2*point.z);
+		return transformation.getNormalTransformationMatrix().transform(normal).normalize().add(1, 1, 1).scale(0.5);
+		//return normal;
 	}
 
 }

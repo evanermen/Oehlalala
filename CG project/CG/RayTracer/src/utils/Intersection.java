@@ -1,11 +1,10 @@
-package tracer;
+package utils;
 
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import math.Point;
 import math.Ray;
 import shape.Shape;
-import utils.RGBColor;
 
 public class Intersection {
 	

@@ -8,6 +8,7 @@ import math.Ray;
 import gui.ImagePanel;
 import sampling.Sample;
 import shape.Shape;
+import utils.Intersection;
 import utils.RGBColor;
 import world.World;
 

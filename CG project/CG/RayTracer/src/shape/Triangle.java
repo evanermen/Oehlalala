@@ -4,7 +4,7 @@ import math.Point;
 import math.Ray;
 import math.Transformation;
 import math.Vector;
-import tracer.Intersection;
+import utils.Intersection;
 import utils.RGBColor;
 
 public class Triangle extends Shape {
@@ -96,7 +96,7 @@ public class Triangle extends Shape {
 	public Vector getNormal(Point point) {
 		Vector divident = v1.subtract(v0).cross(v2.subtract(v0));
 		double divisor = divident.length();
-		return divident.scale(1/divisor);
+		return transformation.getNormalTransformationMatrix().transform(divident.scale(1/divisor)).normalize().abs();
 	}
 
 }
