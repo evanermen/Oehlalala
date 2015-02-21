@@ -73,7 +73,7 @@ public class Sphere extends Shape {
 	
 	public Vector getNormal(Point point){
 		Vector transformedNormal = transformation.getNormalTransformationMatrix().transform(point.subtract(0,0,0));
-		return transformedNormal.normalize().abs();
+		return transformedNormal.normalize().add(1, 1, 1).scale(0.5);
 	}
 	
 	

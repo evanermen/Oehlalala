@@ -39,14 +39,16 @@ public class Hourglass extends Shape{
 		Vector direction = transformed.direction;
 		Point rayOrigin = transformed.origin;
 		
-		double a = direction.y*direction.y + direction.z*direction.z - angle*direction.x*direction.x;
-		double b = 2*rayOrigin.y*direction.y + 2*rayOrigin.z*direction.z - angle*2*rayOrigin.x*direction.x;
-		double c = rayOrigin.y*rayOrigin.y + rayOrigin.z*rayOrigin.z - angle*rayOrigin.x*rayOrigin.x;
+		double a = direction.y*direction.y + direction.z*direction.z - Math.tan(angle)*direction.x*direction.x;
+		double b = 2*rayOrigin.y*direction.y + 2*rayOrigin.z*direction.z - Math.tan(angle)*2*rayOrigin.x*direction.x;
+		double c = rayOrigin.y*rayOrigin.y + rayOrigin.z*rayOrigin.z - Math.tan(angle)*rayOrigin.x*rayOrigin.x;
 		
 		double d = b * b - 4.0 * a * c;
 
 		if (d < 0)
 			return null;
+		
+		
 		double dr = Math.sqrt(d);
 		double q = b < 0 ? -0.5 * (b - dr) : -0.5 * (b + dr);
 
@@ -55,9 +57,12 @@ public class Hourglass extends Shape{
 		
 		Intersection i0 = new Intersection(ray, t0, this);
 		Intersection i1 = new Intersection(ray, t1, this);
-		if(t0<t1 && Math.abs(i0.point.x)<height) return i0;
-		else if(t1<t0 && Math.abs(i1.point.x)<height)return i1;
-		else return null;	
+		if(t0<t1 && Math.abs(i0.point.x)<height && t0>0) return i0;
+		else if(t0<t1 && Math.abs(i1.point.x)<height && t1>0) return i1;
+		else if(t1<t0 && Math.abs(i1.point.x)<height && t1>0) return i1;
+		else if(t1<t0 && Math.abs(i0.point.x)<height && t0>0) return i0;
+		else return null;
+		
 
 	}
 
@@ -71,10 +76,12 @@ public class Hourglass extends Shape{
 		return transformation;
 	}
 
+	
+	//hier zit nog iets raar precies. normaal teruggetransformeerd?
 	@Override
 	public Vector getNormal(Point point) {
 		double phi = Math.atan(point.y/point.z);
-		System.out.println("point = "+ point.x + ", " + point.y + ", " + point.z);
+		//System.out.println("point = "+ point.x + ", " + point.y + ", " + point.z);
 		//Vector normal =  new Vector(-Math.sin(angle), Math.cos(angle)*Math.sin(phi), Math.cos(angle)*Math.sin(phi));
 		Vector normal = new Vector(2*point.x, -2*point.y, 2*point.z);
 		return transformation.getNormalTransformationMatrix().transform(normal).normalize().add(1, 1, 1).scale(0.5);
