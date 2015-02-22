@@ -125,16 +125,10 @@ public class TriangleM extends Shape {
 	 public double findArea(Point a, Point b, Point c)
 	    { 
 		 	double sideA = a.subtract(b).length();
-		 	System.out.println("sideA = " + sideA);
 		 	double sideB = b.subtract(c).length();
-		 	System.out.println("sideB = " + sideB);
 		 	double sideC = c.subtract(a).length();
-		 	System.out.println("sideC = " + sideC);
-		 	System.out.println("sum = " + (sideA + sideB + sideC) );
 	        double s = 0.5*(sideA + sideB + sideC);
-	        System.out.println("s = " + s);
 	        double area = Math.sqrt(s*(s-sideA)*(s-sideB)*(s-sideC));
-	        System.out.println("Area = " + area);
 	        return area;
 	        
 	    }

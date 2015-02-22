@@ -39,7 +39,6 @@ public class SimpleTracer extends Tracer {
 		for (Shape shape : shapes){
 			Intersection intersection = shape.intersect(ray);
 			if (intersection != null && intersection.t < smallestT ) {
-				//System.out.println("IK BEN KLEINEER");
 				smallestT = intersection.t;
 				rayIntersection = intersection;				
 			}

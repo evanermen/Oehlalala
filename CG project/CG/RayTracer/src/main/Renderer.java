@@ -12,12 +12,10 @@ import javax.imageio.ImageIO;
 import math.Point;
 import math.Transformation;
 import math.Vector;
-import shape.Cube;
-import shape.Hourglass;
-import shape.Sphere;
-import shape.TriangleM;
+import shape.TriangleMesh;
 import tracer.SimpleTracer;
 import tracer.Tracer;
+import utils.Parser;
 import world.World;
 import camera.PerspectiveCamera;
 
@@ -37,18 +35,24 @@ public class Renderer {
 	 *            command line arguments.
 	 */
 	public static void main(String[] arguments) {
+		
+		
 		int width = 640;
 		int height = 640;
-		Point cameraOrigin = new Point(15, 0,0);
-		Vector lookAt = new Vector(1,0, 0);
+		Point cameraOrigin = new Point(-15, -15,0);
+		Vector lookAt = new Vector(1,1, 0);
 		Vector up = new Vector(0,0,1);
 		double fov = 90;
 		
 		World world = new World();
 		Tracer tracer;
 		
-		
-		
+		Parser parser = new Parser();
+		try {
+			parser.processLineByLine();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 
 		// parse the command line arguments
 		for (int i = 0; i < arguments.length; ++i) {
@@ -97,6 +101,7 @@ public class Renderer {
 				* height, false);
 		reporter.addProgressListener(frame);
 		
+		
 		// initialize the scene
 		Transformation turn =  Transformation.createRotationX(20);
 		Transformation turn2 =  Transformation.createRotationZ(20);
@@ -114,11 +119,15 @@ public class Renderer {
 		//world.addObject(new Triangle(identity.append(turn2), new Point(0,-10,-10), new Point(0,10,0), new Point(0,0,10)));
 		//world.addObject(new Cube(identity.append(turn).append(turn2), 1));
 		//world.addObject(new Sphere(t2, 4));
-		//world.addObject(new Hourglass(identity.append(turn3), 5*Math.PI/12, 5));
-		world.addObject(new TriangleM());
+		//world.addObject(new Hourglass(identity.append(turn3), Math.PI/6, 8));
+		//world.addObject(new TriangleM());
 		//world.addObject(new Sphere(t5.append(t6), 4));
 		//world.addObject(new Plane(turn3));
-
+		
+		
+		world.addObject(new TriangleMesh());
+		
+		
 		//initialize the lights
 		
 		
