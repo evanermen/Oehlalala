@@ -13,7 +13,7 @@ import shape.TriangleMesh;
 
 public class Parser {
 
-	TriangleMesh mesh = new TriangleMesh();
+	public TriangleMesh mesh = new TriangleMesh();
 	
 	ArrayList<Point> vertices = new ArrayList<Point>();
 	ArrayList<Vector> normals = new ArrayList<Vector>();
@@ -60,16 +60,16 @@ public class Parser {
 			break;
 		}
 		case "f": {
-			String[] verts;
-			String[] texts;
-			String[] norms;
-			if(scanner.hasNext()){ verts = scanner.next().split("/");}
+			String[] a;
+			String[] b;
+			String[] c;
+			if(scanner.hasNext()){ a = scanner.next().split("/");}
 			else throw new IllegalArgumentException("The Wavefront File is incorrect. ");
-			if(scanner.hasNext()){texts = scanner.next().split("/");}
+			if(scanner.hasNext()){b = scanner.next().split("/");}
 			else throw new IllegalArgumentException("The Wavefront File is incorrect. ");
-			if(scanner.hasNext()){norms = scanner.next().split("/");}
+			if(scanner.hasNext()){c = scanner.next().split("/");}
 			else throw new IllegalArgumentException("The Wavefront File is incorrect. ");
-			TriangleM triangle = new TriangleM(vertices.get(Integer.parseInt(verts[0])-1), vertices.get(Integer.parseInt(verts[1])-1), vertices.get(Integer.parseInt(verts[2])-1), normals.get(Integer.parseInt(norms[0])-1), normals.get(Integer.parseInt(norms[1])-1), normals.get(Integer.parseInt(norms[2])-1));
+			TriangleM triangle = new TriangleM(vertices.get(Integer.parseInt(a[0])-1), vertices.get(Integer.parseInt(b[0])-1), vertices.get(Integer.parseInt(c[0])-1), normals.get(Integer.parseInt(a[2])-1), normals.get(Integer.parseInt(b[2])-1), normals.get(Integer.parseInt(c[2])-1));
 			mesh.mesh.add(triangle);
 		}
 		case "vt": break;

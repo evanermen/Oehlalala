@@ -39,8 +39,8 @@ public class Renderer {
 		
 		int width = 640;
 		int height = 640;
-		Point cameraOrigin = new Point(-15, -15,0);
-		Vector lookAt = new Vector(1,1, 0);
+		Point cameraOrigin = new Point(0, 15,0);
+		Vector lookAt = new Vector(0,-1, 0);
 		Vector up = new Vector(0,0,1);
 		double fov = 90;
 		
@@ -50,6 +50,7 @@ public class Renderer {
 		Parser parser = new Parser();
 		try {
 			parser.processLineByLine();
+			//world.addObject(parser.mesh);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

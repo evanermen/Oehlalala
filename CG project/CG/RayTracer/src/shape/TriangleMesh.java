@@ -16,13 +16,17 @@ public class TriangleMesh extends Shape {
 	Intersection currentIntersection = null;
 	
 	public TriangleMesh(){
-		mesh.add(new TriangleM());
-		mesh.add(new TriangleM(new Point(0,0,0), new Point(0, -10, 10), new Point(0,-10,-10), new Vector(1,0,0), new Vector(0,0,1), new Vector(0,1,0)));
-		mesh.add(new TriangleM(new Point(0,0,0), new Point(0, -10, -10), new Point(0, 10,-10), new Vector(1,0,0), new Vector(0,1,0), new Vector(0,0,1)));
+		mesh.add(new TriangleM(new Point(-1,0,1), new Point(1, -0, 1), new Point(-1,0,-1), new Vector(0,1,0), new Vector(0,1,0), new Vector(0,1,0)));
+		mesh.add(new TriangleM(new Point(1,-0,1), new Point(1, 0, -1), new Point(-1, 0,-1), new Vector(0,1,0), new Vector(0,1,0), new Vector(0,1,0)));
+	
+		//mesh.add(new TriangleM());
+		//mesh.add(new TriangleM(new Point(0,0,0), new Point(0, -10, 10), new Point(0,-10,-10), new Vector(1,0,0), new Vector(0,0,1), new Vector(0,1,0)));
+		//mesh.add(new TriangleM(new Point(0,0,0), new Point(0, -10, -10), new Point(0, 10,-10), new Vector(1,0,0), new Vector(0,1,0), new Vector(0,0,1)));
 	}
 	
 	@Override
 	public Intersection intersect(Ray ray) {
+		//System.out.println("looking for intersections in trianglemesh");
 		Double smallestT = Double.POSITIVE_INFINITY;
 		Intersection rayIntersection = null;
 		for (TriangleM triangle : mesh){
