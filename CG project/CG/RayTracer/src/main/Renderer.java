@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 import math.Point;
 import math.Transformation;
 import math.Vector;
-import shape.TriangleM;
+import shape.Cube;
 import tracer.SimpleTracer;
 import tracer.Tracer;
 import utils.Parser;
@@ -39,7 +39,7 @@ public class Renderer {
 		
 		int width = 640;
 		int height = 640;
-		Point cameraOrigin = new Point(5, 5,5);
+		Point cameraOrigin = new Point(2, 2,2);
 		Vector lookAt = new Vector(-1,-1, -1);
 		Vector up = new Vector(0,0,1);
 		double fov = 90;
@@ -98,19 +98,9 @@ public class Renderer {
 		
 		
 		// initialize the scene
-		
-		Parser parser = new Parser();
-		try {
-			parser.processLineByLine();
-			System.out.println("nb of triangles : " + parser.triangleMesh.triangles.size());
-			world.addObject(parser.triangleMesh);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
-		
-		Transformation turn =  Transformation.createRotationX(20);
-		Transformation turn2 =  Transformation.createRotationZ(20);
+				
+		Transformation turn =  Transformation.createRotationX(40);
+		Transformation turn2 =  Transformation.createRotationZ(60);
 		Transformation turn3 = Transformation.createRotationY(60);
 		Transformation t1 = Transformation.createTranslation(0, 0, 0).append(turn).append(turn2).append(turn3);
 		Transformation t2 = Transformation.createTranslation(4, -4, 12);
@@ -121,9 +111,21 @@ public class Renderer {
 		Transformation identity = Transformation.createIdentity();
 		Transformation scale = Transformation.createScale(10, 10, 10);
 
+		Parser parser = new Parser();
+		try {
+			parser.processLineByLine();
+			System.out.println("nb of triangles : " + parser.triangleMesh.triangles.size());
+			parser.triangleMesh.setTransformation(turn2);
+			world.addObject(parser.triangleMesh);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		
+	
 		//world.addObject(new Cube(t1.append(t6).append(turn3), 5));
 		//world.addObject(new Triangle(identity.append(turn2), new Point(0,-10,-10), new Point(0,10,0), new Point(0,0,10)));
-		//world.addObject(new Cube(identity.append(turn).append(turn2), 1));
+		world.addObject(new Cube(t4, 1));
 		//world.addObject(new Sphere(t2, 4));
 		//world.addObject(new Hourglass(identity.append(turn3), Math.PI/6, 8));
 		//world.addObject(new TriangleM());

@@ -15,6 +15,7 @@ import utils.RGBColor;
  */
 public abstract class Shape {
 	
+	
 	private Transformation transformation;
 	
 	/**

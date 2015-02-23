@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import math.Point;
+import math.Transformation;
 import math.Vector;
 import shape.TriangleM;
 import shape.TriangleMesh;
@@ -13,7 +14,7 @@ import shape.TriangleMesh;
 
 public class Parser {
 
-	public TriangleMesh triangleMesh = new TriangleMesh();
+	public TriangleMesh triangleMesh = new TriangleMesh(Transformation.createIdentity());
 	
 	ArrayList<Point> vertices = new ArrayList<Point>();
 	ArrayList<Vector> normals = new ArrayList<Vector>();

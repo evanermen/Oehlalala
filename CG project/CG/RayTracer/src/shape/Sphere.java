@@ -73,14 +73,14 @@ public class Sphere extends Shape {
 	
 	public Vector getNormal(Point point){
 		Vector transformedNormal = transformation.getNormalTransformationMatrix().transform(point.subtract(0,0,0));
-		return transformedNormal.normalize().add(1, 1, 1).scale(0.5);
+		return transformedNormal.normalize();
 	}
 	
 	
 	public RGBColor getColor(Point point){
 		Vector normal = getNormal(point);
 		//System.out.println("normalizedTN = " + normalizedTN.x);
-		return new RGBColor(normal.x, normal.y, normal.z);
+		return new RGBColor(normal.abs());
 	}
 
 	@Override

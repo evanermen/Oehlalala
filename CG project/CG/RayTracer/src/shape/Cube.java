@@ -65,7 +65,7 @@ public class Cube extends Shape {
 	public RGBColor getColor(Point point) {
 		//return new RGBColor(0.2,0.5,0.3);
 		Vector normal = getNormal(point);
-		return new RGBColor(Math.abs(normal.x), Math.abs(normal.y), Math.abs(normal.z));
+		return new RGBColor(normal.abs());
 	}
 	
 	public Vector getNormal(Point point){

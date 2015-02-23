@@ -92,7 +92,7 @@ public class TriangleM extends Shape {
 	
 	@Override
 	public RGBColor getColor(Point point) {
-		return new RGBColor(getNormal(point));
+		return new RGBColor(getNormal(point).abs());
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class TriangleM extends Shape {
 		Vector barys = findBarys(point);
 		Vector normal = vn0.scale(barys.x).add(vn1.scale(barys.y)).add(vn2.scale(barys.z));
 		//System.out.println("Normal = " + normal.x + ", " + normal.y + ", " + normal.z);
-		return normal.abs().normalize();
+		return normal.normalize();
 	}
 	
 	public Vector findBarys(Point point){
