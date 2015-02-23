@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 import math.Point;
 import math.Transformation;
 import math.Vector;
-import shape.TriangleMesh;
+import shape.TriangleM;
 import tracer.SimpleTracer;
 import tracer.Tracer;
 import utils.Parser;
@@ -39,21 +39,15 @@ public class Renderer {
 		
 		int width = 640;
 		int height = 640;
-		Point cameraOrigin = new Point(0, 15,0);
-		Vector lookAt = new Vector(0,-1, 0);
+		Point cameraOrigin = new Point(5, 5,5);
+		Vector lookAt = new Vector(-1,-1, -1);
 		Vector up = new Vector(0,0,1);
 		double fov = 90;
 		
 		World world = new World();
 		Tracer tracer;
 		
-		Parser parser = new Parser();
-		try {
-			parser.processLineByLine();
-			//world.addObject(parser.mesh);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		
 
 		// parse the command line arguments
 		for (int i = 0; i < arguments.length; ++i) {
@@ -104,6 +98,17 @@ public class Renderer {
 		
 		
 		// initialize the scene
+		
+		Parser parser = new Parser();
+		try {
+			parser.processLineByLine();
+			System.out.println("nb of triangles : " + parser.triangleMesh.triangles.size());
+			world.addObject(parser.triangleMesh);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		
 		Transformation turn =  Transformation.createRotationX(20);
 		Transformation turn2 =  Transformation.createRotationZ(20);
 		Transformation turn3 = Transformation.createRotationY(60);
@@ -126,7 +131,7 @@ public class Renderer {
 		//world.addObject(new Plane(turn3));
 		
 		
-		world.addObject(new TriangleMesh());
+		//world.addObject(new TriangleMesh());
 		
 		
 		//initialize the lights

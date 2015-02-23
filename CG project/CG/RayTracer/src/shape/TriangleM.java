@@ -30,9 +30,9 @@ public class TriangleM extends Shape {
 	}
 	
 	public TriangleM(){
-		this.v0 = new Point(0,0,0);
-		this.v1 = new Point(0,10,10);
-		this.v2 = new Point(0,10,-10);
+		this.v0 = new Point(0,0,5);
+		this.v1 = new Point(5,0,0);
+		this.v2 = new Point(5,0,5);
 		
 		this.vn0 = new Vector(1,0,0);
 		this.vn1 = new Vector(0,1,0);
@@ -70,18 +70,18 @@ public class TriangleM extends Shape {
 		double beta = e1*inv_denom;
 		
 		//System.out.println("Beta = " + beta);
-		if(beta < 0) return null;
+		if(beta <= 0) return null;
 		
 		double r = e*l - h*i;
-		double e2 = a*n + d*q + c*r; //minteken voor a*n
+		double e2 = -a*n + d*q + c*r; //minteken voor a*n
 		double gamma = e2*inv_denom;
 		
 		//System.out.println("Gamma = " + gamma);
-		if(gamma<0) return null;
+		if(gamma<=0) return null;
 		
-		if(beta + gamma > 1) return null;
+		if(beta + gamma >= 1) return null;
 		
-		double e3 = a*p - b*r + d*s; //minteken voor a*p
+		double e3 = -a*p - b*r + d*s; //minteken voor a*p
 		double t = e3*inv_denom;
 		
 		//if(t< kEpsilon) return null;
@@ -92,7 +92,7 @@ public class TriangleM extends Shape {
 	
 	@Override
 	public RGBColor getColor(Point point) {
-		return new RGBColor(255,0,0);
+		return new RGBColor(getNormal(point));
 	}
 
 	@Override

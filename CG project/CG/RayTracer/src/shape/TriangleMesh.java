@@ -12,16 +12,16 @@ import utils.RGBColor;
 
 public class TriangleMesh extends Shape {
 	
-	public ArrayList<TriangleM> mesh = new ArrayList<TriangleM>();
+	public ArrayList<TriangleM> triangles = new ArrayList<TriangleM>();
 	Intersection currentIntersection = null;
 	
 	public TriangleMesh(){
-		mesh.add(new TriangleM(new Point(-1,0,1), new Point(1, -0, 1), new Point(-1,0,-1), new Vector(0,1,0), new Vector(0,1,0), new Vector(0,1,0)));
-		mesh.add(new TriangleM(new Point(1,-0,1), new Point(1, 0, -1), new Point(-1, 0,-1), new Vector(0,1,0), new Vector(0,1,0), new Vector(0,1,0)));
+		//triangles.add(new TriangleM(new Point(-1,0,1), new Point(1, -0, 1), new Point(-1,0,-1), new Vector(0,1,0), new Vector(0,1,0), new Vector(0,1,0)));
+		//triangles.add(new TriangleM(new Point(1,-0,1), new Point(1, 0, -1), new Point(-1, 0,-1), new Vector(0,1,0), new Vector(0,1,0), new Vector(0,1,0)));
 	
-		//mesh.add(new TriangleM());
-		//mesh.add(new TriangleM(new Point(0,0,0), new Point(0, -10, 10), new Point(0,-10,-10), new Vector(1,0,0), new Vector(0,0,1), new Vector(0,1,0)));
-		//mesh.add(new TriangleM(new Point(0,0,0), new Point(0, -10, -10), new Point(0, 10,-10), new Vector(1,0,0), new Vector(0,1,0), new Vector(0,0,1)));
+		//triangles.add(new TriangleM());
+		//triangles.add(new TriangleM(new Point(0,0,0), new Point(0, -10, 10), new Point(0,-10,-10), new Vector(1,0,0), new Vector(0,0,1), new Vector(0,1,0)));
+		//triangles.add(new TriangleM(new Point(0,0,0), new Point(0, -10, -10), new Point(0, 10,-10), new Vector(1,0,0), new Vector(0,1,0), new Vector(0,0,1)));
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ public class TriangleMesh extends Shape {
 		//System.out.println("looking for intersections in trianglemesh");
 		Double smallestT = Double.POSITIVE_INFINITY;
 		Intersection rayIntersection = null;
-		for (TriangleM triangle : mesh){
+		for (TriangleM triangle : triangles){
 			Intersection intersection = triangle.intersect(ray);
 			if (intersection != null && intersection.t < smallestT ) {
 				smallestT = intersection.t;
@@ -42,7 +42,7 @@ public class TriangleMesh extends Shape {
 
 	@Override
 	public RGBColor getColor(Point point) {
-		return new RGBColor(getNormal(point));
+		return currentIntersection.shape.getColor(point);
 	}
 
 	@Override
