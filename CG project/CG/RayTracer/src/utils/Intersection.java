@@ -1,9 +1,8 @@
 package utils;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import math.Point;
 import math.Ray;
+import math.Vector;
 import shape.Shape;
 
 public class Intersection {
@@ -27,9 +26,10 @@ public class Intersection {
 	}
 	
 	public RGBColor getColor(){
-		//System.out.println(point);
-		//System.out.println("Shape = " + shape);
-		//System.out.println(shape.getColor(point));
 		return shape.getColor(point);
+	}
+	
+	public Vector getNormal(){
+		return shape.getNormal(point);
 	}
 }

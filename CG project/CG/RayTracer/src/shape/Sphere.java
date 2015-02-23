@@ -78,9 +78,7 @@ public class Sphere extends Shape {
 	
 	
 	public RGBColor getColor(Point point){
-		Vector normal = getNormal(point);
-		//System.out.println("normalizedTN = " + normalizedTN.x);
-		return new RGBColor(normal.abs());
+		return new RGBColor(255,255,0);
 	}
 
 	@Override

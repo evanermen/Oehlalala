@@ -49,8 +49,7 @@ public class Plane extends Shape {
 
 	@Override
 	public RGBColor getColor(Point point) {
-		Vector normal = getNormal(point);
-		return new RGBColor(normal.abs());
+		return new RGBColor(255,255,0);
 	}
 
 	public Vector getNormal(Point point){

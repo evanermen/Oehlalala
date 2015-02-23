@@ -12,13 +12,17 @@ import utils.RGBColor;
 
 public class TriangleMesh extends Shape {
 	
-	Transformation transformation = Transformation.createIdentity();
+	Transformation transformation;
 	
 	public ArrayList<TriangleM> triangles = new ArrayList<TriangleM>();
 	Intersection currentIntersection = null;
 	
 	public TriangleMesh(Transformation transformation){
 		this.transformation = transformation;
+		
+		for(TriangleM triangle: triangles){
+			triangle.transformation = transformation;			
+		}
 		//triangles.add(new TriangleM(new Point(-1,0,1), new Point(1, -0, 1), new Point(-1,0,-1), new Vector(0,1,0), new Vector(0,1,0), new Vector(0,1,0)));
 		//triangles.add(new TriangleM(new Point(1,-0,1), new Point(1, 0, -1), new Point(-1, 0,-1), new Vector(0,1,0), new Vector(0,1,0), new Vector(0,1,0)));
 	
@@ -29,7 +33,6 @@ public class TriangleMesh extends Shape {
 	
 	@Override
 	public Intersection intersect(Ray ray) {
-		//System.out.println("looking for intersections in trianglemesh");
 		Ray transformed = transformation.transformInverse(ray);
 
 		Double smallestT = Double.POSITIVE_INFINITY;
@@ -47,7 +50,7 @@ public class TriangleMesh extends Shape {
 
 	@Override
 	public RGBColor getColor(Point point) {
-		return currentIntersection.shape.getColor(point);
+		return new RGBColor(0,255,255);
 	}
 
 	@Override
@@ -64,6 +67,9 @@ public class TriangleMesh extends Shape {
 
 	public void setTransformation(Transformation transformation) {
 		this.transformation = transformation;
+		for(TriangleM triangle: triangles){
+			triangle.transformation = transformation;			
+		}
 		
 	}
 	

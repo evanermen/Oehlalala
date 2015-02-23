@@ -37,17 +37,14 @@ public class Parser {
 		String item = scanner.next();
 		switch(item){
 		case "v" : {
-			System.out.println(item);
 			readVertices(scanner); 
 			break;
 		}
 		case "vn": {
-			System.out.println(item);
 			readNormals(scanner); 
 			break;
 		}
 		case "f": {
-			System.out.println(item);
 			readTriangle(scanner);
 			break;
 		}
@@ -69,9 +66,9 @@ public class Parser {
 		if(scanner.hasNext()){c = scanner.next().split("/");}
 		else throw new IllegalArgumentException("The Wavefront File is incorrect. ");
 		TriangleM triangle = new TriangleM(vertices.get(Integer.parseInt(a[0])-1), vertices.get(Integer.parseInt(b[0])-1), vertices.get(Integer.parseInt(c[0])-1), normals.get(Integer.parseInt(a[2])-1), normals.get(Integer.parseInt(b[2])-1), normals.get(Integer.parseInt(c[2])-1));
-		System.out.println("TriangleM to add is " + vertices.get(Integer.parseInt(a[0])-1) + ", " +  vertices.get(Integer.parseInt(b[0])-1) + ",  " + vertices.get(Integer.parseInt(c[0])-1));
+		//System.out.println("TriangleM to add is " + vertices.get(Integer.parseInt(a[0])-1) + ", " +  vertices.get(Integer.parseInt(b[0])-1) + ",  " + vertices.get(Integer.parseInt(c[0])-1));
 		triangleMesh.triangles.add(triangle);
-		System.out.println("triangle = " + triangle);
+		//System.out.println("triangle = " + triangle);
 	}
 
 	

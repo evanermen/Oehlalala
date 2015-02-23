@@ -18,6 +18,7 @@ public class TriangleM extends Shape {
 	public Vector vn1;
 	public Vector vn2;
 
+	public Transformation transformation;
 	
 	public TriangleM(Point v0, Point v1, Point v2, Vector vn0, Vector vn1, Vector vn2) {
 		this.v0 = v0;
@@ -92,7 +93,7 @@ public class TriangleM extends Shape {
 	
 	@Override
 	public RGBColor getColor(Point point) {
-		return new RGBColor(getNormal(point).abs());
+		return new RGBColor(0,255,255);
 	}
 
 	@Override
@@ -105,7 +106,7 @@ public class TriangleM extends Shape {
 		Vector barys = findBarys(point);
 		Vector normal = vn0.scale(barys.x).add(vn1.scale(barys.y)).add(vn2.scale(barys.z));
 		//System.out.println("Normal = " + normal.x + ", " + normal.y + ", " + normal.z);
-		return normal.normalize();
+		return transformation.getNormalTransformationMatrix().transform(normal).normalize();
 	}
 	
 	public Vector findBarys(Point point){

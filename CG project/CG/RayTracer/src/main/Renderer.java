@@ -13,7 +13,7 @@ import math.Point;
 import math.Transformation;
 import math.Vector;
 import shape.Cube;
-import tracer.SimpleTracer;
+import tracer.NormalTracer;
 import tracer.Tracer;
 import utils.Parser;
 import world.World;
@@ -36,7 +36,7 @@ public class Renderer {
 	 */
 	public static void main(String[] arguments) {
 		
-		
+		//------------------------VIEW_SETTINGS-------------------------------//
 		int width = 640;
 		int height = 640;
 		Point cameraOrigin = new Point(2, 2,2);
@@ -49,7 +49,7 @@ public class Renderer {
 		
 		
 
-		// parse the command line arguments
+		//------------------------PARSE_COMMAND_LINE-------------------------------//
 		for (int i = 0; i < arguments.length; ++i) {
 			if (arguments[i].startsWith("-")) {
 				try {
@@ -83,7 +83,8 @@ public class Renderer {
 			throw new IllegalArgumentException("the given height cannot be "
 					+ "smaller than or equal to zero!");
 
-		// initialize the camera
+		
+		//------------------------INITIALIZE_CAMERA_GUI_PROGRESS_REPORTER-------------------------------//
 		PerspectiveCamera camera = new PerspectiveCamera(width, height,
 				cameraOrigin, lookAt, up, fov);
 
@@ -97,7 +98,9 @@ public class Renderer {
 		reporter.addProgressListener(frame);
 		
 		
-		// initialize the scene
+		//------------------------SET_WORLD-------------------------------//
+		
+		//----------------OBJECTS----------------//
 				
 		Transformation turn =  Transformation.createRotationX(40);
 		Transformation turn2 =  Transformation.createRotationZ(60);
@@ -114,15 +117,13 @@ public class Renderer {
 		Parser parser = new Parser();
 		try {
 			parser.processLineByLine();
-			System.out.println("nb of triangles : " + parser.triangleMesh.triangles.size());
-			parser.triangleMesh.setTransformation(turn2);
+			parser.triangleMesh.setTransformation(turn);
 			world.addObject(parser.triangleMesh);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 		
 		
-	
 		//world.addObject(new Cube(t1.append(t6).append(turn3), 5));
 		//world.addObject(new Triangle(identity.append(turn2), new Point(0,-10,-10), new Point(0,10,0), new Point(0,0,10)));
 		world.addObject(new Cube(t4, 1));
@@ -132,15 +133,18 @@ public class Renderer {
 		//world.addObject(new Sphere(t5.append(t6), 4));
 		//world.addObject(new Plane(turn3));
 		
-		
 		//world.addObject(new TriangleMesh());
 		
 		
-		//initialize the lights
+		//----------------OBJECTS----------------//
 		
 		
-		//TRACER
-		tracer = new SimpleTracer(world, panel, camera);
+		
+		
+		
+		
+		//----------------------------------TRACE------------------------------------//
+		tracer = new NormalTracer(world, panel, camera);
 		
 		//render the scene
 		for (int x = 0; x < width; ++x) {

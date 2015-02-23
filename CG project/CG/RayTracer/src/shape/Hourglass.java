@@ -68,7 +68,7 @@ public class Hourglass extends Shape{
 
 	@Override
 	public RGBColor getColor(Point point) {
-		return new RGBColor(getNormal(point));
+		return new RGBColor(255,255,0);
 	}
 
 	@Override
