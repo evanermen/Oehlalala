@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import materials.Matte;
 import math.Point;
 import math.Transformation;
 import math.Vector;
@@ -14,7 +15,7 @@ import shape.TriangleMesh;
 
 public class Parser {
 
-	public TriangleMesh triangleMesh = new TriangleMesh(Transformation.createIdentity());
+	public TriangleMesh triangleMesh = new TriangleMesh(Transformation.createIdentity(), new Matte(new RGBColor(255,255,255)));
 	
 	ArrayList<Point> vertices = new ArrayList<Point>();
 	ArrayList<Vector> normals = new ArrayList<Vector>();

@@ -7,6 +7,7 @@ import math.Transformation;
 import math.Vector;
 import utils.Intersection;
 import utils.RGBColor;
+import world.World;
 
 /**
  * 
@@ -111,5 +112,6 @@ public class Cube extends Shape {
 	public Material getMaterial() {
 		return material;
 	}
+
 
 }

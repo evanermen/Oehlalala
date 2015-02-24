@@ -5,6 +5,7 @@ import math.Point;
 import math.Ray;
 import math.Vector;
 import shape.Shape;
+import world.World;
 
 public class Intersection {
 	
@@ -12,7 +13,6 @@ public class Intersection {
 	public Ray ray;
 	public Shape shape;
 	public Point point;
-	
 
 	public Intersection(Ray ray, double t, Shape shape ){
 		this.ray = ray;
@@ -32,5 +32,9 @@ public class Intersection {
 	
 	public Material getMaterial(){
 		return shape.getMaterial();
+	}
+	
+	public World getWorld(){
+		return shape.getWorld();
 	}
 }

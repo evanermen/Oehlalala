@@ -7,6 +7,7 @@ import math.Transformation;
 import math.Vector;
 import utils.Intersection;
 import utils.RGBColor;
+import world.World;
 
 /**
  * Interface which should be implemented by all {@link Shape}s.
@@ -19,6 +20,8 @@ public abstract class Shape {
 	private Material material;
 	
 	private Transformation transformation;
+	
+	private World world;
 	
 	public Shape(Transformation transformation, Material material){
 		if (transformation == null)
@@ -46,4 +49,11 @@ public abstract class Shape {
 	public abstract Vector getNormal(Point point);
 	
 	public abstract Material getMaterial();
+	
+	public World getWorld(){return world;}
+
+	public void setWorld(World world) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -32,6 +32,7 @@ public class World {
 	
 	public void addObject(Shape shape){
 		this.objects.add(shape);
+		shape.setWorld(this);
 	}
 	
 	public void addLight(Light light){
