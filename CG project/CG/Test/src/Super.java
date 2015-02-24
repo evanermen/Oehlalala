@@ -10,4 +10,8 @@ public abstract class Super {
 	public double getVariable1(){
 		return variable1;
 	}
+	
+	public void setVariable1(double v){
+		this.variable1 = v;
+	}
 }

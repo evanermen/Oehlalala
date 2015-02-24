@@ -56,14 +56,5 @@ public class Plane extends Shape {
 		return transformation.getNormalTransformationMatrix().transform(new Vector(0,0,1)).normalize();
 	}
 
-	@Override
-	public Transformation getTransformation() {
-		return transformation;
-	}
 
-	@Override
-	public Material getMaterial() {
-		// TODO Auto-generated method stub
-		return material;
-	}
 }

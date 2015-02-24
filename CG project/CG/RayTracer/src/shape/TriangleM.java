@@ -100,10 +100,6 @@ public class TriangleM extends Shape {
 		return new RGBColor(0,255,255);
 	}
 
-	@Override
-	public Transformation getTransformation() {
-		return Transformation.createIdentity();
-	}
 
 	@Override
 	public Vector getNormal(Point point) {
@@ -138,8 +134,5 @@ public class TriangleM extends Shape {
 	        
 	    }
 
-	@Override
-	public Material getMaterial() {
-		return material;
-	}
+
 }

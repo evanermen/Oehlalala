@@ -71,11 +71,6 @@ public class Hourglass extends Shape{
 		return new RGBColor(255,255,0);
 	}
 
-	@Override
-	public Transformation getTransformation() {
-		return transformation;
-	}
-
 	
 	//hier zit nog iets raar precies. normaal teruggetransformeerd?
 	@Override
@@ -88,9 +83,6 @@ public class Hourglass extends Shape{
 		//return normal;
 	}
 
-	@Override
-	public Material getMaterial() {
-		return material;
-	}
+
 
 }

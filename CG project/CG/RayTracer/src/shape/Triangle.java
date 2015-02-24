@@ -87,11 +87,6 @@ public class Triangle extends Shape {
 		return new RGBColor(getNormal(point));
 	}
 
-	@Override
-	public Transformation getTransformation() {
-		return transformation;
-	}
-
 	
 	// ??? normaal aan juiste kant??
 	@Override
@@ -101,9 +96,5 @@ public class Triangle extends Shape {
 		return transformation.getNormalTransformationMatrix().transform(divident.scale(1/divisor)).normalize().abs();
 	}
 
-	@Override
-	public Material getMaterial() {
-		return material;
-	}
 
 }

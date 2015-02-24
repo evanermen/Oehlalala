@@ -103,15 +103,7 @@ public class Cube extends Shape {
 		
 	}
 	
-	@Override
-	public Transformation getTransformation() {
-		return this.transformation;
-	}
 
-	@Override
-	public Material getMaterial() {
-		return material;
-	}
 
 
 }

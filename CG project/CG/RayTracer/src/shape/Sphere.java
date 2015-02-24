@@ -82,14 +82,6 @@ public class Sphere extends Shape {
 		return new RGBColor(255,255,0);
 	}
 
-	@Override
-	public Transformation getTransformation() {
-		return this.transformation;
-	}
 
-	@Override
-	public Material getMaterial() {
-		return material;
-	}
 	
 }

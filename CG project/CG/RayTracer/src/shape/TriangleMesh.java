@@ -54,11 +54,6 @@ public class TriangleMesh extends Shape {
 		return new RGBColor(0,255,255);
 	}
 
-	@Override
-	public Transformation getTransformation() {
-		return transformation;
-	}
-	
 
 	@Override
 	public Vector getNormal(Point point) {
@@ -74,10 +69,6 @@ public class TriangleMesh extends Shape {
 		
 	}
 
-	@Override
-	public Material getMaterial() {
-		return material;
-	}
-	
+
 
 }

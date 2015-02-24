@@ -23,6 +23,7 @@ public abstract class Shape {
 	
 	private World world;
 	
+	
 	public Shape(Transformation transformation, Material material){
 		if (transformation == null)
 			throw new NullPointerException("the given transformation is null!");
@@ -42,18 +43,24 @@ public abstract class Shape {
 	 */
 	public abstract Intersection intersect(Ray ray);
 	
-	public abstract RGBColor getColor(Point point);
-	
-	public abstract Transformation getTransformation();
-	
 	public abstract Vector getNormal(Point point);
 	
-	public abstract Material getMaterial();
+	public abstract RGBColor getColor(Point point);
 	
-	public World getWorld(){return world;}
+	public Transformation getTransformation(){
+		return this.transformation;
+	}
+	
+	public Material getMaterial(){
+		return this.material;
+	}
+	
+	public World getWorld(){
+		return this.world;
+		}
 
 	public void setWorld(World world) {
-		// TODO Auto-generated method stub
+		this.world = world;
 		
 	}
 }
