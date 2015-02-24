@@ -3,6 +3,8 @@ package math;
 import java.util.Comparator;
 import java.util.Locale;
 
+import utils.RGBColor;
+
 /**
  * Vector implementation in three dimensions.
  * 
@@ -68,6 +70,11 @@ public class Vector implements Cloneable, Comparable<Vector> {
 		this.z = z * inv_w;
 	}
 
+	public Vector(RGBColor color){
+		x= color.r;
+		y = color.g;
+		z = color.b;
+	}
 	/**
 	 * Creates a copy of the given {@link Vector}.
 	 * 
