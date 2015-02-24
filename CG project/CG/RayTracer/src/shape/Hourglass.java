@@ -1,5 +1,6 @@
 package shape;
 
+import materials.Material;
 import math.Point;
 import math.Ray;
 import math.Transformation;
@@ -16,18 +17,17 @@ public class Hourglass extends Shape{
 	public Transformation transformation;
 	double angle;
 	double height;
+	public Material material;
 	
 	
-	public Hourglass(Transformation transformation, double angle, double height){
-		if (transformation == null)
-			throw new NullPointerException("the given origin is null!");
+	public Hourglass(Transformation transformation, Material material, double angle, double height){
+		super(transformation, material);
 		if (height < 0)
 			throw new IllegalArgumentException(
 					"the given height cannot be smaller than zero!");
 		if (angle < 0 || angle > Math.PI/2)
 			throw new IllegalArgumentException(
 					"the given angle must be between 0 and Pi/2 cannot be smaller than zero!");
-		this.transformation = transformation;
 		this.angle = angle;
 		this.height = height;
 	}
@@ -86,6 +86,11 @@ public class Hourglass extends Shape{
 		Vector normal = new Vector(2*point.x, -2*point.y, 2*point.z);
 		return transformation.getNormalTransformationMatrix().transform(normal).normalize().add(1, 1, 1).scale(0.5);
 		//return normal;
+	}
+
+	@Override
+	public Material getMaterial() {
+		return material;
 	}
 
 }

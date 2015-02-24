@@ -1,5 +1,6 @@
 package shape;
 
+import materials.Material;
 import math.Point;
 import math.Ray;
 import math.Transformation;
@@ -15,8 +16,18 @@ import utils.RGBColor;
  */
 public abstract class Shape {
 	
+	private Material material;
 	
 	private Transformation transformation;
+	
+	public Shape(Transformation transformation, Material material){
+		if (transformation == null)
+			throw new NullPointerException("the given transformation is null!");
+		if (material == null)
+			throw new NullPointerException("the given material is null!");
+		this.transformation = transformation;
+		this.material = material;
+	}
 	
 	/**
 	 * Returns whether the given {@link Ray} intersects this {@link Shape}.
@@ -33,4 +44,6 @@ public abstract class Shape {
 	public abstract Transformation getTransformation();
 	
 	public abstract Vector getNormal(Point point);
+	
+	public abstract Material getMaterial();
 }

@@ -1,5 +1,6 @@
 package shape;
 
+import materials.Material;
 import math.Point;
 import math.Ray;
 import math.Transformation;
@@ -13,17 +14,18 @@ public class Triangle extends Shape {
 	public Point v1;
 	public Point v2;
 	public Transformation transformation;
+	public Material material;
 		
 
-	public Triangle(Transformation transformation, Point v0, Point v1, Point v2) {
+	public Triangle(Transformation transformation, Material material, Point v0, Point v1, Point v2) {
+		super(transformation, material);
 		this.v0 = v0;
 		this.v1 = v1;
 		this.v2 = v2;
-		this.transformation = transformation;
 	}
 	
-	public Triangle(Transformation transformation){
-		this.transformation = transformation;
+	public Triangle(Transformation transformation, Material material){
+		super(transformation, material);
 		this.v0 = new Point(1,0,0);
 		this.v1 = new Point(0,1,0);
 		this.v2 = new Point(0,0,1);
@@ -97,6 +99,11 @@ public class Triangle extends Shape {
 		Vector divident = v1.subtract(v0).cross(v2.subtract(v0));
 		double divisor = divident.length();
 		return transformation.getNormalTransformationMatrix().transform(divident.scale(1/divisor)).normalize().abs();
+	}
+
+	@Override
+	public Material getMaterial() {
+		return material;
 	}
 
 }

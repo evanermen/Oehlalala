@@ -1,8 +1,8 @@
 package shape;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import materials.Material;
 import math.Point;
 import math.Ray;
 import math.Transformation;
@@ -13,15 +13,16 @@ import utils.RGBColor;
 public class TriangleMesh extends Shape {
 	
 	Transformation transformation;
+	Material material;
 	
 	public ArrayList<TriangleM> triangles = new ArrayList<TriangleM>();
 	Intersection currentIntersection = null;
 	
-	public TriangleMesh(Transformation transformation){
-		this.transformation = transformation;
-		
+	public TriangleMesh(Transformation transformation, Material material){
+		super(transformation, material);		
 		for(TriangleM triangle: triangles){
-			triangle.transformation = transformation;			
+			triangle.transformation = transformation;	
+			triangle.material = material;
 		}
 		//triangles.add(new TriangleM(new Point(-1,0,1), new Point(1, -0, 1), new Point(-1,0,-1), new Vector(0,1,0), new Vector(0,1,0), new Vector(0,1,0)));
 		//triangles.add(new TriangleM(new Point(1,-0,1), new Point(1, 0, -1), new Point(-1, 0,-1), new Vector(0,1,0), new Vector(0,1,0), new Vector(0,1,0)));
@@ -71,6 +72,11 @@ public class TriangleMesh extends Shape {
 			triangle.transformation = transformation;			
 		}
 		
+	}
+
+	@Override
+	public Material getMaterial() {
+		return material;
 	}
 	
 

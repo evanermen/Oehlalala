@@ -25,4 +25,9 @@ public class RGBColor {
 		g = v.y;
 		b = v.z;
 	}
+	
+	public RGBColor scale(double s){
+		return new RGBColor(r*s, g*s, b*s);
+	}
 }
+

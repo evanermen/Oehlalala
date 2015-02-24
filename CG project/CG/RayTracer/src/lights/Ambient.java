@@ -1,5 +1,5 @@
 package lights;
 
-public class Ambient {
+public class Ambient extends Light {
 
 }

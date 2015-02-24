@@ -1,5 +1,6 @@
 package shape;
 
+import materials.Material;
 import math.Point;
 import math.Ray;
 import math.Transformation;
@@ -16,6 +17,7 @@ import utils.RGBColor;
 public class Sphere extends Shape {
 	public Transformation transformation;
 	public final double radius;
+	public Material material;
 
 	/**
 	 * Creates a new {@link Sphere} with the given radius and which is
@@ -30,9 +32,8 @@ public class Sphere extends Shape {
 	 * @throws IllegalArgumentException
 	 *             when the radius is smaller than zero.
 	 */
-	public Sphere(Transformation transformation, double radius) {
-		if (transformation == null)
-			throw new NullPointerException("the given origin is null!");
+	public Sphere(Transformation transformation, Material material, double radius) {
+		super(transformation, material);
 		if (radius < 0)
 			throw new IllegalArgumentException(
 					"the given radius cannot be smaller than zero!");
@@ -84,6 +85,11 @@ public class Sphere extends Shape {
 	@Override
 	public Transformation getTransformation() {
 		return this.transformation;
+	}
+
+	@Override
+	public Material getMaterial() {
+		return material;
 	}
 	
 }

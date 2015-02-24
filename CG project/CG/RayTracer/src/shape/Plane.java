@@ -1,5 +1,6 @@
 package shape;
 
+import materials.Material;
 import math.Point;
 import math.Ray;
 import math.Transformation;
@@ -14,7 +15,8 @@ import utils.RGBColor;
  */
 public class Plane extends Shape {
 
-	private Transformation transformation;
+	public Transformation transformation;
+	public Material material;
 
 	/**
 	 * Creates a new Plane (the x-y-plane), transformed by the given Transformation
@@ -23,10 +25,8 @@ public class Plane extends Shape {
 	 *             when the transformation is null.
 	 *             
 	 */
-	public Plane(Transformation transformation){
-		if (transformation == null)
-			throw new NullPointerException("the given origin is null!");
-		this.transformation = transformation;
+	public Plane(Transformation transformation, Material material){
+		super(transformation, material);
 	}
 	
 	@Override
@@ -59,5 +59,11 @@ public class Plane extends Shape {
 	@Override
 	public Transformation getTransformation() {
 		return transformation;
+	}
+
+	@Override
+	public Material getMaterial() {
+		// TODO Auto-generated method stub
+		return material;
 	}
 }

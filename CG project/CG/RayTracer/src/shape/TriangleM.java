@@ -1,6 +1,7 @@
 package shape;
 
-import math.Matrix;
+import materials.Material;
+import materials.Matte;
 import math.Point;
 import math.Ray;
 import math.Transformation;
@@ -19,8 +20,10 @@ public class TriangleM extends Shape {
 	public Vector vn2;
 
 	public Transformation transformation;
+	public Material material;
 	
 	public TriangleM(Point v0, Point v1, Point v2, Vector vn0, Vector vn1, Vector vn2) {
+		super(Transformation.createIdentity(), new Matte());
 		this.v0 = v0;
 		this.v1 = v1;
 		this.v2 = v2;
@@ -31,6 +34,7 @@ public class TriangleM extends Shape {
 	}
 	
 	public TriangleM(){
+		super(Transformation.createIdentity(), new Matte());
 		this.v0 = new Point(0,0,5);
 		this.v1 = new Point(5,0,0);
 		this.v2 = new Point(5,0,5);
@@ -133,4 +137,9 @@ public class TriangleM extends Shape {
 	        return area;
 	        
 	    }
+
+	@Override
+	public Material getMaterial() {
+		return material;
+	}
 }

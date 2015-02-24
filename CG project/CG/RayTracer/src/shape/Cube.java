@@ -1,5 +1,6 @@
 package shape;
 
+import materials.Material;
 import math.Point;
 import math.Ray;
 import math.Transformation;
@@ -17,9 +18,10 @@ public class Cube extends Shape {
 
 	public Transformation transformation;
 	public final double size;
+	public Material material;
 	
-	public Cube(Transformation transformation, double size){
-		this.transformation = transformation;
+	public Cube(Transformation transformation, Material material, double size){
+		super(transformation, material);
 		this.size = size;
 	}
 	
@@ -103,6 +105,11 @@ public class Cube extends Shape {
 	@Override
 	public Transformation getTransformation() {
 		return this.transformation;
+	}
+
+	@Override
+	public Material getMaterial() {
+		return material;
 	}
 
 }

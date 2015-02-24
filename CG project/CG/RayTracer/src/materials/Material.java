@@ -1,5 +1,9 @@
 package materials;
 
-public class Material {
+import utils.RGBColor;
 
+public abstract class Material {
+
+	public abstract RGBColor shade();
+	
 }

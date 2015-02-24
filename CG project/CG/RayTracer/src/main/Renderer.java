@@ -13,7 +13,7 @@ import math.Point;
 import math.Transformation;
 import math.Vector;
 import shape.Cube;
-import tracer.NormalTracer;
+import tracer.DepthTracer;
 import tracer.Tracer;
 import utils.Parser;
 import world.World;
@@ -39,9 +39,9 @@ public class Renderer {
 		//------------------------VIEW_SETTINGS-------------------------------//
 		int width = 640;
 		int height = 640;
-		Point cameraOrigin = new Point(2, 2,2);
+		Point cameraOrigin = new Point(5, 5,5);
 		Vector lookAt = new Vector(-1,-1, -1);
-		Vector up = new Vector(0,0,1);
+		Vector up = new Vector(0,1,0);
 		double fov = 90;
 		
 		World world = new World();
@@ -126,7 +126,7 @@ public class Renderer {
 		
 		//world.addObject(new Cube(t1.append(t6).append(turn3), 5));
 		//world.addObject(new Triangle(identity.append(turn2), new Point(0,-10,-10), new Point(0,10,0), new Point(0,0,10)));
-		world.addObject(new Cube(t4, 1));
+		//world.addObject(new Cube(t4, 1));
 		//world.addObject(new Sphere(t2, 4));
 		//world.addObject(new Hourglass(identity.append(turn3), Math.PI/6, 8));
 		//world.addObject(new TriangleM());
@@ -136,7 +136,7 @@ public class Renderer {
 		//world.addObject(new TriangleMesh());
 		
 		
-		//----------------OBJECTS----------------//
+		//----------------LIGHTS----------------//
 		
 		
 		
@@ -144,7 +144,7 @@ public class Renderer {
 		
 		
 		//----------------------------------TRACE------------------------------------//
-		tracer = new NormalTracer(world, panel, camera);
+		tracer = new DepthTracer(world, panel, camera);
 		
 		//render the scene
 		for (int x = 0; x < width; ++x) {
