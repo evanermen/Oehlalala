@@ -133,6 +133,25 @@ public class World {
 		this.ambientLight = new Ambient(new RGBColor(1,1,1),0.5);
 	}
 	
+	public void createWorld5(){
+		Parser parser = new Parser("sphere");
+		Transformation t6 = Transformation.createTranslation(1, 1, 1);
+		Transformation turn =  Transformation.createRotationY(70);
+		Transformation identity =  Transformation.createIdentity();
+		Matte material = new Matte(new RGBColor(1,0,0) );
+		try {
+			parser.processLineByLine();
+			parser.triangleMesh.setTransformation(identity);
+			parser.triangleMesh.setMaterial(material);
+			addObject(parser.triangleMesh);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		this.ambientLight = new Ambient(new RGBColor(1,1,1),0.2);
+		addLight(new PointLight(new RGBColor(1,1,0), 2, new Point(0,3,3)));
+		
+	}
+	
 	public World(RGBColor backgroundColor, ArrayList<Shape> objects, ArrayList<Light> lights ){
 		this.bg = backgroundColor;
 		this.objects = objects;

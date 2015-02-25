@@ -43,7 +43,7 @@ public class Renderer {
 		//------------------------VIEW_SETTINGS-------------------------------//
 		int width = 640;
 		int height = 640;
-		Point cameraOrigin = new Point(15, 15,15);
+		Point cameraOrigin = new Point(5, 5,5);
 		Vector lookAt = new Vector(-1,-1, -1);
 		Vector up = new Vector(0,1,0);
 		double fov = 90;
@@ -104,7 +104,7 @@ public class Renderer {
 
 		//------------------------SET_WORLD-------------------------------//
 
-		world.createWorld4();
+		world.createWorld5();
 
 
 		//----------------------------------TRACE------------------------------------//
@@ -121,7 +121,7 @@ public class Renderer {
 			reporter.update(height);
 		}
 
-		drawLights(world, panel, camera, width, height);
+		//drawLights(world, panel, camera, width, height);  //FAIL
 		reporter.done();
 
 		// save the output

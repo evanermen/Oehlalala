@@ -3,12 +3,14 @@ package shape;
 import java.util.ArrayList;
 
 import materials.Material;
+import materials.Matte;
 import math.Point;
 import math.Ray;
 import math.Transformation;
 import math.Vector;
 import utils.Intersection;
 import utils.RGBColor;
+import world.World;
 
 public class TriangleMesh extends Shape {
 	
@@ -28,6 +30,14 @@ public class TriangleMesh extends Shape {
 		//triangles.add(new TriangleM());
 		//triangles.add(new TriangleM(new Point(0,0,0), new Point(0, -10, 10), new Point(0,-10,-10), new Vector(1,0,0), new Vector(0,0,1), new Vector(0,1,0)));
 		//triangles.add(new TriangleM(new Point(0,0,0), new Point(0, -10, -10), new Point(0, 10,-10), new Vector(1,0,0), new Vector(0,1,0), new Vector(0,0,1)));
+	}
+	
+	public TriangleMesh(){
+		super(Transformation.createIdentity(), new Matte());
+		for(TriangleM triangle: triangles){
+			setTransformation(Transformation.createIdentity());
+			triangle.material = new Matte();
+		}
 	}
 	
 	@Override
@@ -65,6 +75,21 @@ public class TriangleMesh extends Shape {
 			triangle.transformation = transformation;			
 		}
 		
+	}
+	
+	public void setMaterial(Material material) {
+		this.material = material;
+		for(TriangleM triangle: triangles){
+			triangle.material = material;			
+		}
+		
+	}
+	
+	public void setWorld(World world){
+		super.setWorld(world);
+		for(TriangleM triangle: triangles) {
+			triangle.setWorld(world);
+		}
 	}
 
 
