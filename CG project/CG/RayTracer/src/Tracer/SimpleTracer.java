@@ -26,8 +26,10 @@ public class SimpleTracer extends Tracer {
 		RGBColor color = world.bg;
 		Intersection rayIntersection = super.tryIntersection(x, y);
 		if(rayIntersection != null)color = rayIntersection.shape.material.shade(rayIntersection);
-		if(color != null){panel.set(x, y, 1, (float)color.r, (float)color.g, (float)color.b);}
-		else{panel.set(x, y, 1 , (float)world.bg.r,(float)world.bg.g, (float)world.bg.b );}
+		if(color != null){
+			System.out.println((int)color.r + " " + (int)color.g +" " +(int)color.b);
+			panel.set(x, y, 200, (int)color.r, (int)color.g, (int)color.b);}
+		else{panel.set(x, y, 200 , (int)world.bg.r,(int)world.bg.g, (int)world.bg.b );}
 	
 		} 
 }

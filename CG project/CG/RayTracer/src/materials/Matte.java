@@ -33,22 +33,25 @@ public class Matte extends Material {
 	
 	@Override
 	public RGBColor shade(Intersection intersection) {
+		
 		Vector w0 = intersection.ray.direction.scale(-1);
 		RGBColor l = ambient.rho(intersection, w0).multiply(intersection.getWorld().ambientLight.getRadiance(intersection));
 		for(Light light : intersection.getWorld().lights){
 			Vector wi = light.getDirection(intersection);
 			//System.out.println("direction light = " + wi);
-			double ndotwi = intersection.getNormal().dot(wi); 
+			Vector n = intersection.getNormal();
+			double ndotwi = n.dot(wi); 
 			//System.out.println("ndotwi = " + ndotwi);
 			if(ndotwi > 0.0){
 				RGBColor l1 = light.getRadiance(intersection);
 				//System.out.println("color l1 = " + l1.r);
-				l = (diffuse.f(intersection, w0, wi)).multiply(l1).scale(ndotwi);
+				l = l.add((diffuse.f(intersection, w0, wi)).multiply(l1).scale(ndotwi));
 				//System.out.println("color l = " + l.r);
 			}
 			
 		}
-		return l;
+		System.out.println("l is "+ l.r + "maxtoone: " + l.maxToOne().r);
+		return l.maxToOne();
 	}
 
 }

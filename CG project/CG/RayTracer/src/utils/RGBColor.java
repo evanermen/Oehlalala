@@ -30,8 +30,26 @@ public class RGBColor {
 		return new RGBColor(r*s, g*s, b*s);
 	}
 	
+	
+	public RGBColor add(RGBColor c){
+		return new RGBColor(r+c.r, g+c.g, b+c.b);
+	}
+	
 	public RGBColor multiply(RGBColor color){
 		return new RGBColor(this.r*color.r, this.g*color.g, this.b*color.b);
+	}
+	
+	public RGBColor showOutOfGamut(){
+		if(this.r > 255 || this.g > 255 || this.b > 255){
+			return new RGBColor(255,0,0);
+		}
+		else{return this;}
+	}
+	
+	public RGBColor maxToOne(){
+		double max = Math.max(r,Math.max(g, b));
+		if(max>255) return new RGBColor(r/max*255, g/max*255, b/max*255);
+		else return this;
 	}
 }
 

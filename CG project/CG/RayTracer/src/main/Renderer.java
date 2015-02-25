@@ -112,6 +112,9 @@ public class Renderer {
 		//render the scene
 		for (int x = 0; x < width; ++x) {
 			for (int y = 0; y < height; ++y) {
+				if(x==0 && y>150){
+					System.out.println("ok go");
+				}
 				tracer.trace(x, y);
 				}
 			reporter.update(height);

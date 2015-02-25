@@ -123,14 +123,14 @@ public class World {
 	
 	public void createWorld4(){
 		Transformation identity = Transformation.createIdentity();
-		Matte matte = new Matte(new RGBColor(0,255,255), 0.8, 0.2);
-		addObject(new Cube(identity, matte, 3));
-		addLight(new PointLight(new RGBColor(255,255,255), 1, new Point(0,7,15)));
+		Matte matte = new Matte(new RGBColor(0,255,255), 0.5, 0.2);
+		addObject(new Sphere(identity, matte, 3));
+		addLight(new PointLight(new RGBColor(255,255,255), 1, new Point(0,7,7)));
 		
-		Transformation turn =  Transformation.createRotationX(90);
-		Transformation t = Transformation.createTranslation(0, -4, 0);
-		Matte matte2 =  new Matte(new RGBColor(255,255,0), 0.8,0.2);
-		addObject(new Plane(turn.append(t), matte2));
+		Transformation turn =  Transformation.createRotationX(-90);
+		Transformation t = Transformation.createTranslation(0, -4, 0); 
+		Matte matte2 =  new Matte(new RGBColor(255,255,0), 0.5,0.2);
+		addObject(new Plane(t.append(turn), matte2));
 		
 		this.ambientLight = new Ambient(new RGBColor(255,255,255),5);
 	}
