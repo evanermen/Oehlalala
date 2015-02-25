@@ -121,16 +121,16 @@ public class World {
 	
 	public void createWorld4(){
 		Transformation identity = Transformation.createIdentity();
-		Matte matte = new Matte(new RGBColor(0,1,1), 0.5, 0.2);
+		Matte matte = new Matte(new RGBColor(1,0,0), 0.5, 0.2);
 		addObject(new Sphere(identity, matte, 3));
-		addLight(new PointLight(new RGBColor(1,1,0), 1, new Point(0,7,7)));
+		addLight(new PointLight(new RGBColor(1,1,0), 2, new Point(0,7,7)));
 		
 		Transformation turn =  Transformation.createRotationX(-90);
-		Transformation t = Transformation.createTranslation(0, -4, 0); 
+		Transformation t = Transformation.createTranslation(0, -8, 0); 
 		Matte matte2 =  new Matte(new RGBColor(1,1,1), 0.5,0.2);
-		addObject(new Plane(identity, matte2));
+		addObject(new Plane(turn.append(t), matte2));
 		
-		this.ambientLight = new Ambient(new RGBColor(1,1,1),5);
+		this.ambientLight = new Ambient(new RGBColor(1,1,1),0.5);
 	}
 	
 	public World(RGBColor backgroundColor, ArrayList<Shape> objects, ArrayList<Light> lights ){

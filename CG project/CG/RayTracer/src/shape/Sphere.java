@@ -88,7 +88,7 @@ public class Sphere extends Shape {
 	
 	
 	public RGBColor getColor(Point point){
-		return new RGBColor(1,1,0);
+		return new RGBColor(1,0,0);
 	}
 
 
