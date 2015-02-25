@@ -11,7 +11,7 @@ public class Diffuse extends Brdf {
 	
 	public Diffuse(){
 		this.kd = 0.65;
-		this.cd = new RGBColor(50,50,50);
+		this.cd = new RGBColor(0.5,0.5,0.5);
 	}
 	
 	public Diffuse(RGBColor color){

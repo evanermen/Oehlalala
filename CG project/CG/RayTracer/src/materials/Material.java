@@ -13,7 +13,7 @@ public abstract class Material {
 	}
 	
 	public Material(){
-		this.color = new RGBColor(0,50,50);
+		this.color = new RGBColor(0,1,1);
 	}
 	
 	

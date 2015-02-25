@@ -15,7 +15,6 @@ import shape.Hourglass;
 import shape.Plane;
 import shape.Shape;
 import shape.Sphere;
-import shape.Triangle;
 import utils.Parser;
 import utils.RGBColor;
 
@@ -86,7 +85,7 @@ public class World {
 		Transformation t1 = Transformation.createTranslation(1, 0, 0);
 		Transformation t3 = Transformation.createTranslation(-5,-5, -5);
 		Transformation t6 = Transformation.createTranslation(1, 1, 1);
-		Matte matte = new Matte(new RGBColor(20,20,20));
+		Matte matte = new Matte(new RGBColor(0.5,0.5,0.5));
 		Cube cube = new Cube(t1.append(turn3), matte, 3);
 		addObject(cube);
 		addObject(new Triangle(turn3.append(t3), matte, new Point(0,-5,-5), new Point(0,4,0), new Point(0,0,4)));
@@ -123,16 +122,16 @@ public class World {
 	
 	public void createWorld4(){
 		Transformation identity = Transformation.createIdentity();
-		Matte matte = new Matte(new RGBColor(0,255,255), 0.5, 0.2);
+		Matte matte = new Matte(new RGBColor(0,1,1), 0.5, 0.2);
 		addObject(new Sphere(identity, matte, 3));
-		addLight(new PointLight(new RGBColor(255,255,255), 1, new Point(0,7,7)));
+		addLight(new PointLight(new RGBColor(1,1,0), 1, new Point(0,7,7)));
 		
 		Transformation turn =  Transformation.createRotationX(-90);
 		Transformation t = Transformation.createTranslation(0, -4, 0); 
-		Matte matte2 =  new Matte(new RGBColor(255,255,0), 0.5,0.2);
+		Matte matte2 =  new Matte(new RGBColor(1,1,1), 0.5,0.2);
 		addObject(new Plane(t.append(turn), matte2));
 		
-		this.ambientLight = new Ambient(new RGBColor(255,255,255),5);
+		this.ambientLight = new Ambient(new RGBColor(1,1,1),5);
 	}
 	
 	public World(RGBColor backgroundColor, ArrayList<Shape> objects, ArrayList<Light> lights ){

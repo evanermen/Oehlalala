@@ -15,7 +15,7 @@ import shape.TriangleMesh;
 
 public class Parser {
 
-	public TriangleMesh triangleMesh = new TriangleMesh(Transformation.createIdentity(), new Matte(new RGBColor(255,255,255)));
+	public TriangleMesh triangleMesh = new TriangleMesh(Transformation.createIdentity(), new Matte(new RGBColor(0,1,1)));
 	
 	ArrayList<Point> vertices = new ArrayList<Point>();
 	ArrayList<Vector> normals = new ArrayList<Vector>();

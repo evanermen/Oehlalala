@@ -19,7 +19,7 @@ public class NormalTracer extends Tracer {
 		Intersection rayIntersection = super.tryIntersection(x, y);
 		
 		if(rayIntersection != null){color = new RGBColor(rayIntersection.getNormal().normalize().abs());}
-		panel.set(x, y, 20, (int)color.r, (int)color.g, (int)color.b);
+		panel.set(x, y, 20, (float)color.r, (float)color.g, (float)color.b);
 	
 	} 
 }

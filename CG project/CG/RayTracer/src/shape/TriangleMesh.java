@@ -49,14 +49,14 @@ public class TriangleMesh extends Shape {
 
 	@Override
 	public RGBColor getColor(Point point) {
-		return new RGBColor(0,255,255);
+		return new RGBColor(0,1,1);
 	}
 
 
 	@Override
-	public Vector getNormal(Intersection intersection) {
+	public Vector getNormal(Point point) {
 		//System.out.println("getting normal in traingleMesh");
-		return currentIntersection.shape.getNormal(intersection);
+		return currentIntersection.shape.getNormal(point);
 	}
 
 	public void setTransformation(Transformation transformation) {

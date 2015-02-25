@@ -15,7 +15,7 @@ public class PointLight extends Light {
 	}
 
 	public Vector getDirection(Intersection intersection) {
-		return location.subtract(intersection.shape.transformation.transform(intersection.point)).normalize();
+		return location.subtract(intersection.point).normalize();
 	}
 	
 

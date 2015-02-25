@@ -54,12 +54,20 @@ public class Hourglass extends Shape{
 		double t0 = q / a;
 		double t1 = c / q;
 		
-		Intersection i0 = new Intersection(ray, t0, this);
-		Intersection i1 = new Intersection(ray, t1, this);
-		if(t0<t1 && Math.abs(i0.point.x)<height && t0>0) return i0;
-		else if(t0<t1 && Math.abs(i1.point.x)<height && t1>0) return i1;
-		else if(t1<t0 && Math.abs(i1.point.x)<height && t1>0) return i1;
-		else if(t1<t0 && Math.abs(i0.point.x)<height && t0>0) return i0;
+		
+		Point originPoint0 = transformed.origin.add(transformed.direction.scale(t0));	
+		Point point0 = transformation.transform(originPoint0);
+		Vector normal0 = getNormal(originPoint0);
+		Point originPoint1 = transformed.origin.add(transformed.direction.scale(t1));	
+		Point point1 = transformation.transform(originPoint1);
+		Vector normal1 = getNormal(originPoint1);
+		
+		Intersection i0 = new Intersection(ray, t0, this, point0, normal0);
+		Intersection i1 = new Intersection(ray, t1, this, point1, normal1);
+		if(t0<t1 && Math.abs(point0.x)<height && t0>0) return i0;
+		else if(t0<t1 && Math.abs(point1.x)<height && t1>0) return i1;
+		else if(t1<t0 && Math.abs(point1.x)<height && t1>0) return i1;
+		else if(t1<t0 && Math.abs(point0.x)<height && t0>0) return i0;
 		else return null;
 		
 
@@ -67,14 +75,13 @@ public class Hourglass extends Shape{
 
 	@Override
 	public RGBColor getColor(Point point) {
-		return new RGBColor(255,255,0);
+		return new RGBColor(1,0,1);
 	}
 
 	
 	//hier zit nog iets raar precies. normaal teruggetransformeerd?
 	@Override
-	public Vector getNormal(Intersection intersection) {
-		Point point = intersection.point;
+	public Vector getNormal(Point point) {
 		double phi = Math.atan(point.y/point.z);
 		//System.out.println("point = "+ point.x + ", " + point.y + ", " + point.z);
 		//Vector normal =  new Vector(-Math.sin(angle), Math.cos(angle)*Math.sin(phi), Math.cos(angle)*Math.sin(phi));

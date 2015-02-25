@@ -50,7 +50,7 @@ public class Matte extends Material {
 			}
 			
 		}
-		System.out.println("l is "+ l.r + "maxtoone: " + l.maxToOne().r);
+		//System.out.println("l is "+ l.r + "maxtoone: " + l.maxToOne().r);
 		return l.maxToOne();
 	}
 

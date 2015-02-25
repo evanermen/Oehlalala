@@ -40,15 +40,15 @@ public class RGBColor {
 	}
 	
 	public RGBColor showOutOfGamut(){
-		if(this.r > 255 || this.g > 255 || this.b > 255){
-			return new RGBColor(255,0,0);
+		if(this.r > 1 || this.g > 1 || this.b > 1){
+			return new RGBColor(1,0,0);
 		}
 		else{return this;}
 	}
 	
 	public RGBColor maxToOne(){
 		double max = Math.max(r,Math.max(g, b));
-		if(max>255) return new RGBColor(r/max*255, g/max*255, b/max*255);
+		if(max>1) return new RGBColor(r/max, g/max, b/max);
 		else return this;
 	}
 }

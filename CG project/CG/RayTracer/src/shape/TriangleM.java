@@ -18,6 +18,9 @@ public class TriangleM extends Shape {
 	public Vector vn0;
 	public Vector vn1;
 	public Vector vn2;
+	
+	public Vector barys;
+
 
 	
 	public TriangleM(Point v0, Point v1, Point v2, Vector vn0, Vector vn1, Vector vn2) {
@@ -90,22 +93,26 @@ public class TriangleM extends Shape {
 		
 		//if(t< kEpsilon) return null;
 		double alpha = 1 - beta - gamma;
-		Vector barys = new Vector(alpha, beta, gamma);
+		this.barys = new Vector(alpha, beta, gamma);
 		
-		return new Intersection(ray, t, this, barys);	
+		Point originPoint = transformed.origin.add(transformed.direction.scale(t));	
+		Point point = transformation.transform(originPoint);
+		Vector normal = getNormal(originPoint);
+		
+		return new Intersection(ray, t, this, point, normal, barys);	
 	}
 
 	
 	@Override
 	public RGBColor getColor(Point point) {
-		return new RGBColor(0,255,255);
+		return new RGBColor(1,0.3,0);
 	}
 
 
 	@Override
-	public Vector getNormal(Intersection intersection) {
-		Vector barys = intersection.barys;
-		System.out.println("Baries = "+ barys);
+	public Vector getNormal(Point point) {
+		
+		//System.out.println("Baries = "+ barys);
 		Vector normal = vn0.scale(barys.x).add(vn1.scale(barys.y)).add(vn2.scale(barys.z));
 		//System.out.println("Normal = " + normal.x + ", " + normal.y + ", " + normal.z);
 		return transformation.getNormalTransformationMatrix().transform(normal).normalize();

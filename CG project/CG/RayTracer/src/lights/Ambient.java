@@ -11,7 +11,7 @@ public class Ambient extends Light{
 	}
 	
 	public Ambient(){
-		super(new RGBColor(255,255,255), 3);
+		super(new RGBColor(1,1,1), 3);
 	}
 
 	@Override

@@ -65,21 +65,30 @@ public class Sphere extends Shape {
 		double t0 = q / a;
 		double t1 = c / q;
 		
-		if(t0>t1)
-		return new Intersection(ray, t1, this);
-		else return new Intersection(ray, t0, this);
+		if(t0>t1){
+			Point originPoint = transformed.origin.add(transformed.direction.scale(t1));	
+			Point point = transformation.transform(originPoint);
+			Vector normal = getNormal(originPoint);
+			return new Intersection(ray, t1, this, point, normal);	
+		}
+		
+		else {
+			Point originPoint = transformed.origin.add(transformed.direction.scale(t0));	
+			Point point = transformation.transform(originPoint);
+			Vector normal = getNormal(originPoint);
+			return new Intersection(ray, t0, this, point, normal);
+		}
 		//return t0 >= 0; //|| t1 >= 0;
 	}
 	
-	public Vector getNormal(Intersection intersection){
-		Point point = intersection.point;
+	public Vector getNormal(Point point){
 		Vector transformedNormal = transformation.getNormalTransformationMatrix().transform(point.subtract(0,0,0));
 		return transformedNormal.normalize();
 	}
 	
 	
 	public RGBColor getColor(Point point){
-		return new RGBColor(255,255,0);
+		return new RGBColor(1,1,0);
 	}
 
 

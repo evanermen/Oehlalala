@@ -58,16 +58,19 @@ public class Cube extends Shape {
 		    return null;
 		}
 		//System.out.println("THIS OBJECT = " + this);
-		return new Intersection(ray, tmin, this);
+		Point originPoint = transformed.origin.add(transformed.direction.scale(tmin));	
+		Point point = transformation.transform(originPoint);
+		Vector normal = getNormal(originPoint);
+		return new Intersection(ray, tmin, this, point, normal);
 	}
 
 	@Override
 	public RGBColor getColor(Point point) {
-		return new RGBColor(0,255,255);
+		return new RGBColor(0,1,1);
 	}
 	
-	public Vector getNormal(Intersection intersection){
-		Point point = intersection.point;
+	public Vector getNormal(Point point){
+	
 		//System.out.println("tranpoint = " + point.x + ", " + point.y + ", "+ point.z);
 		Vector normal;
 		

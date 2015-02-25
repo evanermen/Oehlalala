@@ -9,8 +9,8 @@ public abstract class Light {
 	public double ls;
 	
 	public Light(){
-		this.color = new RGBColor(255,255,255);
-		System.out.println("Color is set to " + color.r + ", " + color.g + ",  " + color.b);
+		this.color = new RGBColor(1,1,1);
+		//System.out.println("Color is set to " + color.r + ", " + color.g + ",  " + color.b);
 	}
 	
 	public Light(RGBColor color, double ls){

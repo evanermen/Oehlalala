@@ -12,37 +12,33 @@ public class Intersection {
 	public double t; //distance
 	public Ray ray;
 	public Shape shape;
-	public Point point; //Niet getransformeerd! dus intersectiepunt met basisvolume rond oorsprong
+	public Point point; //WEL getransformeerd! 
+	public Vector normal;
 	public Vector barys;
 
-	public Intersection(Ray ray, double t, Shape shape ){
+	public Intersection(Ray ray, double t, Shape shape, Point point, Vector normal ){
 		this.ray = ray;
 		this.t = t;
 		this.shape = shape; 
-		Ray transformed = shape.getTransformation().transformInverse(ray);
-		point = transformed.origin.add(transformed.direction.scale(t));	
-		
+		this.point = point;
+		this.normal = normal;
 	}
 	
-	
-	//enkel voor triangles. Overerving anders?
-	public Intersection(Ray ray, double t, Shape shape ,  Vector barys){
+	public Intersection(Ray ray, double t, Shape shape, Point point, Vector normal, Vector barys ){
 		this.ray = ray;
 		this.t = t;
 		this.shape = shape; 
-		Ray transformed = shape.getTransformation().transformInverse(ray);
-		point = transformed.origin.add(transformed.direction.scale(t));	
+		this.point = point;
+		this.normal = normal;
 		this.barys = barys;
-		
 	}
-	
 	
 	public RGBColor getColor(){
 		return shape.getColor(point);
 	}
 	
 	public Vector getNormal(){
-		return shape.getNormal(this);
+		return normal;
 	}
 	
 	public Material getMaterial(){
