@@ -66,8 +66,8 @@ public class Cube extends Shape {
 		return new RGBColor(0,255,255);
 	}
 	
-	public Vector getNormal(Point point){
-		
+	public Vector getNormal(Intersection intersection){
+		Point point = intersection.point;
 		//System.out.println("tranpoint = " + point.x + ", " + point.y + ", "+ point.z);
 		Vector normal;
 		

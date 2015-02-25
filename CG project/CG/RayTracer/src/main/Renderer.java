@@ -13,6 +13,7 @@ import math.Point;
 import math.Transformation;
 import math.Vector;
 import tracer.NormalTracer;
+import tracer.SimpleTracer;
 import tracer.Tracer;
 import utils.Parser;
 import world.World;
@@ -38,10 +39,10 @@ public class Renderer {
 		//------------------------VIEW_SETTINGS-------------------------------//
 		int width = 640;
 		int height = 640;
-		Point cameraOrigin = new Point(10, 10,10);
+		Point cameraOrigin = new Point(15, 15,15);
 		Vector lookAt = new Vector(-1,-1, -1);
 		Vector up = new Vector(0,1,0);
-		double fov = 120;
+		double fov = 90;
 		
 		World world = new World();
 		Tracer tracer;
@@ -99,15 +100,14 @@ public class Renderer {
 		
 		//------------------------SET_WORLD-------------------------------//
 		
-		world.createWorld3();
-		System.out.println(world.objects.size());
+		world.createWorld4();
 		
 
 		
 		
 		
 		//----------------------------------TRACE------------------------------------//
-		tracer = new NormalTracer(world, panel, camera);
+		tracer = new SimpleTracer(world, panel, camera);
 		
 		//render the scene
 		for (int x = 0; x < width; ++x) {

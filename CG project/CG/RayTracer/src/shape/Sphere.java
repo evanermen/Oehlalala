@@ -71,7 +71,8 @@ public class Sphere extends Shape {
 		//return t0 >= 0; //|| t1 >= 0;
 	}
 	
-	public Vector getNormal(Point point){
+	public Vector getNormal(Intersection intersection){
+		Point point = intersection.point;
 		Vector transformedNormal = transformation.getNormalTransformationMatrix().transform(point.subtract(0,0,0));
 		return transformedNormal.normalize();
 	}

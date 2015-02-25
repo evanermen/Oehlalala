@@ -22,11 +22,12 @@ public class SimpleTracer extends Tracer {
 	
 	public void trace(int x, int y){
 		// create a ray through the center of the pixel.
-		System.out.println("world is " + world);
+		//System.out.println("world is " + world);
 		RGBColor color = world.bg;
 		Intersection rayIntersection = super.tryIntersection(x, y);
-		if(rayIntersection != null)color = rayIntersection.getColor();
-		panel.set(x, y, 255, (float)color.r, (float)color.g, (float)color.b);
+		if(rayIntersection != null)color = rayIntersection.shape.material.shade(rayIntersection);
+		if(color != null){panel.set(x, y, 1, (float)color.r, (float)color.g, (float)color.b);}
+		else{panel.set(x, y, 1 , (float)world.bg.r,(float)world.bg.g, (float)world.bg.b );}
 	
-	} 
+		} 
 }

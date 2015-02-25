@@ -17,7 +17,8 @@ public class NormalTracer extends Tracer {
 		// create a ray through the center of the pixel.
 		RGBColor color = world.bg;
 		Intersection rayIntersection = super.tryIntersection(x, y);
-		if(rayIntersection != null)color = new RGBColor(rayIntersection.getNormal().normalize().abs());
+		
+		if(rayIntersection != null){color = new RGBColor(rayIntersection.getNormal().normalize().abs());}
 		panel.set(x, y, 255, (float)color.r, (float)color.g, (float)color.b);
 	
 	} 

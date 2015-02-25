@@ -43,7 +43,7 @@ public abstract class Shape {
 	 */
 	public abstract Intersection intersect(Ray ray);
 	
-	public abstract Vector getNormal(Point point);
+	public abstract Vector getNormal(Intersection intersection);
 	
 	public abstract RGBColor getColor(Point point);
 	

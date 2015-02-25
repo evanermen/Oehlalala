@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lights.Ambient;
 import lights.Light;
+import lights.PointLight;
 import materials.Matte;
 import math.Point;
 import math.Transformation;
@@ -23,10 +25,11 @@ public class World {
 	//private Light ambient;
 	public List<Shape> objects;
 	public List<Light> lights;
+	public Ambient ambientLight;
 	
 	public World(){
 		bg = new RGBColor();
-		//ambient = New Ambient();
+		ambientLight = new Ambient();
 		objects = new ArrayList<Shape>();
 		lights = new ArrayList<Light>();	
 	}
@@ -93,8 +96,10 @@ public class World {
 	}
 	
 	public void createWorld2(){
-		Parser parser = new Parser("bunny");
-		Transformation turn =  Transformation.createRotationX(40);
+		Parser parser = new Parser("sphere");
+		Transformation t6 = Transformation.createTranslation(1, 1, 1);
+		Transformation turn =  Transformation.createRotationY(70);
+		Transformation identity =  Transformation.createIdentity();
 		try {
 			parser.processLineByLine();
 			parser.triangleMesh.setTransformation(turn);
@@ -106,7 +111,7 @@ public class World {
 	
 	public void createWorld3(){
 		Parser parser = new Parser("teapot");
-		Transformation turn =  Transformation.createRotationY(40);
+		Transformation turn =  Transformation.createRotationY(60);
 		try {
 			parser.processLineByLine();
 			parser.triangleMesh.setTransformation(turn);
@@ -114,6 +119,20 @@ public class World {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+	}
+	
+	public void createWorld4(){
+		Transformation identity = Transformation.createIdentity();
+		Matte matte = new Matte(new RGBColor(0,255,255), 0.8, 0.2);
+		addObject(new Cube(identity, matte, 3));
+		addLight(new PointLight(new RGBColor(255,255,255), 1, new Point(0,7,15)));
+		
+		Transformation turn =  Transformation.createRotationX(90);
+		Transformation t = Transformation.createTranslation(0, -4, 0);
+		Matte matte2 =  new Matte(new RGBColor(255,255,0), 0.8,0.2);
+		addObject(new Plane(turn.append(t), matte2));
+		
+		this.ambientLight = new Ambient(new RGBColor(255,255,255),5);
 	}
 	
 	public World(RGBColor backgroundColor, ArrayList<Shape> objects, ArrayList<Light> lights ){

@@ -82,13 +82,13 @@ public class Triangle extends Shape {
 
 	@Override
 	public RGBColor getColor(Point point) {
-		return new RGBColor(getNormal(point));
+		return new RGBColor(250,60,30);
 	}
 
 	
 	// ??? normaal aan juiste kant??
 	@Override
-	public Vector getNormal(Point point) {
+	public Vector getNormal(Intersection intersection) {
 		Vector divident = v1.subtract(v0).cross(v2.subtract(v0));
 		double divisor = divident.length();
 		return transformation.getNormalTransformationMatrix().transform(divident.scale(1/divisor)).normalize().abs();

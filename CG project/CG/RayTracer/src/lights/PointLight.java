@@ -7,18 +7,13 @@ import utils.RGBColor;
 
 public class PointLight extends Light {
 	
-	public RGBColor color;
-	public double ls;
 	public Point location;
 	
-	
-	
-	@Override
-	public RGBColor getRadiance(Intersection intersection) {
-		return color.scale(ls);
+	public PointLight(RGBColor color, double ls, Point location){
+		super(color, ls);
+		this.location = location;
 	}
 
-	@Override
 	public Vector getDirection(Intersection intersection) {
 		return location.subtract(intersection.point);
 	}

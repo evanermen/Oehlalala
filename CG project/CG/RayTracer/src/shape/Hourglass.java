@@ -73,7 +73,8 @@ public class Hourglass extends Shape{
 	
 	//hier zit nog iets raar precies. normaal teruggetransformeerd?
 	@Override
-	public Vector getNormal(Point point) {
+	public Vector getNormal(Intersection intersection) {
+		Point point = intersection.point;
 		double phi = Math.atan(point.y/point.z);
 		//System.out.println("point = "+ point.x + ", " + point.y + ", " + point.z);
 		//Vector normal =  new Vector(-Math.sin(angle), Math.cos(angle)*Math.sin(phi), Math.cos(angle)*Math.sin(phi));

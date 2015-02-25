@@ -12,6 +12,10 @@ public abstract class Material {
 		this.color = color;
 	}
 	
+	public Material(){
+		this.color = new RGBColor(0,50,50);
+	}
+	
 	
 	public abstract RGBColor shade(Intersection intersection );
 	

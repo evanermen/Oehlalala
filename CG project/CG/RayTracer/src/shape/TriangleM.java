@@ -45,20 +45,21 @@ public class TriangleM extends Shape {
 	
 	@Override
 	public Intersection intersect(Ray ray) {
+		Ray transformed = transformation.transformInverse(ray);
 		
 		double a = v0.x - v1.x;
 		double b = v0.x - v2.x;
-		double c = ray.direction.x;
-		double d = v0.x - ray.origin.x;
+		double c = transformed.direction.x;
+		double d = v0.x - transformed.origin.x;
 		
 		double e = v0.y - v1.y;
 		double f = v0.y - v2.y;
-		double g = ray.direction.y;
-		double h = v0.y - ray.origin.y;
+		double g = transformed.direction.y;
+		double h = v0.y - transformed.origin.y;
 		
 		double i = v0.z - v1.z;
 		double j = v0.z - v2.z;
-		double k = ray.direction.z;
+		double k = transformed.direction.z;
 		double l = v0.z - ray.origin.z;
 		
 		double m = f*k - g*j;
@@ -88,8 +89,10 @@ public class TriangleM extends Shape {
 		double t = e3*inv_denom;
 		
 		//if(t< kEpsilon) return null;
+		double alpha = 1 - beta - gamma;
+		Vector barys = new Vector(alpha, beta, gamma);
 		
-		return new Intersection(ray, t, this);	
+		return new Intersection(ray, t, this, barys);	
 	}
 
 	
@@ -100,37 +103,13 @@ public class TriangleM extends Shape {
 
 
 	@Override
-	public Vector getNormal(Point point) {
-		Vector barys = findBarys(point);
+	public Vector getNormal(Intersection intersection) {
+		Vector barys = intersection.barys;
+		System.out.println("Baries = "+ barys);
 		Vector normal = vn0.scale(barys.x).add(vn1.scale(barys.y)).add(vn2.scale(barys.z));
 		//System.out.println("Normal = " + normal.x + ", " + normal.y + ", " + normal.z);
 		return transformation.getNormalTransformationMatrix().transform(normal).normalize();
 	}
-	
-	public Vector findBarys(Point point){
-		double AreaT = findArea(v0,v1,v2);
-		double Area01 = findArea(v0, v1, point);
-		double Area12 = findArea(point, v1, v2);
-		double Area20 = findArea(v0, point, v2);
-		
-		double b0 = Area12/AreaT;
-		double b1 = Area20/AreaT;
-		double b2 = Area01/AreaT;
-		
-		return new Vector(b0, b1, b2);
-		
-	}
-	
-	 public double findArea(Point a, Point b, Point c)
-	    { 
-		 	double sideA = a.subtract(b).length();
-		 	double sideB = b.subtract(c).length();
-		 	double sideC = c.subtract(a).length();
-	        double s = 0.5*(sideA + sideB + sideC);
-	        double area = Math.sqrt(s*(s-sideA)*(s-sideB)*(s-sideC));
-	        return area;
-	        
-	    }
 
 
 }

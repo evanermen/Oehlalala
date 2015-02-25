@@ -8,13 +8,25 @@ import brdf.Diffuse;
 
 public class Matte extends Material {
 
-	
-	public RGBColor color;
 	public Diffuse diffuse; 
+	public Diffuse ambient;
 	
 	
-	public Matte(RGBColor color) {
+	public Matte(RGBColor color, double kd, double ka) {
 		super(color);
+		this.diffuse = new Diffuse(color, kd);
+		this.ambient = new Diffuse(color, ka);
+	}
+	
+	public Matte(RGBColor color){
+		super(color);
+		this.diffuse = new Diffuse(color);
+		this.ambient = new Diffuse(color);
+	}
+	
+	public Matte(){
+		this.diffuse = new Diffuse();
+		this.ambient = new Diffuse();
 	}
 
 	
@@ -22,17 +34,21 @@ public class Matte extends Material {
 	@Override
 	public RGBColor shade(Intersection intersection) {
 		Vector w0 = intersection.ray.direction.scale(-1);
+		RGBColor l = ambient.rho(intersection, w0).multiply(intersection.getWorld().ambientLight.getRadiance(intersection));
 		for(Light light : intersection.getWorld().lights){
 			Vector wi = light.getDirection(intersection);
-			double ndotwi = intersection.getNormal().dot(wi);
-			
+			//System.out.println("direction light = " + wi);
+			double ndotwi = intersection.getNormal().dot(wi); 
+			//System.out.println("ndotwi = " + ndotwi);
 			if(ndotwi > 0.0){
 				RGBColor l1 = light.getRadiance(intersection);
-				RGBColor l = new RGBColor(diffuse.f(intersection, w0, wi).multiply(l1).scale(ndotwi));
+				//System.out.println("color l1 = " + l1.r);
+				l = (diffuse.f(intersection, w0, wi)).multiply(l1).scale(ndotwi);
+				//System.out.println("color l = " + l.r);
 			}
 			
 		}
-		return null;
+		return l;
 	}
 
 }

@@ -19,7 +19,7 @@ public class TriangleMesh extends Shape {
 	public TriangleMesh(Transformation transformation, Material material){
 		super(transformation, material);		
 		for(TriangleM triangle: triangles){
-			triangle.transformation = transformation;	
+			setTransformation(transformation);
 			triangle.material = material;
 		}
 		//triangles.add(new TriangleM(new Point(-1,0,1), new Point(1, -0, 1), new Point(-1,0,-1), new Vector(0,1,0), new Vector(0,1,0), new Vector(0,1,0)));
@@ -32,12 +32,12 @@ public class TriangleMesh extends Shape {
 	
 	@Override
 	public Intersection intersect(Ray ray) {
-		Ray transformed = transformation.transformInverse(ray);
+		
 
 		Double smallestT = Double.POSITIVE_INFINITY;
 		Intersection rayIntersection = null;
 		for (TriangleM triangle : triangles){
-			Intersection intersection = triangle.intersect(transformed);
+			Intersection intersection = triangle.intersect(ray);
 			if (intersection != null && intersection.t < smallestT ) {
 				smallestT = intersection.t;
 				rayIntersection = intersection;				
@@ -54,9 +54,9 @@ public class TriangleMesh extends Shape {
 
 
 	@Override
-	public Vector getNormal(Point point) {
-		Vector raw_normal =  currentIntersection.shape.getNormal(point);
-		return transformation.getNormalTransformationMatrix().transform(raw_normal).normalize();
+	public Vector getNormal(Intersection intersection) {
+		//System.out.println("getting normal in traingleMesh");
+		return currentIntersection.shape.getNormal(intersection);
 	}
 
 	public void setTransformation(Transformation transformation) {

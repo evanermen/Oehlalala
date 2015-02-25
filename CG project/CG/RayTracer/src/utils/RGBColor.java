@@ -30,7 +30,7 @@ public class RGBColor {
 		return new RGBColor(r*s, g*s, b*s);
 	}
 	
-	public RGBColor mulitply(RGBColor color){
+	public RGBColor multiply(RGBColor color){
 		return new RGBColor(this.r*color.r, this.g*color.g, this.b*color.b);
 	}
 }

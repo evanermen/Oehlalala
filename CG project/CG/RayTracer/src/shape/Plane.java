@@ -50,7 +50,7 @@ public class Plane extends Shape {
 		return new RGBColor(255,255,0);
 	}
 
-	public Vector getNormal(Point point){
+	public Vector getNormal(Intersection intersection){
 		return transformation.getNormalTransformationMatrix().transform(new Vector(0,0,1)).normalize();
 	}
 
