@@ -88,8 +88,7 @@ public class World {
 		Matte matte = new Matte(new RGBColor(0.5,0.5,0.5));
 		Cube cube = new Cube(t1.append(turn3), matte, 3);
 		addObject(cube);
-		addObject(new Triangle(turn3.append(t3), matte, new Point(0,-5,-5), new Point(0,4,0), new Point(0,0,4)));
-		addObject(new Hourglass(identity.append(turn2).append(t3), matte, Math.PI/6, 8));
+		//addObject(new Hourglass(identity.append(turn2).append(t3), matte, Math.PI/6, 8));
 		addObject(new Sphere(t6, matte, 3));
 		addObject(new Plane(identity, matte));
 	}
@@ -129,7 +128,7 @@ public class World {
 		Transformation turn =  Transformation.createRotationX(-90);
 		Transformation t = Transformation.createTranslation(0, -4, 0); 
 		Matte matte2 =  new Matte(new RGBColor(1,1,1), 0.5,0.2);
-		addObject(new Plane(t.append(turn), matte2));
+		addObject(new Plane(identity, matte2));
 		
 		this.ambientLight = new Ambient(new RGBColor(1,1,1),5);
 	}

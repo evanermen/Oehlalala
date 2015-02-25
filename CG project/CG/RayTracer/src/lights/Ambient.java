@@ -11,9 +11,9 @@ public class Ambient extends Light{
 	}
 	
 	public Ambient(){
-		super(new RGBColor(1,1,1), 3);
+		super(new RGBColor(1,1,1),3);
 	}
-
+	//schoon ze
 	@Override
 	public Vector getDirection(Intersection intersection) {
 		return null;

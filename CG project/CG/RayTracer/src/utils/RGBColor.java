@@ -48,7 +48,7 @@ public class RGBColor {
 	
 	public RGBColor maxToOne(){
 		double max = Math.max(r,Math.max(g, b));
-		if(max>1) return new RGBColor(r/max, g/max, b/max);
+		if(max>1.0) return new RGBColor(r/max, g/max, b/max);
 		else return this;
 	}
 }

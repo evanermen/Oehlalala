@@ -15,7 +15,7 @@ public class PointLight extends Light {
 	}
 
 	public Vector getDirection(Intersection intersection) {
-		return location.subtract(intersection.point).normalize();
+		return location.subtract(intersection.point); //HIER ELINE DIT WAS NORMALIZED
 	}
 	
 

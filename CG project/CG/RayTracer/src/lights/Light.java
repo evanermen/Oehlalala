@@ -19,11 +19,8 @@ public abstract class Light {
 	}
 	
 	public RGBColor getRadiance(Intersection intersection) {
-		//System.out.println("ls = " + ls);
-		//System.out.println("radiance is" + color.scale(ls).r+ ", " + color.scale(ls).g + ",  " + color.scale(ls).b);
 		return color.scale(ls);
 	}
-	
 	
 	public abstract Vector getDirection(Intersection intersection);
 }
