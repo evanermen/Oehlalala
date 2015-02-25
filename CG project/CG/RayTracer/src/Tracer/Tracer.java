@@ -33,6 +33,7 @@ public abstract class Tracer {
 		Ray ray = camera.generateRay(new Sample(x + 0.5, y + 0.5));
 		boolean hit = false;
 		List<Shape> shapes = world.objects;
+		System.out.println(shapes.size());
 		Double smallestT = Double.POSITIVE_INFINITY;
 		Intersection rayIntersection = null;
 		for (Shape shape : shapes){

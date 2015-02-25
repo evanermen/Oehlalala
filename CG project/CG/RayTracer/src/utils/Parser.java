@@ -19,10 +19,14 @@ public class Parser {
 	
 	ArrayList<Point> vertices = new ArrayList<Point>();
 	ArrayList<Vector> normals = new ArrayList<Vector>();
+	String pathString;
 
+	public Parser(String path){
+		this.pathString = path;
+	}
 
-	public final void processLineByLine() throws IOException  {
-		Path path = Paths.get("Mesh");
+	public void processLineByLine() throws IOException  {
+		Path path = Paths.get(pathString);
 		//System.out.println(path.toString());
 		try (Scanner scanner =  new Scanner(path)){
 			while (scanner.hasNextLine()){

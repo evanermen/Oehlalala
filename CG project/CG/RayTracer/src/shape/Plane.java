@@ -15,8 +15,6 @@ import utils.RGBColor;
  */
 public class Plane extends Shape {
 
-	public Transformation transformation;
-	public Material material;
 
 	/**
 	 * Creates a new Plane (the x-y-plane), transformed by the given Transformation

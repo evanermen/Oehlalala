@@ -12,8 +12,6 @@ import utils.RGBColor;
 
 public class TriangleMesh extends Shape {
 	
-	Transformation transformation;
-	Material material;
 	
 	public ArrayList<TriangleM> triangles = new ArrayList<TriangleM>();
 	Intersection currentIntersection = null;

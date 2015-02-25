@@ -19,8 +19,6 @@ public class TriangleM extends Shape {
 	public Vector vn1;
 	public Vector vn2;
 
-	public Transformation transformation;
-	public Material material;
 	
 	public TriangleM(Point v0, Point v1, Point v2, Vector vn0, Vector vn1, Vector vn2) {
 		super(Transformation.createIdentity(), new Matte(new RGBColor(255,255,255)));

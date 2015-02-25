@@ -14,10 +14,9 @@ import utils.RGBColor;
  *
  */
 public class Hourglass extends Shape{
-	public Transformation transformation;
+	
 	double angle;
 	double height;
-	public Material material;
 	
 	
 	public Hourglass(Transformation transformation, Material material, double angle, double height){

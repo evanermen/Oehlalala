@@ -27,8 +27,8 @@ public class Matte extends Material {
 			double ndotwi = intersection.getNormal().dot(wi);
 			
 			if(ndotwi > 0.0){
-				Vector l1 = new Vector(light.getRadiance(intersection));
-				RGBColor l = new RGBColor(diffuse.f(intersection, w0, wi).dot(l1).scale(ndotwi));
+				RGBColor l1 = light.getRadiance(intersection);
+				RGBColor l = new RGBColor(diffuse.f(intersection, w0, wi).multiply(l1).scale(ndotwi));
 			}
 			
 		}

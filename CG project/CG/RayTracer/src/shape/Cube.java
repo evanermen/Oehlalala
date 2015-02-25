@@ -17,9 +17,7 @@ import world.World;
  */
 public class Cube extends Shape {
 
-	public Transformation transformation;
 	public final double size;
-	public Material material;
 	
 	public Cube(Transformation transformation, Material material, double size){
 		super(transformation, material);
@@ -31,7 +29,6 @@ public class Cube extends Shape {
 		
 		// lb is the corner of AABB with minimal coordinates - left bottom, rt is maximal corner
 		// r.org is origin of ray
-		
 		Ray transformed = transformation.transformInverse(ray);
 		Vector lb = new Vector(-size, -size, -size);
 		Vector rt = new Vector(size, size, size);

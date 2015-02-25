@@ -12,8 +12,7 @@ import javax.imageio.ImageIO;
 import math.Point;
 import math.Transformation;
 import math.Vector;
-import shape.Cube;
-import tracer.DepthTracer;
+import tracer.NormalTracer;
 import tracer.Tracer;
 import utils.Parser;
 import world.World;
@@ -39,10 +38,10 @@ public class Renderer {
 		//------------------------VIEW_SETTINGS-------------------------------//
 		int width = 640;
 		int height = 640;
-		Point cameraOrigin = new Point(5, 5,5);
+		Point cameraOrigin = new Point(10, 10,10);
 		Vector lookAt = new Vector(-1,-1, -1);
 		Vector up = new Vector(0,1,0);
-		double fov = 90;
+		double fov = 120;
 		
 		World world = new World();
 		Tracer tracer;
@@ -94,57 +93,21 @@ public class Renderer {
 
 		// initialize the progress reporter
 		ProgressReporter reporter = new ProgressReporter("Rendering", 40, width
-				* height, false);
+				* height, true);
 		reporter.addProgressListener(frame);
 		
 		
 		//------------------------SET_WORLD-------------------------------//
 		
-		//----------------OBJECTS----------------//
-				
-		Transformation turn =  Transformation.createRotationX(40);
-		Transformation turn2 =  Transformation.createRotationZ(60);
-		Transformation turn3 = Transformation.createRotationY(60);
-		Transformation t1 = Transformation.createTranslation(0, 0, 0).append(turn).append(turn2).append(turn3);
-		Transformation t2 = Transformation.createTranslation(4, -4, 12);
-		Transformation t3 = Transformation.createTranslation(15, 15, 0);
-		Transformation t4 = Transformation.createTranslation(4, 4, 12);
-		Transformation t5 = Transformation.createTranslation(-4, 4, 12);
-		Transformation t6 = Transformation.createTranslation(0, 0, 10);
-		Transformation identity = Transformation.createIdentity();
-		Transformation scale = Transformation.createScale(10, 10, 10);
+		world.createWorld3();
+		System.out.println(world.objects.size());
+		
 
-		Parser parser = new Parser();
-		try {
-			parser.processLineByLine();
-			parser.triangleMesh.setTransformation(turn);
-			world.addObject(parser.triangleMesh);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
-		
-		//world.addObject(new Cube(t1.append(t6).append(turn3), 5));
-		//world.addObject(new Triangle(identity.append(turn2), new Point(0,-10,-10), new Point(0,10,0), new Point(0,0,10)));
-		//world.addObject(new Cube(t4, 1));
-		//world.addObject(new Sphere(t2, 4));
-		//world.addObject(new Hourglass(identity.append(turn3), Math.PI/6, 8));
-		//world.addObject(new TriangleM());
-		//world.addObject(new Sphere(t5.append(t6), 4));
-		//world.addObject(new Plane(turn3));
-		
-		//world.addObject(new TriangleMesh());
-		
-		
-		//----------------LIGHTS----------------//
-		
-		
-		
 		
 		
 		
 		//----------------------------------TRACE------------------------------------//
-		tracer = new DepthTracer(world, panel, camera);
+		tracer = new NormalTracer(world, panel, camera);
 		
 		//render the scene
 		for (int x = 0; x < width; ++x) {

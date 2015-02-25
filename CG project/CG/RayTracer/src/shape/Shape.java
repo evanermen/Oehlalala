@@ -17,9 +17,9 @@ import world.World;
  */
 public abstract class Shape {
 	
-	private Material material;
+	public Material material;
 	
-	private Transformation transformation;
+	public Transformation transformation;
 	
 	private World world;
 	

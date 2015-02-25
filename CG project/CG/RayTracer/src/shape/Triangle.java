@@ -13,8 +13,6 @@ public class Triangle extends Shape {
 	public Point v0;
 	public Point v1;
 	public Point v2;
-	public Transformation transformation;
-	public Material material;
 		
 
 	public Triangle(Transformation transformation, Material material, Point v0, Point v1, Point v2) {

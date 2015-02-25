@@ -15,9 +15,8 @@ import utils.RGBColor;
  * @version 1.0
  */
 public class Sphere extends Shape {
-	public Transformation transformation;
+	
 	public final double radius;
-	public Material material;
 
 	/**
 	 * Creates a new {@link Sphere} with the given radius and which is
