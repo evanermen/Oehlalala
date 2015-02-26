@@ -33,16 +33,22 @@ public class Matte extends Material {
 
 	
 	
+	
+	//HIER ELINE de shading van plane verloopt niet goed. check normaal en slides lecture 4 slide 29
 	@Override
 	public RGBColor shade(Intersection intersection) {
 		
 		Vector w0 = intersection.ray.direction.scale(-1).normalize();
+		//System.out.println("ambient = " + ambient);
+		//System.out.println("intersection.getWorld() = " + intersection);
 		RGBColor l = ambient.rho(intersection, w0).multiply(intersection.getWorld().ambientLight.getRadiance(intersection));
 		for(Light light : intersection.getWorld().lights){
 			Vector wi = light.getDirection(intersection).normalize();
 			//System.out.println("direction light = " + wi);
 			Vector n = intersection.getNormal();
-			double ndotwi = n.dot(wi); 
+			Vector normal = n;
+			if(wi.dot(n)> Math.PI) {normal = n.scale(-1);}
+			double ndotwi = normal.dot(wi); 
 			//System.out.println("ndotwi = " + ndotwi);
 			if(ndotwi > 0.0){
 				RGBColor l1 = light.getRadiance(intersection);

@@ -8,10 +8,10 @@ import lights.Ambient;
 import lights.Light;
 import lights.PointLight;
 import materials.Matte;
+import materials.Phong;
 import math.Point;
 import math.Transformation;
 import shape.Cube;
-import shape.Hourglass;
 import shape.Plane;
 import shape.Shape;
 import shape.Sphere;
@@ -24,7 +24,7 @@ public class World {
 	//private Light ambient;
 	public List<Shape> objects;
 	public List<Light> lights;
-	public Ambient ambientLight;
+	public Ambient ambientLight = new Ambient(new RGBColor(0,0,0), 0);
 	
 	public World(){
 		bg = new RGBColor();
@@ -121,12 +121,15 @@ public class World {
 	
 	public void createWorld4(){
 		Transformation identity = Transformation.createIdentity();
+		Transformation t1 = Transformation.createTranslation(4, 7, -7); 
 		Matte matte = new Matte(new RGBColor(1,0,0), 0.5, 0.2);
 		addObject(new Sphere(identity, matte, 3));
 		addLight(new PointLight(new RGBColor(1,1,0), 2, new Point(0,7,7)));
+		addLight(new PointLight(new RGBColor(1,0,1), 2, new Point(2,7,-7)));
+		addObject(new Sphere(identity, matte, 0.1));
 		
 		Transformation turn =  Transformation.createRotationX(-90);
-		Transformation t = Transformation.createTranslation(0, -8, 0); 
+		Transformation t = Transformation.createTranslation(-8, -8, -8); 
 		Matte matte2 =  new Matte(new RGBColor(1,1,1), 0.5,0.2);
 		addObject(new Plane(turn.append(t), matte2));
 		
@@ -135,10 +138,10 @@ public class World {
 	
 	public void createWorld5(){
 		Parser parser = new Parser("sphere");
-		Transformation t6 = Transformation.createTranslation(1, 1, 1);
+		Transformation t6 = Transformation.createTranslation(0, 2, 1);
 		Transformation turn =  Transformation.createRotationY(70);
 		Transformation identity =  Transformation.createIdentity();
-		Matte material = new Matte(new RGBColor(1,0,0) );
+		Phong material = new Phong(new RGBColor(1,0,0), 0.8, 0.2 , 0.3, 3);
 		try {
 			parser.processLineByLine();
 			parser.triangleMesh.setTransformation(identity);
@@ -147,10 +150,28 @@ public class World {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		this.ambientLight = new Ambient(new RGBColor(1,1,1),0.2);
-		addLight(new PointLight(new RGBColor(1,1,0), 2, new Point(0,3,3)));
+		this.ambientLight = new Ambient(new RGBColor(1,1,1),0.5);
+		addLight(new PointLight(new RGBColor(1,1,0), 2.5, new Point(0,3,3)));
 		
 	}
+	
+	public void createWorld6(){
+		Transformation identity = Transformation.createIdentity();
+		Transformation t1 = Transformation.createTranslation(4, 7, -7); 
+		Phong matte = new Phong(new RGBColor(1,0,0), 0.5, 0.2, 0.3, 20);
+		addObject(new Sphere(identity, matte, 3));
+		addLight(new PointLight(new RGBColor(1,1,1), 2, new Point(0,7,7)));
+		//addLight(new PointLight(new RGBColor(1,0,1), 2, new Point(2,7,-7)));
+		addObject(new Sphere(identity, matte, 0.1));
+		
+		Transformation turn =  Transformation.createRotationX(-90);
+		Transformation t = Transformation.createTranslation(-8, -8, -8); 
+		Phong matte2 =  new Phong(new RGBColor(1,1,1), 0.5,0.2, 0.2, 5);
+		addObject(new Plane(turn.append(t), matte2));
+		
+		this.ambientLight = new Ambient(new RGBColor(1,1,1),0.5);
+	}
+	
 	
 	public World(RGBColor backgroundColor, ArrayList<Shape> objects, ArrayList<Light> lights ){
 		this.bg = backgroundColor;
