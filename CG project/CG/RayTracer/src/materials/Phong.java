@@ -35,17 +35,23 @@ public class Phong extends Material {
 	@Override
 	public RGBColor shade(Intersection intersection) {
 		Vector wo = intersection.ray.direction.scale(-1).normalize();
-		RGBColor l = ambientBrdf.rho(intersection, wo).multiply(intersection.getWorld().ambientLight.getRadiance(intersection));
+		RGBColor lamb = ambientBrdf.rho(intersection, wo).multiply(intersection.getWorld().ambientLight.getRadiance(intersection));
 		List<Light> lights = intersection.getWorld().lights;
+		RGBColor l0 = new RGBColor(0,0,0);
 		for( Light light : lights){
 			Vector wi = light.getDirection(intersection).normalize();
 			double ndotwi = intersection.normal.dot(wi);
+			System.out.println(ndotwi);
 			if(ndotwi > 0.0){
-				l = l.add(diffuseBrdf.f(intersection, wo, wi)).add(specularBrdf.f(intersection, wi, wo)).multiply(light.getRadiance(intersection).scale(ndotwi));
+				
+				l0 = l0.add((diffuseBrdf.f(intersection, wo, wi)).add(specularBrdf.f(intersection, wi, wo))).multiply(light.getRadiance(intersection).scale(ndotwi));
+			
+				//System.out.println("l =" + new Vector(l));
+			
 			}
 			
 		}
-		return l;
+		return l0.add(lamb);
 	}
 
 }
