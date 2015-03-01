@@ -17,6 +17,8 @@ public abstract class Material {
 	}
 	
 	
+	public boolean stopsLight(){ return true;}
+	
 	public abstract RGBColor shade(Intersection intersection );
 	
 }

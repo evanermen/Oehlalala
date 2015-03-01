@@ -71,4 +71,10 @@ public class Ray implements Cloneable {
 				origin.x, origin.y, origin.z, direction.x, direction.y,
 				direction.z);
 	}
+	
+	public Ray epsilonOffset(){
+		double eps = 0.00001;
+		Point newOrigin = this.origin.add(direction.x*eps, direction.y*eps, direction.z*eps);
+		return new Ray(newOrigin, this.direction);
+	}
 }

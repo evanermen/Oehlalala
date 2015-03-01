@@ -63,4 +63,7 @@ public abstract class Shape {
 		this.world = world;
 		
 	}
+
+
+	public abstract double shadowHit(Ray ray);
 }

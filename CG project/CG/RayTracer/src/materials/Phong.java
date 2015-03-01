@@ -3,6 +3,8 @@ package materials;
 import java.util.List;
 
 import lights.Light;
+import lights.PointLight;
+import math.Ray;
 import math.Vector;
 import utils.Intersection;
 import utils.RGBColor;
@@ -35,23 +37,24 @@ public class Phong extends Material {
 	@Override
 	public RGBColor shade(Intersection intersection) {
 		Vector wo = intersection.ray.direction.scale(-1).normalize();
-		RGBColor lamb = ambientBrdf.rho(intersection, wo).multiply(intersection.getWorld().ambientLight.getRadiance(intersection));
+		RGBColor l0 = ambientBrdf.rho(intersection, wo).multiply(intersection.getWorld().ambientLight.getRadiance(intersection));
 		List<Light> lights = intersection.getWorld().lights;
-		RGBColor l0 = new RGBColor(0,0,0);
 		for( Light light : lights){
 			Vector wi = light.getDirection(intersection).normalize();
 			double ndotwi = intersection.normal.dot(wi);
-			System.out.println(ndotwi);
 			if(ndotwi > 0.0){
-				
-				l0 = l0.add((diffuseBrdf.f(intersection, wo, wi)).add(specularBrdf.f(intersection, wi, wo))).multiply(light.getRadiance(intersection).scale(ndotwi));
-			
-				//System.out.println("l =" + new Vector(l));
-			
+				boolean inShadow = false;
+				if(light.castShadows()){
+					Ray shadowRay = new Ray(intersection.point, wi); 
+					inShadow = ((PointLight)light).inShadow(shadowRay, intersection);
+				}
+				if(!inShadow){
+					l0 = l0.add(((diffuseBrdf.f(intersection, wo, wi)).add(specularBrdf.f(intersection, wi, wo))).multiply(light.getRadiance(intersection).scale(ndotwi)));
+				}
+				else System.out.println(intersection.shape + " is in shadow");
 			}
-			
 		}
-		return l0.add(lamb);
+		return l0.maxToOne();
 	}
 
 }

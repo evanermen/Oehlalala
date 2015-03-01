@@ -43,8 +43,8 @@ public class Renderer {
 		//------------------------VIEW_SETTINGS-------------------------------//
 		int width = 640;
 		int height = 640;
-		Point cameraOrigin = new Point(5,5,0);
-		Vector lookAt = new Vector(-1,-0.8, 0);
+		Point cameraOrigin = new Point(4,4,4);
+		Vector lookAt = new Vector(-1,-0.8, -1);
 		Vector up = new Vector(0,1,0);
 		double fov = 90;
 
@@ -94,7 +94,7 @@ public class Renderer {
 
 		// initialize the graphical user interface
 		ImagePanel panel = new ImagePanel(width, height);
-		RenderFrame frame = new RenderFrame("Sphere", panel);
+		RenderFrame frame = new RenderFrame("Image", panel);
 
 		// initialize the progress reporter
 		ProgressReporter reporter = new ProgressReporter("Rendering", 40, width
@@ -104,7 +104,7 @@ public class Renderer {
 
 		//------------------------SET_WORLD-------------------------------//
 
-		world.createWorld5();
+		world.createWorld4();
 
 
 		//----------------------------------TRACE------------------------------------//
@@ -113,9 +113,9 @@ public class Renderer {
 		//render the scene
 		for (int x = 0; x < width; ++x) {
 			for (int y = 0; y < height; ++y) {
-				//if(x==0 && y>150){
-				//System.out.println("ok go");
-				//}
+				/**if(x==370 && y>300){
+				System.out.println("ok go");
+				}*/
 				tracer.trace(x, y);
 			}
 			reporter.update(height);
@@ -132,28 +132,5 @@ public class Renderer {
 
 	}
 
-	private static void drawLights(World world, ImagePanel panel, PerspectiveCamera camera, double width, double height){
-		//System.out.println("enter draw lights");
-		World world2 = new World();
-		world2.bg = world.bg;
-		List<Light> lights = world.lights;
-		//System.out.println("size lights = "+ lights.size());
-		for(Light light : lights){ 
-			Point point = ((PointLight) light).location;
-			Transformation t1 = Transformation.createTranslation(point.x, point.y, point.z);
-			Matte matte = new Matte();
-			world2.addObject(new Cube(t1, matte, 0.2));
-		}
-		Tracer tracer = new LightTracer(world2, panel, camera);
-
-		for (int x = 0; x < width; ++x) {
-			for (int y = 0; y < height; ++y) {
-				//if(x==0 && y>150){
-				//System.out.println("ok go");
-				//}
-				tracer.trace(x, y);
-			}
-		}
-	}
 }
 

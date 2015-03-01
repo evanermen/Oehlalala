@@ -8,6 +8,7 @@ import camera.Camera;
 import math.Ray;
 import sampling.Sample;
 import shape.Shape;
+import shape.Sphere;
 import utils.Intersection;
 import utils.RGBColor;
 import world.World;
@@ -43,6 +44,11 @@ public abstract class Tracer {
 				rayIntersection = intersection;				
 			}
 		}
+		//if(rayIntersection != null && rayIntersection.shape instanceof Sphere) System.out.println("coordinates for sphere: " + x+ ", " + y);
 		return rayIntersection;
+	}
+
+	public void drawLights() {
+	
 	}
 }

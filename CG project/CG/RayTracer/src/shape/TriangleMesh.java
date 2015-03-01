@@ -92,6 +92,21 @@ public class TriangleMesh extends Shape {
 		}
 	}
 
+	@Override
+	public double shadowHit(Ray ray) {
+		Double smallestT = Double.POSITIVE_INFINITY;
+		Intersection rayIntersection = null;
+		for (TriangleM triangle : triangles){
+			Intersection intersection = triangle.intersect(ray);
+			if (intersection != null && intersection.t < smallestT ) {
+				smallestT = intersection.t;
+				rayIntersection = intersection;				
+			}
+		}
+		
+		return smallestT;
+	}
+
 
 
 }

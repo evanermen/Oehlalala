@@ -55,7 +55,7 @@ public class Plane extends Shape {
 
 	public Vector getNormal(Point point, Ray ray){
 		Vector normal =  transformation.getNormalTransformationMatrix().transform(new Vector(0,0,1)).normalize();
-		//if(normal.dot(ray.direction.normalize())>Math.PI/2) {System.out.println("inverting normal : " + normal.scale(-1)); return normal.scale(-1); }
+		//if(normal.dot(ray.direction.normalize())<0) {System.out.println("inverting normal : " + normal.scale(-1)); return normal.scale(-1); }
 		//else return normal;
 		return normal;
 	}
@@ -64,6 +64,23 @@ public class Plane extends Shape {
 	public Vector getNormal(Point point) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public double shadowHit(Ray ray) {
+		Ray transformed = transformation.transformInverse(ray).epsilonOffset();
+		Vector normal = new Vector(0,0,1);
+
+		Vector direction = transformed.direction;
+		Point rayOrigin = transformed.origin;
+
+		double divisor = direction.dot(normal);
+		double divident = -(rayOrigin.subtract(0, 0, 0)).dot(normal);
+
+		if (direction.dot(normal)== 0 || divident/divisor <  0){return Double.POSITIVE_INFINITY;}
+		else { 	
+			return divident/divisor;
+		}
 	}
 
 

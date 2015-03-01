@@ -90,6 +90,42 @@ public class Hourglass extends Shape{
 		//return normal;
 	}
 
+	@Override
+	public double shadowHit(Ray ray) {
+		Ray transformed = transformation.transformInverse(ray).epsilonOffset();
+		
+		Vector direction = transformed.direction;
+		Point rayOrigin = transformed.origin;
+		
+		double a = direction.y*direction.y + direction.z*direction.z - Math.tan(angle)*direction.x*direction.x;
+		double b = 2*rayOrigin.y*direction.y + 2*rayOrigin.z*direction.z - Math.tan(angle)*2*rayOrigin.x*direction.x;
+		double c = rayOrigin.y*rayOrigin.y + rayOrigin.z*rayOrigin.z - Math.tan(angle)*rayOrigin.x*rayOrigin.x;
+		
+		double d = b * b - 4.0 * a * c;
+
+		if (d < 0)
+			return Double.POSITIVE_INFINITY;
+		
+		
+		double dr = Math.sqrt(d);
+		double q = b < 0 ? -0.5 * (b - dr) : -0.5 * (b + dr);
+
+		double t0 = q / a;
+		double t1 = c / q;
+		
+		
+		Point originPoint0 = transformed.origin.add(transformed.direction.scale(t0));	
+		Point point0 = transformation.transform(originPoint0);
+		Point originPoint1 = transformed.origin.add(transformed.direction.scale(t1));	
+		Point point1 = transformation.transform(originPoint1);
+		
+		if(t0<t1 && Math.abs(point0.x)<height && t0>0) return t0;
+		else if(t0<t1 && Math.abs(point1.x)<height && t1>0) return t1;
+		else if(t1<t0 && Math.abs(point1.x)<height && t1>0) return t1;
+		else if(t1<t0 && Math.abs(point0.x)<height && t0>0) return t0;
+		else return Double.POSITIVE_INFINITY;
+	}
+
 
 
 }

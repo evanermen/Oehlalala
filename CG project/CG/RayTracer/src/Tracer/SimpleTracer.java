@@ -31,6 +31,8 @@ public class SimpleTracer extends Tracer {
 			RGBColor color2 = color.maxToOne();
 			panel.set(x, y, 200, (float)color.r, (float)color.g, (float)color.b);}
 		else{panel.set(x, y, 200 , (int)world.bg.r,(int)world.bg.g, (int)world.bg.b );}
+		
 	
 		} 
+
 }

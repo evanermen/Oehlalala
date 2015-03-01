@@ -91,6 +91,39 @@ public class Sphere extends Shape {
 		return new RGBColor(1,0,0);
 	}
 
+	@Override
+	public double shadowHit(Ray ray) {
+		
+		Ray transformed = transformation.transformInverse(ray).epsilonOffset();
+
+		Vector o = transformed.origin.toVector3D();
+
+		double a = transformed.direction.dot(transformed.direction);
+		double b = 2.0 * (transformed.direction.dot(o));
+		double c = o.dot(o) - radius * radius;
+
+		double d = b * b - 4.0 * a * c;
+
+		if (d < 0)
+			return Double.POSITIVE_INFINITY;
+		double dr = Math.sqrt(d);
+		double q = b < 0 ? -0.5 * (b - dr) : -0.5 * (b + dr);
+
+		double t0 = q / a;
+		double t1 = c / q;
+		
+		if(t0>t1){
+			return t1;	
+		}
+		
+		else {
+			return t0;
+		}
+		//return t0 >= 0; //|| t1 >= 0;
+	}
+		
+	
+
 
 	
 }

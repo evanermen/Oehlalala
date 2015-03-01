@@ -102,6 +102,40 @@ public class Cube extends Shape {
 		return transformedNormal;
 		
 	}
+
+	@Override
+	public double shadowHit(Ray ray) {
+		Ray transformed = transformation.transformInverse(ray);
+		Vector lb = new Vector(-size, -size, -size);
+		Vector rt = new Vector(size, size, size);
+		Point origin = transformed.origin;
+		
+		double t1 = (lb.x - origin.x)/ transformed.direction.x;
+		double t2 = (rt.x - origin.x)/ transformed.direction.x;
+		double t3 = (lb.y - origin.y)/ transformed.direction.y;
+		double t4 = (rt.y - origin.y)/ transformed.direction.y;
+		double t5 = (lb.z - origin.z)/ transformed.direction.z;
+		double t6 = (rt.z - origin.z)/ transformed.direction.z;
+
+		double tmin = Math.max(Math.max(Math.min(t1, t2), Math.min(t3, t4)), Math.min(t5, t6));
+		double tmax = Math.min(Math.min(Math.max(t1, t2), Math.max(t3, t4)), Math.max(t5, t6));
+
+		// if tmax < 0, ray (line) is intersecting AABB, but whole AABB is behind us
+		if (tmax < 0)
+		{
+		    double t = tmax;
+		    return Double.POSITIVE_INFINITY;
+		}
+
+		// if tmin > tmax, ray doesn't intersect AABB
+		if (tmin > tmax)
+		{
+		    double t = tmax;
+		    return Double.POSITIVE_INFINITY;
+		}
+	
+		return tmin;
+	}
 	
 
 

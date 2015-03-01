@@ -1,6 +1,12 @@
 package lights;
 
+
+
+import java.util.List;
+
+import math.Ray;
 import math.Vector;
+import shape.Shape;
 import utils.Intersection;
 import utils.RGBColor;
 
@@ -23,4 +29,10 @@ public abstract class Light {
 	}
 	
 	public abstract Vector getDirection(Intersection intersection);
+
+	public boolean castShadows() {
+		return true;
+	}
+
+	
 }
