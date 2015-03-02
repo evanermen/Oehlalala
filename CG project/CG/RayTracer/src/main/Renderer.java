@@ -108,6 +108,7 @@ public class Renderer {
 
 
 		//----------------------------------TRACE------------------------------------//
+		
 		tracer = new SimpleTracer(world, panel, camera);
 
 		//render the scene
