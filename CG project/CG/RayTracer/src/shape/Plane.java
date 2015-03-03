@@ -1,5 +1,10 @@
 package shape;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
+import boundingBox.BBoxCreator;
+import boundingBox.ShapeBox;
 import materials.Material;
 import math.Point;
 import math.Ray;
@@ -81,6 +86,29 @@ public class Plane extends Shape {
 		else { 	
 			return divident/divisor;
 		}
+	}
+
+	@Override
+	public void createBBox(BBoxCreator creator) {
+		ArrayList<Double> xs = new ArrayList<Double>();
+		ArrayList<Double> ys = new ArrayList<Double>();
+		ArrayList<Double> zs = new ArrayList<Double>();
+		Double inf = Double.POSITIVE_INFINITY;
+		Point a = transformation.transform(new Point(inf, 0, inf));
+		xs.add(a.x); ys.add(a.y); zs.add(a.z);
+		Point b = transformation.transform(new Point(inf, 0, -inf));
+		xs.add(b.x); ys.add(b.y); zs.add(b.z);
+		Point c = transformation.transform(new Point(-inf, 0, inf));
+		xs.add(c.x); ys.add(c.y); zs.add(c.z);
+		Point d = transformation.transform(new Point(-inf, 0, -inf));
+		xs.add(d.x); ys.add(d.y); zs.add(d.z);
+		
+		Point min = new Point(Collections.min(xs), Collections.min(ys), Collections.min(zs));
+		Point max = new Point(Collections.max(xs), Collections.max(ys), Collections.max(zs));
+		
+		ShapeBox bbox = new ShapeBox(min, max, this);
+		creator.shapeboxes.add(bbox);
+		
 	}
 
 

@@ -2,6 +2,7 @@ package shape;
 
 import java.util.ArrayList;
 
+import boundingBox.BBoxCreator;
 import materials.Material;
 import materials.Matte;
 import math.Point;
@@ -105,6 +106,13 @@ public class TriangleMesh extends Shape {
 		}
 		
 		return smallestT;
+	}
+
+	@Override
+	public void createBBox(BBoxCreator creator) {
+		for(TriangleM triangle : triangles){
+			triangle.createBBox(creator);
+		}
 	}
 
 

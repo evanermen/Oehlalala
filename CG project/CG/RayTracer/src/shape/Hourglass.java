@@ -1,5 +1,10 @@
 package shape;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
+import boundingBox.BBoxCreator;
+import boundingBox.ShapeBox;
 import materials.Material;
 import math.Point;
 import math.Ray;
@@ -9,7 +14,7 @@ import utils.Intersection;
 import utils.RGBColor;
 
 /**
- * Represents a finite, two-sided cone
+ * Represents a finite, two-sided cone around the x-axis
  * @author eline vanermen
  *
  */
@@ -124,6 +129,37 @@ public class Hourglass extends Shape{
 		else if(t1<t0 && Math.abs(point1.x)<height && t1>0) return t1;
 		else if(t1<t0 && Math.abs(point0.x)<height && t0>0) return t0;
 		else return Double.POSITIVE_INFINITY;
+	}
+
+	@Override
+	public void createBBox(BBoxCreator creator) {
+		ArrayList<Double> xs = new ArrayList<Double>();
+		ArrayList<Double> ys = new ArrayList<Double>();
+		ArrayList<Double> zs = new ArrayList<Double>();
+		double radius = Math.tan(angle)*height;
+		Point a = transformation.transform(new Point(height, -radius, -radius));
+		xs.add(a.x); ys.add(a.y); zs.add(a.z);
+		Point b = transformation.transform(new Point(height, -radius, radius));
+		xs.add(b.x); ys.add(b.y); zs.add(b.z);
+		Point c = transformation.transform(new Point(height, radius, -radius));
+		xs.add(c.x); ys.add(c.y); zs.add(c.z);
+		Point d = transformation.transform(new Point(height, radius, radius));
+		xs.add(d.x); ys.add(d.y); zs.add(d.z);
+		Point e = transformation.transform(new Point(-height, radius, -radius));
+		xs.add(e.x); ys.add(e.y); zs.add(e.z);
+		Point f = transformation.transform(new Point(-height, -radius, -radius));
+		xs.add(f.x); ys.add(f.y); zs.add(f.z);
+		Point g = transformation.transform(new Point(-height, -radius, radius));
+		xs.add(g.x); ys.add(g.y); zs.add(g.z);
+		Point h = transformation.transform(new Point(-height, radius, radius));
+		xs.add(h.x); ys.add(h.y); zs.add(h.z);
+		
+		Point min = new Point(Collections.min(xs), Collections.min(ys), Collections.min(zs));
+		Point max = new Point(Collections.max(xs), Collections.max(ys), Collections.max(zs));
+		
+		ShapeBox bbox = new ShapeBox(min, max, this);
+		creator.shapeboxes.add(bbox);
+		
 	}
 
 

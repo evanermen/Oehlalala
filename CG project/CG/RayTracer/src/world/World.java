@@ -125,11 +125,15 @@ public class World {
 		Transformation identity = Transformation.createIdentity();
 
 		Transformation turn =  Transformation.createRotationX(-90);
-		Transformation t1 = Transformation.createTranslation(4, 0, -7); 
+		Transformation t1 = Transformation.createTranslation(4, 0, 0); 
 		Transformation turn5 =  Transformation.createRotationZ(-70);
 		Matte matte = new Matte(new RGBColor(1,0,0), 0.5, 0.2);
-		//Phong matte = new Phong(new RGBColor(0,1,1), 0.5,0.2,0.3, 10);
+		Phong matte3 = new Phong(new RGBColor(0,1,1), 0.5,0.2,0.3, 10);
 		addObject(new Hourglass(identity, matte, Math.PI/6, 3));
+		addObject(new Cube(identity, matte3, 0.2));
+		addObject(new Cube(t1, matte3, 0.2));
+		
+		
 		addLight(new PointLight(new RGBColor(1,1,1),4, new Point(7,4,0)));
 		addLight(new PointLight(new RGBColor(1,1,1), 3, new Point(-7,4,-7)));
 		//addObject(new Sphere(identity, matte, 4));
@@ -173,10 +177,9 @@ public class World {
 		Transformation identity = Transformation.createIdentity();
 		Transformation t1 = Transformation.createTranslation(4, 7, -7); 
 		Phong matte = new Phong(new RGBColor(1,0,0), 0.5, 0.2, 0.3, 20);
-		addObject(new Sphere(identity, matte, 3));
+		addObject(new Sphere(identity, matte, 8));
 		addLight(new PointLight(new RGBColor(1,1,1), 2, new Point(0,7,7)));
 		addLight(new PointLight(new RGBColor(1,1,1), 3, new Point(2,7,-7)));
-		addObject(new Sphere(identity, matte, 0.1));
 		
 		Transformation turn =  Transformation.createRotationX(-90);
 		Transformation t = Transformation.createTranslation(-8, -8, -8); 

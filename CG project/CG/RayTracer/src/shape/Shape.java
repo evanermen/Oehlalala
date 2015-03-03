@@ -8,6 +8,7 @@ import math.Vector;
 import utils.Intersection;
 import utils.RGBColor;
 import world.World;
+import boundingBox.BBoxCreator;
 
 /**
  * Interface which should be implemented by all {@link Shape}s.
@@ -46,6 +47,8 @@ public abstract class Shape {
 	public abstract Vector getNormal(Point point);
 	
 	public abstract RGBColor getColor(Point point);
+	
+	public abstract void createBBox(BBoxCreator creator);
 	
 	public Transformation getTransformation(){
 		return this.transformation;
