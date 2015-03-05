@@ -19,6 +19,22 @@ public class BoundingBox {
 		else {return -1;}
 
 	}
+
+	/**
+	 * 
+	 * @return the minimum of the bounding box in global coordinates
+	 */
+	public Point getMin() {
+		return min;
+	}
+
+	/**
+	 * 
+	 * @return the minimum of the bounding box in global coordinates
+	 */
+	public Point getMax() {
+		return max;
+	}
 }
 
 //method hit

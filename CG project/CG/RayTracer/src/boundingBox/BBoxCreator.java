@@ -51,13 +51,13 @@ public class BBoxCreator {
 		double zmin = Double.POSITIVE_INFINITY;
 		
 		for(BoundingBox box : bboxes){
-			if(box.min.x < xmin) xmin = box.min.x;
-			if(box.min.y < xmin) xmin = box.min.x;
-			if(box.min.z < xmin) xmin = box.min.x;
+			if(box.getMin().x < xmin) xmin = box.getMin().x;
+			if(box.getMin().y < xmin) xmin = box.getMin().x;
+			if(box.getMin().z < xmin) xmin = box.getMin().x;
 			
-			if(box.max.x > xmax) xmax = box.max.x;
-			if(box.max.y > xmax) xmax = box.max.y;
-			if(box.max.z > xmax) xmax = box.max.z;
+			if(box.getMax().x > xmax) xmax = box.getMax().x;
+			if(box.getMax() > xmax) xmax = box.getMax().y;
+			if(box.getMax() > xmax) xmax = box.getMax().z;
 			
 		}
 		

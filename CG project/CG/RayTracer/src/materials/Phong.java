@@ -51,7 +51,7 @@ public class Phong extends Material {
 				if(!inShadow){
 					l0 = l0.add(((diffuseBrdf.f(intersection, wo, wi)).add(specularBrdf.f(intersection, wi, wo))).multiply(light.getRadiance(intersection).scale(ndotwi)));
 				}
-				else System.out.println(intersection.shape + " is in shadow");
+				//else System.out.println(intersection.shape + " is in shadow");
 			}
 		}
 		return l0.maxToOne();

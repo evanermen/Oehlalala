@@ -3,7 +3,12 @@ package boundingBox;
 import java.util.ArrayList;
 
 import math.Point;
-
+/**
+ * A coumpound box is a bounding box around other bounding boxes - either shape or compound boxes. The boxes are globally axis aligned.
+ * 
+ * @author eline vanermen
+ *
+ */
 public class CompoundBox extends BoundingBox {
 
 
