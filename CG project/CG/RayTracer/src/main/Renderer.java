@@ -41,8 +41,8 @@ public class Renderer {
 		//------------------------VIEW_SETTINGS-------------------------------//
 		int width = 640;
 		int height = 640;
-		Point cameraOrigin = new Point(-1,-1,-1);
-		Vector lookAt = new Vector(1,1, 1);
+		Point cameraOrigin = new Point(-0.8,0.8,-0.8);
+		Vector lookAt = new Vector(1,-1, 1);
 		Vector up = new Vector(0,1,0);
 		double fov = 90;
 
