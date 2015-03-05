@@ -174,13 +174,16 @@ public class TriangleM extends Shape {
 
 	@Override
 	public void createBBox(BBoxCreator creator) {
+		Point v0t = this.transformation.transform(v0);
+		Point v1t =  this.transformation.transform(v1);
+		Point v2t =  this.transformation.transform(v2);
 		
-		double maxX = Math.max(Math.max(v0.x, v1.x), v2.x);
-		double maxY = Math.max(Math.max(v0.y, v1.y), v2.y);
-		double maxZ = Math.max(Math.max(v0.z, v1.z), v2.z);
-		double minX = Math.min(Math.min(v0.x, v1.x), v2.x);
-		double minY = Math.min(Math.min(v0.y, v1.y), v2.y);
-		double minZ = Math.min(Math.min(v0.z, v1.z), v2.z);
+		double maxX = Math.max(Math.max(v0t.x, v1t.x), v2t.x);
+		double maxY = Math.max(Math.max(v0t.y, v1t.y), v2t.y);
+		double maxZ = Math.max(Math.max(v0t.z, v1t.z), v2t.z);
+		double minX = Math.min(Math.min(v0t.x, v1t.x), v2t.x);
+		double minY = Math.min(Math.min(v0t.y, v1t.y), v2t.y);
+		double minZ = Math.min(Math.min(v0t.z, v1t.z), v2t.z);
 		
 		ShapeBox bbox = new ShapeBox(new Point(minX, minY, minZ), new Point(maxX, maxY, maxZ), this);
 		creator.shapeboxes.add(bbox);

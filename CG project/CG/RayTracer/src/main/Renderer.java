@@ -6,21 +6,17 @@ import gui.RenderFrame;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import lights.Light;
-import lights.PointLight;
-import materials.Matte;
 import math.Point;
-import math.Transformation;
 import math.Vector;
-import shape.Cube;
-import tracer.LightTracer;
+import tracer.BBoxTracer;
 import tracer.SimpleTracer;
 import tracer.Tracer;
 import world.World;
+import boundingBox.BBoxCreator;
+import boundingBox.BoundingBox;
 import camera.PerspectiveCamera;
 
 /**
@@ -40,11 +36,13 @@ public class Renderer {
 	 */
 	public static void main(String[] arguments) {
 
+		
+		
 		//------------------------VIEW_SETTINGS-------------------------------//
 		int width = 640;
 		int height = 640;
-		Point cameraOrigin = new Point(4,4,4);
-		Vector lookAt = new Vector(-1,-0.8, -1);
+		Point cameraOrigin = new Point(-1,-1,-1);
+		Vector lookAt = new Vector(1,1, 1);
 		Vector up = new Vector(0,1,0);
 		double fov = 90;
 
@@ -104,12 +102,19 @@ public class Renderer {
 
 		//------------------------SET_WORLD-------------------------------//
 
-		world.createWorld4();
+		world.createWorld5();
 
-
+		
+		
+		//------------------------CREATE BOUNDING BOXES	------------------//
+		
+		BBoxCreator bboxcreator = new BBoxCreator(world);
+		BoundingBox bigbox = bboxcreator.createBBoxHierarchy();
+		
 		//----------------------------------TRACE------------------------------------//
 		
-		tracer = new SimpleTracer(world, panel, camera);
+		//tracer = new SimpleTracer(world, panel, camera);
+		tracer = new BBoxTracer(world, panel, camera, bigbox);
 
 		//render the scene
 		for (int x = 0; x < width; ++x) {

@@ -147,7 +147,7 @@ public class World {
 	}
 	
 	public void createWorld5(){
-		Parser parser = new Parser("bunny");
+		Parser parser = new Parser("dragon.obj");
 		Transformation t6 = Transformation.createTranslation(0, 2, 1);
 		Transformation turn =  Transformation.createRotationX(90);
 		Transformation identity =  Transformation.createIdentity();
@@ -169,7 +169,7 @@ public class World {
 		Transformation t = Transformation.createTranslation(-8, -8, -8); 
 		Matte matte2 =  new Matte(new RGBColor(0,1,1), 0.5,0.2);
 		//Phong matte2 = new Phong(new RGBColor(0,1,1), 0.5, 0.2, 0.1, 50);
-		addObject(new Plane(turn2.append(t), matte2));
+		//addObject(new Plane(turn2.append(t), matte2));
 		
 	}
 	
@@ -177,14 +177,14 @@ public class World {
 		Transformation identity = Transformation.createIdentity();
 		Transformation t1 = Transformation.createTranslation(4, 7, -7); 
 		Phong matte = new Phong(new RGBColor(1,0,0), 0.5, 0.2, 0.3, 20);
-		addObject(new Sphere(identity, matte, 8));
+		addObject(new Sphere(identity, matte,1));
 		addLight(new PointLight(new RGBColor(1,1,1), 2, new Point(0,7,7)));
 		addLight(new PointLight(new RGBColor(1,1,1), 3, new Point(2,7,-7)));
 		
 		Transformation turn =  Transformation.createRotationX(-90);
 		Transformation t = Transformation.createTranslation(-8, -8, -8); 
 		Phong matte2 =  new Phong(new RGBColor(1,1,1), 0.5,0.2, 0.2, 5);
-		addObject(new Plane(turn.append(t), matte2));
+		//addObject(new Plane(turn.append(t), matte2));
 		
 		this.ambientLight = new Ambient(new RGBColor(1,1,1),0.5);
 	}
