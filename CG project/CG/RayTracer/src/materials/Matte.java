@@ -4,6 +4,8 @@ import lights.Light;
 import lights.PointLight;
 import math.Ray;
 import math.Vector;
+import textures.ConstantColor;
+import textures.Texture;
 import utils.Intersection;
 import utils.RGBColor;
 import brdf.Lambertian;
@@ -14,24 +16,28 @@ public class Matte extends Material {
 	public Lambertian ambient;
 
 
-	public Matte(RGBColor color, double kd, double ka) {
-		super(color);
+	
+	public Matte(Texture texture, double kd, double ka) {
+		super(texture);
 		if(ka + kd > 1.0)
 			throw new IllegalArgumentException("kd and ka added together can't be more than 1.");
-		this.diffuse = new Lambertian(color, kd);
-		this.ambient = new Lambertian(color, ka);
+		this.diffuse = new Lambertian(texture, kd);
+		this.ambient = new Lambertian(texture, ka);
 	}
 
-	public Matte(RGBColor color){
-		super(color);
-		this.diffuse = new Lambertian(color);
-		this.ambient = new Lambertian(color);
+	public Matte(Texture texture){
+		super(texture);
+		this.diffuse = new Lambertian(texture);
+		this.ambient = new Lambertian(texture);
 	}
-
+	
 	public Matte(){
-		this.diffuse = new Lambertian();
-		this.ambient = new Lambertian();
+		super(new ConstantColor(new RGBColor(1,1,1)));
+		Texture texture = new ConstantColor(new RGBColor(1,1,1));
+		this.diffuse = new Lambertian(texture);
+		this.ambient = new Lambertian(texture);
 	}
+
 
 
 
@@ -45,7 +51,7 @@ public class Matte extends Material {
 		for(Light light : intersection.getWorld().lights){
 			Vector wi = light.getDirection(intersection).normalize();
 			Vector n = intersection.getNormal();
-			Vector normal = intersection.getNormal().normalize(); //ELINE HIER normalize wel nodig? //TODO
+			Vector normal = intersection.getNormal().normalize();//TODO normalize nodig?
 			if(wi.dot(n)> Math.PI) {normal = n.scale(-1);}
 			double ndotwi = normal.dot(wi); 
 			if(ndotwi > 0.0){
@@ -62,6 +68,7 @@ public class Matte extends Material {
 			}
 
 		}
+		RGBColor m = l.maxToOne();
 		return l.maxToOne();
 	}
 

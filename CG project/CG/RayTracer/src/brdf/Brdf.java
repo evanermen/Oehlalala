@@ -1,17 +1,18 @@
 package brdf;
 
 import math.Vector;
+import textures.Texture;
 import utils.Intersection;
 import utils.RGBColor;
 
 public abstract class Brdf {
 
 
-	public RGBColor c;
+	public Texture t;
 	public double k;
 
-	public Brdf(RGBColor color, double k){
-		this.c = color;
+	public Brdf(Texture texture, double k){
+		this.t = texture;
 		this.k = k;
 	}
 

@@ -1,6 +1,7 @@
 package brdf;
 
 import math.Vector;
+import textures.Texture;
 import utils.Intersection;
 import utils.RGBColor;
 
@@ -8,7 +9,7 @@ public class GlossySpecular extends Brdf {
 	
 	public double exp;
 
-	public GlossySpecular(RGBColor color, double k, double exponent) {
+	public GlossySpecular(Texture color, double k, double exponent) {
 		super(color, k);
 		this.exp = exponent;
 		// TODO Auto-generated constructor stub
@@ -20,7 +21,7 @@ public class GlossySpecular extends Brdf {
 		Vector v = intersection.normal.scale(intersection.normal.dot(wi)*2);
 		double rdotwo = wi.scale(-1).add(v).dot(w0);
 		if(rdotwo > 0.0)
-			l = this.c.scale(this.k*Math.pow(rdotwo, this.exp));
+			l = this.t.getColor(intersection).scale(this.k*Math.pow(rdotwo, this.exp));
 		return l;
 	}
 

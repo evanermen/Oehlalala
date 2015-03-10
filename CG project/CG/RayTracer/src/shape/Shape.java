@@ -48,6 +48,11 @@ public abstract class Shape {
 	
 	public abstract RGBColor getColor(Point point);
 	
+	
+	/**
+	 * creates a bounding box around the transformed shape, axis aligned with the global axes
+	 * @param creator
+	 */
 	public abstract void createBBox(BBoxCreator creator);
 	
 	public Transformation getTransformation(){

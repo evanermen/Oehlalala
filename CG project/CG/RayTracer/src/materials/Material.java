@@ -1,21 +1,18 @@
 package materials;
 
+import textures.Texture;
 import utils.Intersection;
 import utils.RGBColor;
 
 public abstract class Material {
 
-	public RGBColor color;
+	public Texture texture;
 	
-	public Material(RGBColor color){
-		
-		this.color = color;
+	public Material(Texture texture){
+		this.texture = texture;
 	}
 	
-	public Material(){
-		this.color = new RGBColor(0,1,1);
-	}
-	
+
 	
 	public boolean stopsLight(){ return true;}
 	

@@ -20,6 +20,7 @@ public class RGBColor {
 		b = blue;
 	}
 
+	
 	public RGBColor(Vector v) {
 		r = v.x;
 		g = v.y;

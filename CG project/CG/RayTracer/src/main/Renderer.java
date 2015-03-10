@@ -33,16 +33,17 @@ public class Renderer {
 	 * 
 	 * @param arguments
 	 *            command line arguments.
+	 * @throws IOException 
 	 */
-	public static void main(String[] arguments) {
+	public static void main(String[] arguments) throws IOException {
 
 		
 		
 		//------------------------VIEW_SETTINGS-------------------------------//
 		int width = 640;
 		int height = 640;
-		Point cameraOrigin = new Point(-0.8,0.8,-0.8);
-		Vector lookAt = new Vector(1,-1, 1);
+		Point cameraOrigin = new Point(2,2,2);
+		Vector lookAt = new Vector(-1,-1, -1);
 		Vector up = new Vector(0,1,0);
 		double fov = 90;
 
@@ -102,7 +103,7 @@ public class Renderer {
 
 		//------------------------SET_WORLD-------------------------------//
 
-		world.createWorld5();
+		world.createWorld2();
 
 		
 		
@@ -119,9 +120,9 @@ public class Renderer {
 		//render the scene
 		for (int x = 0; x < width; ++x) {
 			for (int y = 0; y < height; ++y) {
-				/**if(x==370 && y>300){
+				if(x==320 && y>320){
 				System.out.println("ok go");
-				}*/
+				}
 				tracer.trace(x, y);
 			}
 			reporter.update(height);

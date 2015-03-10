@@ -90,14 +90,38 @@ public class Plane extends Shape {
 
 	@Override
 	public void createBBox(BBoxCreator creator) {
-		Double inf = Double.POSITIVE_INFINITY;
-		Point min = new Point(inf, 0, inf);
-		Point max = new Point(inf, 0, -inf);
+		ArrayList<Double> xs = new ArrayList<Double>();
+		ArrayList<Double> ys = new ArrayList<Double>();
+		ArrayList<Double> zs = new ArrayList<Double>();
+		//Double inf = Double.POSITIVE_INFINITY;
+		Double inf = Double.MAX_VALUE;
+		Point a = transformation.transform(new Point(inf, 0.01, inf));
+		xs.add(a.x); ys.add(a.y); zs.add(a.z);
+		Point b = transformation.transform(new Point(inf, 0.01, -inf));
+		xs.add(b.x); ys.add(b.y); zs.add(b.z);
+		Point c = transformation.transform(new Point(-inf, 0.01, inf));
+		xs.add(c.x); ys.add(c.y); zs.add(c.z);
+		Point d = transformation.transform(new Point(-inf, 0.01, -inf));
+		xs.add(d.x); ys.add(d.y); zs.add(d.z);
+		Point e = transformation.transform(new Point(inf, -0.01, inf));
+		xs.add(a.x); ys.add(a.y); zs.add(a.z);
+		Point f = transformation.transform(new Point(inf, -0.01, -inf));
+		xs.add(b.x); ys.add(b.y); zs.add(b.z);
+		Point g = transformation.transform(new Point(-inf, -0.01, inf));
+		xs.add(c.x); ys.add(c.y); zs.add(c.z);
+		Point h = transformation.transform(new Point(-inf, -0.01, -inf));
+		xs.add(d.x); ys.add(d.y); zs.add(d.z);
+
+		Point min = new Point(Collections.min(xs), Collections.min(ys), Collections.min(zs));
+		Point max = new Point(Collections.max(xs), Collections.max(ys), Collections.max(zs));
+
+		System.out.println("radius of plane is infinity" );
+		System.out.println(min);
+		System.out.println(max);
 		
 		ShapeBox bbox = new ShapeBox(min, max, this);
 		creator.shapeboxes.add(bbox);
-		
-	}
 
+	}
 
 }

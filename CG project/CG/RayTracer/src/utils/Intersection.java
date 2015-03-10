@@ -15,6 +15,8 @@ public class Intersection {
 	public Point point; //WEL getransformeerd! 
 	public Vector normal;
 	public Vector barys;
+	public double u;
+	public double v;
 
 	public Intersection(Ray ray, double t, Shape shape, Point point, Vector normal ){
 		this.ray = ray;
@@ -33,6 +35,18 @@ public class Intersection {
 		this.barys = barys;
 	}
 	
+	public Intersection(Ray ray, double t, Shape shape, Point point, Vector normal, Vector barys, double u, double v ){
+		this.ray = ray;
+		this.t = t;
+		this.shape = shape; 
+		this.point = point;
+		this.normal = normal;
+		this.barys = barys;
+		this.u = u;
+		this.v = v;
+	}
+	
+	
 	public RGBColor getColor(){
 		return shape.getColor(point);
 	}
@@ -48,4 +62,5 @@ public class Intersection {
 	public World getWorld(){
 		return shape.getWorld();
 	}
+	
 }

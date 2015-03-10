@@ -5,6 +5,7 @@ import math.Point;
 import math.Ray;
 import math.Transformation;
 import math.Vector;
+import textures.ConstantColor;
 import utils.Intersection;
 import utils.RGBColor;
 import boundingBox.BBoxCreator;
@@ -21,11 +22,15 @@ public class TriangleM extends Shape {
 	public Vector vn2;
 
 	public Vector barys;
+	
+	public Vector vt0;
+	public Vector vt1;
+	public Vector vt2;
 
 
 
 	public TriangleM(Point v0, Point v1, Point v2, Vector vn0, Vector vn1, Vector vn2) {
-		super(Transformation.createIdentity(), new Matte(new RGBColor(255,255,255)));
+		super(Transformation.createIdentity(), new Matte(new ConstantColor(new RGBColor(255,255,255))));
 		this.v0 = v0;
 		this.v1 = v1;
 		this.v2 = v2;
@@ -35,8 +40,24 @@ public class TriangleM extends Shape {
 
 	}
 
+	
+	public TriangleM(Point v0, Point v1, Point v2, Vector vn0, Vector vn1, Vector vn2, Vector vt0, Vector vt1, Vector vt2) {
+		super(Transformation.createIdentity(), new Matte(new ConstantColor(new RGBColor(255,255,255))));
+		this.v0 = v0;
+		this.v1 = v1;
+		this.v2 = v2;
+		this.vn0 = vn0;
+		this.vn1 = vn1;
+		this.vn2 = vn2;
+		this.vt0 = vt0;
+		this.vt1 = vt1;
+		this.vt2 = vt2;
+
+	}
+	
+	
 	public TriangleM(){
-		super(Transformation.createIdentity(), new Matte(new RGBColor(255,255,255)));
+		super(Transformation.createIdentity(), new Matte(new ConstantColor(new RGBColor(255,255,255))));
 		this.v0 = new Point(0,0,5);
 		this.v1 = new Point(5,0,0);
 		this.v2 = new Point(5,0,5);
@@ -99,8 +120,10 @@ public class TriangleM extends Shape {
 		Point originPoint = transformed.origin.add(transformed.direction.scale(t));	
 		Point point = transformation.transform(originPoint);
 		Vector normal = getNormal(originPoint);
-
-		return new Intersection(ray, t, this, point, normal, barys);	
+		double u = vt0.x*barys.x + vt1.x*barys.y + vt2.x*barys.z; //ELINE !! HIER ZOU IETS FOUT KUNNEN ZIJN
+		double v = vt0.y*barys.x + vt1.y*barys.y + vt2.y*barys.z; //ELINE !! HIER ZOU IETS FOUT KUNNEN ZIJN
+	
+		return new Intersection(ray, t, this, point, normal, barys, u, v);	
 	}
 
 
@@ -112,10 +135,7 @@ public class TriangleM extends Shape {
 
 	@Override
 	public Vector getNormal(Point point) {
-
-		//System.out.println("Baries = "+ barys);
 		Vector normal = vn0.scale(barys.x).add(vn1.scale(barys.y)).add(vn2.scale(barys.z));
-		//System.out.println("Normal = " + normal.x + ", " + normal.y + ", " + normal.z);
 		return transformation.getNormalTransformationMatrix().transform(normal).normalize();
 	}
 

@@ -6,6 +6,7 @@ import lights.Light;
 import lights.PointLight;
 import math.Ray;
 import math.Vector;
+import textures.Texture;
 import utils.Intersection;
 import utils.RGBColor;
 import brdf.GlossySpecular;
@@ -22,7 +23,7 @@ public class Phong extends Material {
 
 
 
-	public Phong(RGBColor color, double kd, double ka, double ks, double exponent){
+	public Phong(Texture color, double kd, double ka, double ks, double exponent){
 		super(color);
 		this.kd = kd;
 		this.ka = ka;
