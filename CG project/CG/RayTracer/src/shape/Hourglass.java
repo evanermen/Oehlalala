@@ -145,11 +145,11 @@ public class Hourglass extends Shape{
 		xs.add(c.x); ys.add(c.y); zs.add(c.z);
 		Point d = transformation.transform(new Point(height, radius, radius));
 		xs.add(d.x); ys.add(d.y); zs.add(d.z);
-		Point e = transformation.transform(new Point(-height, radius, -radius));
+		Point e = transformation.transform(new Point(-height, -radius, -radius));
 		xs.add(e.x); ys.add(e.y); zs.add(e.z);
-		Point f = transformation.transform(new Point(-height, -radius, -radius));
+		Point f = transformation.transform(new Point(-height, -radius, radius));
 		xs.add(f.x); ys.add(f.y); zs.add(f.z);
-		Point g = transformation.transform(new Point(-height, -radius, radius));
+		Point g = transformation.transform(new Point(-height, radius, -radius));
 		xs.add(g.x); ys.add(g.y); zs.add(g.z);
 		Point h = transformation.transform(new Point(-height, radius, radius));
 		xs.add(h.x); ys.add(h.y); zs.add(h.z);

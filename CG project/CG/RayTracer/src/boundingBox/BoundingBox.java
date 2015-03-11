@@ -27,7 +27,7 @@ public abstract class BoundingBox {
 	
 	
 	public boolean hit(Ray ray){
-		
+		ray.bboxcount++;
 		Point lb = min;
 		Point rt = max;
 		Point origin = ray.origin;

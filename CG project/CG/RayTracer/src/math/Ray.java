@@ -12,6 +12,7 @@ public class Ray implements Cloneable {
 	 * The origin of the ray.
 	 */
 	public final Point origin;
+	public int bboxcount;
 
 	/**
 	 * The direction the ray is pointing to.

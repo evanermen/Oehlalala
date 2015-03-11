@@ -19,12 +19,12 @@ public class ShapeBox extends BoundingBox {
 		this.shape = shape;
 	}
 	
-
+/*
 	public boolean hit(Ray ray){
 		Ray transformed = shape.transformation.transformInverse(ray);
 		return super.hit(transformed);
 	}
-
+*/
 
 	@Override
 	public Intersection intersect(Ray ray) {
@@ -32,6 +32,6 @@ public class ShapeBox extends BoundingBox {
 	}
 	
 	
-	//intersection method needs backtransformation of ray first!!! Transfomation zit in shape!!
+	//intersection method needs backtransformation of ray first!!! AH JA?? Transfomation zit in shape!!
 	
 }

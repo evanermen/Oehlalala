@@ -33,7 +33,7 @@ public class Parser {
 		//System.out.println(path.toString());
 		try (Scanner scanner =  new Scanner(path)){
 			while (scanner.hasNextLine()){
-				System.out.println("has next line");
+				//System.out.println("has next line");
 				processLine(scanner.nextLine());
 			}      
 		}

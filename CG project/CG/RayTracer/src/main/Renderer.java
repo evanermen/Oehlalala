@@ -11,7 +11,6 @@ import javax.imageio.ImageIO;
 
 import math.Point;
 import math.Vector;
-import tracer.BBoxTracer;
 import tracer.SimpleTracer;
 import tracer.Tracer;
 import world.World;
@@ -42,10 +41,13 @@ public class Renderer {
 		//------------------------VIEW_SETTINGS-------------------------------//
 		int width = 640;
 		int height = 640;
-		Point cameraOrigin = new Point(-1,1,-1);
-		Vector lookAt = new Vector(1,-1, 1);
+
+		//Point cameraOrigin = new Point(5,5,5);
+		Point cameraOrigin = new Point(1,1,1);
+		Vector lookAt = new Vector(-1,-1, -1);
 		Vector up = new Vector(0,1,0);
-		double fov = 90;
+		double fov =90;
+		
 
 		World world = new World();
 		Tracer tracer;
@@ -97,13 +99,13 @@ public class Renderer {
 
 		// initialize the progress reporter
 		ProgressReporter reporter = new ProgressReporter("Rendering", 40, width
-				* height, true);
+				* height, false);
 		reporter.addProgressListener(frame);
 
 
 		//------------------------SET_WORLD-------------------------------//
 
-		world.createWorld7();
+		world.createWorld7();   //  3 teapot (verander camera), 4 shadow, 7 house, 8 apple
 
 		
 		
@@ -116,6 +118,7 @@ public class Renderer {
 		
 		tracer = new SimpleTracer(world, panel, camera);
 		//tracer = new BBoxTracer(world, panel, camera, bigbox);
+		//tracer = new BBoxIntersectionTracer(world, panel, camera, 230 ,bigbox);  //bunny 310, teapot 230
 
 		//render the scene
 		for (int x = 0; x < width; ++x) {
