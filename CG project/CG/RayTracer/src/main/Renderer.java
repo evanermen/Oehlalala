@@ -42,15 +42,15 @@ public class Renderer {
 		//------------------------VIEW_SETTINGS-------------------------------//
 		int width = 640;
 		int height = 640;
-		Point cameraOrigin = new Point(2,2,2);
-		Vector lookAt = new Vector(-1,-1, -1);
+		Point cameraOrigin = new Point(-1,1,-1);
+		Vector lookAt = new Vector(1,-1, 1);
 		Vector up = new Vector(0,1,0);
 		double fov = 90;
 
 		World world = new World();
 		Tracer tracer;
 
-
+//obwe
 
 		//------------------------PARSE_COMMAND_LINE-------------------------------//
 		for (int i = 0; i < arguments.length; ++i) {
@@ -103,7 +103,7 @@ public class Renderer {
 
 		//------------------------SET_WORLD-------------------------------//
 
-		world.createWorld2();
+		world.createWorld7();
 
 		
 		
@@ -114,14 +114,14 @@ public class Renderer {
 		
 		//----------------------------------TRACE------------------------------------//
 		
-		//tracer = new SimpleTracer(world, panel, camera);
-		tracer = new BBoxTracer(world, panel, camera, bigbox);
+		tracer = new SimpleTracer(world, panel, camera);
+		//tracer = new BBoxTracer(world, panel, camera, bigbox);
 
 		//render the scene
 		for (int x = 0; x < width; ++x) {
 			for (int y = 0; y < height; ++y) {
 				if(x==320 && y>320){
-				System.out.println("ok go");
+				//System.out.println("ok go");
 				}
 				tracer.trace(x, y);
 			}

@@ -105,7 +105,7 @@ public class World {
 		Transformation t6 = Transformation.createTranslation(1, 1, 1);
 		Transformation turn =  Transformation.createRotationY(70);
 		Transformation identity =  Transformation.createIdentity();
-		Material mat = new Matte(new ConstantColor(new RGBColor(1,1,0)));
+		Material mat = new Matte(new ConstantColor(new RGBColor(1,1,0)), 0.2,0.2);
 		try {
 			parser.processLineByLine();
 			parser.triangleMesh.setTransformation(identity);
@@ -115,13 +115,13 @@ public class World {
 			e1.printStackTrace();
 		}
 		
-		addLight(new PointLight(new RGBColor(1,1,1),4, new Point(7,4,0)));
-		addLight(new PointLight(new RGBColor(1,1,1), 3, new Point(-7,4,-7)));
+		addLight(new PointLight(new RGBColor(1,1,1),3, new Point(7,4,0)));
+		//addLight(new PointLight(new RGBColor(1,1,1), 1, new Point(-7,4,-7)));
 		
 	}
 	
 	public void createWorld3(){
-		Parser parser = new Parser("teapot");
+		Parser parser = new Parser("bunny");
 		Transformation turn =  Transformation.createIdentity();
 		Matte material = new Matte(new ConstantColor(new RGBColor(1,1,0)), 0.8, 0.2);
 		try {
@@ -147,7 +147,7 @@ public class World {
 		Phong matte3 = new Phong(new ConstantColor(new RGBColor(0.0,1.0,1.0)), 0.5,0.2,0.3, 10);
 		addObject(new Hourglass(identity, matte, Math.PI/6, 3));
 		//addObject(new Cube(identity, matte3, 0.2));
-		//addObject(new Cube(t1, matte3, 0.2));
+		addObject(new Cube(t1, matte3, 0.2));
 		
 		
 		addLight(new PointLight(new RGBColor(1.0,1.0,1.0),4, new Point(7,4,0)));
@@ -191,7 +191,7 @@ public class World {
 	public void createWorld6(){
 		Transformation identity = Transformation.createIdentity();
 		Transformation t1 = Transformation.createTranslation(4, 7, -7); 
-		Phong matte = new Phong(new ConstantColor(new RGBColor(1,0,0)), 0.5, 0.2, 0.3, 20);
+		Matte matte = new Matte(new ConstantColor(new RGBColor(1,0,0)), 0.8, 0.2);
 		addObject(new Sphere(identity, matte,1));
 		addLight(new PointLight(new RGBColor(1,1,1), 2, new Point(0,7,0)));
 		addLight(new PointLight(new RGBColor(1,1,1), 3, new Point(-4,0,0)));
@@ -207,9 +207,13 @@ public class World {
 	
 	public void createWorld7() throws IOException{
 		Parser parser = new Parser("house.obj");
-		Transformation identity =  Transformation.createRotationZ((double)Math.PI*1/6);
+		//Transformation identity =  Transformation.createIdentity();
+		//Transformation identity =  Transformation.createTranslation(1, 1, 1);
+		Transformation identity =  Transformation.createRotationY(30);
 		System.out.println("angle " + (double)Math.PI*1/3);
-		Material material = new Phong(new ImageTexture("house_texture.jpg"),0.8,0.3,0.2,0.2);
+		//Material material = new Phong(new ImageTexture("house_texture.jpg"),0.8,0.3,0.2,20);
+		Material material = new Matte(new ImageTexture("house_texture.jpg"),0.8,0.2);
+		//Material material = new Phong(new ConstantColor(new RGBColor(1,0,0)),0.8,0.3,0.2,20);
 		try {
 			parser.processLineByLine();
 			parser.triangleMesh.setTransformation(identity);
@@ -218,10 +222,9 @@ public class World {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		this.ambientLight = new Ambient(new RGBColor(1,1,1),5);
-		addLight(new PointLight(new RGBColor(1,1,1), 1.2, new Point(0,3,3)));
-		//addLight(new PointLight(new RGBColor(1,1,1), 1.2, new Point(-2,4,-3)));
-		
+		this.ambientLight = new Ambient(new RGBColor(1,1,1),3);
+		addLight(new PointLight(new RGBColor(1.0,1.0,1.0),2, new Point(7,4,0)));
+		addLight(new PointLight(new RGBColor(1.0,1,1), 3, new Point(-7,4,-7)));
 	}
 	
 	
