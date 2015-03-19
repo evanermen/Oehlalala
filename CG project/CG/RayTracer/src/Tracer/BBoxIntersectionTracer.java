@@ -33,16 +33,13 @@ public class BBoxIntersectionTracer extends Tracer {
 		//color = new RGBColor(0,0, (1.0*count)/(max));
 		
 		double max3 = max/3.0;
-		//System.out.println("max/3 "+ max/3);
 		int q = (int) (count / max3);
-		//System.out.println("q=" +q);
 		double r = count % max3;
-		//System.out.println("r=" +r);
 
 		if(q == 0){ color = new RGBColor( 0, 0, r/max3);}
 		else if(q == 1){ color = new RGBColor(0,r/max3, 1-r/max3);}
 		else if(q == 2){ color = new RGBColor(r/max3, 1-r/max3 , 0 );}
-		else{System.out.println("oei er is een porbleem bij boxcount in tracer");}
+		else{System.out.println("oei er is een probleem bij boxcount in tracer");}
 		//}
 		
 //		if(q == 0){ color = new RGBColor( 0, r/max3, 1-r/max3);}

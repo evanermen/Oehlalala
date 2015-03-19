@@ -26,7 +26,7 @@ public abstract class BoundingBox {
 	public abstract Intersection intersect(Ray ray);
 	
 	
-	public boolean hit(Ray ray){
+	public double hit(Ray ray){
 		ray.bboxcount++;
 		Point lb = min;
 		Point rt = max;
@@ -43,17 +43,17 @@ public abstract class BoundingBox {
 		double tmax = Math.min(Math.min(Math.max(t1, t2), Math.max(t3, t4)), Math.max(t5, t6));
 
 		// if tmax < 0, ray (line) is intersecting AABB, but whole AABB is behind us
-		if (tmax < 0)
+		if (tmax <= 0)
 		{
-		    return false;
+		    return -1;
 		}
 
 		// if tmin > tmax, ray doesn't intersect AABB
 		if (tmin > tmax)
 		{
-		    return false;
+		    return -1;
 		}
-		return true;
+		return tmin;
 	}
 }
 

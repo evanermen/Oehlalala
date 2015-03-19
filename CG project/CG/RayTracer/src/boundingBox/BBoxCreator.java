@@ -44,7 +44,7 @@ public class BBoxCreator {
 		//System.out.println("sboxes size = " + sboxes.size());
 		if(sboxes.size()==1){return sboxes.get(0);}
 		else{
-			ArrayList<ShapeBox> sortedsboxes = sortList(sboxes);
+			ArrayList<ShapeBox> sortedsboxes = sortList(sboxes, box.min, box.max);
 			ArrayList<ShapeBox> list1 = new ArrayList<ShapeBox>(sortedsboxes.subList(0, sortedsboxes.size()/2));
 			ArrayList<ShapeBox> list2 = new ArrayList<ShapeBox>(sortedsboxes.subList(sortedsboxes.size()/2, sortedsboxes.size()));
 
@@ -60,10 +60,9 @@ public class BBoxCreator {
 
 
 
-	private ArrayList<ShapeBox> sortList(ArrayList<ShapeBox> sboxes) {
+	private ArrayList<ShapeBox> sortList(ArrayList<ShapeBox> sboxes, Point min, Point max) {
 
-		System.out.println("SortCount = " + sortcount);
-		if((sortcount % 3) == 0){
+		if(max.x-min.x >= max.y-min.y && max.x-min.x >= max.z-min.z){
 
 			Collections.sort(sboxes, new Comparator<ShapeBox>() {
 				@Override
@@ -79,7 +78,7 @@ public class BBoxCreator {
 			return sboxes;}
 		
 		
-		else if((sortcount % 3) == 1){
+		else if(max.y-min.y >= max.z-min.z){
 
 			Collections.sort(sboxes, new Comparator<ShapeBox>() {
 				@Override
@@ -94,7 +93,7 @@ public class BBoxCreator {
 			sortcount ++;
 			return sboxes;}
 		
-		else if((sortcount % 3) == 2){
+		else if(max.z-min.z >= max.y-min.y){
 
 			Collections.sort(sboxes, new Comparator<ShapeBox>() {
 				@Override
@@ -109,7 +108,7 @@ public class BBoxCreator {
 			sortcount ++;
 			return sboxes;}
 		
-		else {throw new IllegalStateException("There is something wrong with yo counter!");}
+		else {throw new IllegalStateException("There is something wrong with yo splitting!");}
 	}
 
 

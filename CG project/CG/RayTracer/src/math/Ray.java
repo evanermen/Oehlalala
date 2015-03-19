@@ -13,6 +13,7 @@ public class Ray implements Cloneable {
 	 */
 	public final Point origin;
 	public int bboxcount;
+	public double t;
 
 	/**
 	 * The direction the ray is pointing to.
@@ -37,6 +38,7 @@ public class Ray implements Cloneable {
 			throw new NullPointerException("the given direction is null!");
 		this.origin = origin;
 		this.direction = direction;
+		t = Double.MAX_VALUE;
 	}
 
 	/**
@@ -49,6 +51,7 @@ public class Ray implements Cloneable {
 	 */
 	public Ray(Ray ray) throws NullPointerException {
 		this(ray.origin, ray.direction);
+		t = Double.MAX_VALUE;
 	}
 
 	/*

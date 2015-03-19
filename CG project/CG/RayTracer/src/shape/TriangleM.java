@@ -70,7 +70,7 @@ public class TriangleM extends Shape {
 
 	@Override
 	public Intersection intersect(Ray ray) {
-		Ray transformed = transformation.transformInverse(ray);
+		Ray transformed = ray;
 
 		double a = v0.x - v1.x;
 		double b = v0.x - v2.x;
@@ -85,7 +85,7 @@ public class TriangleM extends Shape {
 		double i = v0.z - v1.z;
 		double j = v0.z - v2.z;
 		double k = transformed.direction.z;
-		double l = v0.z - ray.origin.z;
+		double l = v0.z - transformed.origin.z;   //ZAT HIER AL HEEL DE TIJD DE FOUT???? nee toch?  (er stond ray ipv transformed
 
 		double m = f*k - g*j;
 		double n = -h*k + g*l;  //tekenverandering
@@ -118,7 +118,8 @@ public class TriangleM extends Shape {
 		this.barys = new Vector(alpha, beta, gamma);
 
 		Point originPoint = transformed.origin.add(transformed.direction.scale(t));	
-		Point point = transformation.transform(originPoint);
+		//Point point = transformation.transform(originPoint);
+		Point point = originPoint;
 		Vector normal = getNormal(originPoint);
 		double u = vt0.x*barys.x + vt1.x*barys.y + vt2.x*barys.z; //ELINE !! HIER ZOU IETS FOUT KUNNEN ZIJN
 		double v = vt0.y*barys.x + vt1.y*barys.y + vt2.y*barys.z; //ELINE !! HIER ZOU IETS FOUT KUNNEN ZIJN
@@ -136,12 +137,14 @@ public class TriangleM extends Shape {
 	@Override
 	public Vector getNormal(Point point) {
 		Vector normal = vn0.scale(barys.x).add(vn1.scale(barys.y)).add(vn2.scale(barys.z));
-		return transformation.getNormalTransformationMatrix().transform(normal).normalize();
+		//return transformation.getNormalTransformationMatrix().transform(normal).normalize();
+		return normal.normalize();
 	}
 
 	@Override
 	public double shadowHit(Ray ray) {
-		Ray transformed = transformation.transformInverse(ray).epsilonOffset();
+		//Ray transformed = transformation.transformInverse(ray).epsilonOffset();
+		Ray transformed = ray;
 
 		double a = v0.x - v1.x;
 		double b = v0.x - v2.x;
@@ -156,7 +159,7 @@ public class TriangleM extends Shape {
 		double i = v0.z - v1.z;
 		double j = v0.z - v2.z;
 		double k = transformed.direction.z;
-		double l = v0.z - ray.origin.z;
+		double l = v0.z - transformed.origin.z;
 
 		double m = f*k - g*j;
 		double n = -h*k + g*l;  //tekenverandering
@@ -189,24 +192,36 @@ public class TriangleM extends Shape {
 		this.barys = new Vector(alpha, beta, gamma);
 
 
-		return t;	
+		return t;	   //ELINE HIER??????? we denken t untransformed?
 	}
 
 	@Override
 	public void createBBox(BBoxCreator creator) {
-		Point v0t = this.transformation.transform(v0);
+		/**Point v0t = this.transformation.transform(v0);
 		Point v1t =  this.transformation.transform(v1);
-		Point v2t =  this.transformation.transform(v2);
+		Point v2t =  this.transformation.transform(v2);*/
 		
-		double maxX = Math.max(Math.max(v0t.x, v1t.x), v2t.x);
-		double maxY = Math.max(Math.max(v0t.y, v1t.y), v2t.y);
-		double maxZ = Math.max(Math.max(v0t.z, v1t.z), v2t.z);
-		double minX = Math.min(Math.min(v0t.x, v1t.x), v2t.x);
-		double minY = Math.min(Math.min(v0t.y, v1t.y), v2t.y);
-		double minZ = Math.min(Math.min(v0t.z, v1t.z), v2t.z);
+		double maxX = Math.max(Math.max(v0.x, v1.x), v2.x);
+		double maxY = Math.max(Math.max(v0.y, v1.y), v2.y);
+		double maxZ = Math.max(Math.max(v0.z, v1.z), v2.z);
+		double minX = Math.min(Math.min(v0.x, v1.x), v2.x);
+		double minY = Math.min(Math.min(v0.y, v1.y), v2.y);
+		double minZ = Math.min(Math.min(v0.z, v1.z), v2.z);
 		
 		ShapeBox bbox = new ShapeBox(new Point(minX, minY, minZ), new Point(maxX, maxY, maxZ), this);
 		creator.shapeboxes.add(bbox);
+	}
+
+
+	public void transform(Transformation transformation) {
+		this.transformation = transformation;
+		this.v0 = transformation.transform(v0);
+		this.v1 = transformation.transform(v1);
+		this.v2 = transformation.transform(v2);
+		this.vn0 = transformation.getNormalTransformationMatrix().transform(vn0).normalize();
+		this.vn1 = transformation.getNormalTransformationMatrix().transform(vn1).normalize();
+		this.vn2 = transformation.getNormalTransformationMatrix().transform(vn2).normalize();
+		
 	}
 
 

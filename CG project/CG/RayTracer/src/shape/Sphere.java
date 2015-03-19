@@ -154,9 +154,9 @@ public class Sphere extends Shape {
 		Point min = new Point(Collections.min(xs), Collections.min(ys), Collections.min(zs));
 		Point max = new Point(Collections.max(xs), Collections.max(ys), Collections.max(zs));
 		
-		System.out.println("radius of sphere " + this.radius);
-		System.out.println(min);
-		System.out.println(max);
+		//System.out.println("radius of sphere " + this.radius);
+		//System.out.println(min);
+		//System.out.println(max);
 		ShapeBox bbox = new ShapeBox(min, max, this);
 		creator.shapeboxes.add(bbox);
 	}

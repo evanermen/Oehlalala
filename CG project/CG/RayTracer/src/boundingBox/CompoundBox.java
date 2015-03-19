@@ -15,7 +15,7 @@ public class CompoundBox extends BoundingBox {
 
 
 	ArrayList<BoundingBox> boundingboxes = new ArrayList<BoundingBox>();
-	
+
 	public CompoundBox(Point min, Point max) {
 		super(min, max);
 		// TODO Auto-generated constructor stub
@@ -24,21 +24,57 @@ public class CompoundBox extends BoundingBox {
 	@Override
 	public Intersection intersect(Ray ray) {
 		Intersection intersection = null;
-		double t = Double.POSITIVE_INFINITY;
-		if(hit(ray)){
+		double t = Double.MAX_VALUE;
+		//double tempt = hit(ray);
+		BoundingBox bbox1 = boundingboxes.get(0);
+		BoundingBox bbox2 = boundingboxes.get(1);
+
+		if(bbox2 == null){ System.out.println("oei bbox2 is null");}
+		
+		//double tempt = hit(ray);
+		double t1 = bbox1.hit(ray);
+		double t2 = bbox2.hit(ray);
+
+		if(t2<t1){
+			double tempt = t2;
+			BoundingBox tempbox = bbox2;
+			t2 = t1;
+			t1 = tempt;
+			bbox2 = bbox1;
+			bbox1 = tempbox;
+		}
+
+		if(t1 != -1){
+			Intersection temp_intersection = bbox1.intersect(ray);
+			if(temp_intersection != null && temp_intersection.t < ray.t){
+				ray.t = temp_intersection.t;
+			}
+		}
+
+		if(t2 != -1 && t2 < ray.t){
+			Intersection temp_intersection = bbox2.intersect(ray);
+			if(temp_intersection != null && temp_intersection.t < ray.t){
+				ray.t = temp_intersection.t;
+			}
+		}
+
+		/**
+		if(tempt != -1 && tempt < ray.t){
 			for(BoundingBox box : boundingboxes){
 				Intersection temp_intersection = box.intersect(ray);
 				if(temp_intersection != null && temp_intersection.t < t){
 					intersection = temp_intersection;
 					t = temp_intersection.t;
+					ray.t = intersection.t;
 				}
 			}
 		}
+
+*/
+		
 		return intersection;
 	}
 
-	
-	
 	//intersection return whichever intersection is the smallest of all boundingboxes
-	
+
 }

@@ -43,8 +43,8 @@ public class Renderer {
 		int height = 640;
 
 		//Point cameraOrigin = new Point(5,5,5);
-		Point cameraOrigin = new Point(1,1,1);
-		Vector lookAt = new Vector(-1,-1, -1);
+		Point cameraOrigin = new Point(2,3,2);
+		Vector lookAt = new Vector(-1,-1.5,-1);
 		Vector up = new Vector(0,1,0);
 		double fov =90;
 		
@@ -105,7 +105,7 @@ public class Renderer {
 
 		//------------------------SET_WORLD-------------------------------//
 
-		world.createWorld7();   //  3 teapot (verander camera), 4 shadow, 7 house, 8 apple
+		world.createWorld5();   //  3 teapot (verander camera), 4 shadow, 7 house, 8 apple
 
 		
 		
@@ -118,13 +118,13 @@ public class Renderer {
 		
 		tracer = new SimpleTracer(world, panel, camera);
 		//tracer = new BBoxTracer(world, panel, camera, bigbox);
-		//tracer = new BBoxIntersectionTracer(world, panel, camera, 230 ,bigbox);  //bunny 310, teapot 230
+		//tracer = new BBoxIntersectionTracer(world, panel, camera, 10 ,bigbox);  //bunny 310, teapot 230, sphere 83
 
 		//render the scene
 		for (int x = 0; x < width; ++x) {
 			for (int y = 0; y < height; ++y) {
 				if(x==320 && y>320){
-				//System.out.println("ok go");
+				System.out.println("ok go");
 				}
 				tracer.trace(x, y);
 			}

@@ -22,7 +22,7 @@ public class TriangleMesh extends Shape {
 	public TriangleMesh(Transformation transformation, Material material){
 		super(transformation, material);		
 		for(TriangleM triangle: triangles){
-			setTransformation(transformation);
+			triangle.transform(transformation);
 			triangle.material = material;
 		}
 		//triangles.add(new TriangleM(new Point(-1,0,1), new Point(1, -0, 1), new Point(-1,0,-1), new Vector(0,1,0), new Vector(0,1,0), new Vector(0,1,0)));
@@ -33,6 +33,8 @@ public class TriangleMesh extends Shape {
 		//triangles.add(new TriangleM(new Point(0,0,0), new Point(0, -10, -10), new Point(0, 10,-10), new Vector(1,0,0), new Vector(0,1,0), new Vector(0,0,1)));
 	}
 	
+	
+
 	public TriangleMesh(){
 		super(Transformation.createIdentity(), new Matte());
 		for(TriangleM triangle: triangles){
@@ -70,10 +72,11 @@ public class TriangleMesh extends Shape {
 		return currentIntersection.shape.getNormal(point);
 	}
 
+
 	public void setTransformation(Transformation transformation) {
 		this.transformation = transformation;
 		for(TriangleM triangle: triangles){
-			triangle.transformation = transformation;			
+			triangle.transform(transformation);
 		}
 		
 	}
