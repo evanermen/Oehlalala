@@ -46,7 +46,7 @@ public abstract class Shape {
 	
 	public abstract Vector getNormal(Point point);
 	
-	public abstract RGBColor getColor(Point point);
+	public abstract RGBColor getColor(Point point);  //Gebruik ik deze zelfs?
 	
 	
 	/**

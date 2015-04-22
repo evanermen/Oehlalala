@@ -1,5 +1,6 @@
 package materials;
 
+import samplers.Sampler;
 import textures.Texture;
 import utils.Intersection;
 import utils.RGBColor;
@@ -17,5 +18,10 @@ public abstract class Material {
 	public boolean stopsLight(){ return true;}
 	
 	public abstract RGBColor shade(Intersection intersection );
+
+
+
+	public abstract RGBColor areaShade(Intersection rayIntersection);
+	//Haal deel van de functie naar hier svp!!
 	
 }

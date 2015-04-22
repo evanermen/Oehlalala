@@ -2,19 +2,19 @@ package lights;
 
 import java.util.List;
 
+import materials.Emissive;
 import math.Point;
 import math.Ray;
 import math.Vector;
 import shape.Shape;
 import utils.Intersection;
-import utils.RGBColor;
 
 public class PointLight extends Light {
 
 	public Point location;
 
-	public PointLight(RGBColor color, double ls, Point location){
-		super(color, ls);
+	public PointLight(Emissive emissive, Point location){
+		super(emissive);
 		this.location = location;
 	}
 
@@ -33,9 +33,6 @@ public class PointLight extends Light {
 			}	
 		}
 		return false;
-
-		// TODO Auto-generated method stub
-		//return false;
 	}
 
 

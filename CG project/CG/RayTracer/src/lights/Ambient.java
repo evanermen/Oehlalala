@@ -1,17 +1,18 @@
 package lights;
 
+import materials.Emissive;
 import math.Vector;
 import utils.Intersection;
 import utils.RGBColor;
 
 public class Ambient extends Light{
 
-	public Ambient(RGBColor color, double ls){
-		super(color, ls);
+	public Ambient(Emissive emissive){
+		super(emissive);
 	}
 	
 	public Ambient(){
-		super(new RGBColor(1,1,1),3);
+		super(new Emissive(1, new RGBColor(1,1,1)));
 	}
 	//schoon ze
 	@Override

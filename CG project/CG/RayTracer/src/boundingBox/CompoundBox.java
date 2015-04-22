@@ -44,17 +44,18 @@ public class CompoundBox extends BoundingBox {
 			bbox1 = tempbox;
 		}
 
-		if(t1 != -1){
+		if(t1 != -1 && t1 <= ray.t){
 			Intersection temp_intersection = bbox1.intersect(ray);
-			if(temp_intersection != null && temp_intersection.t < ray.t){
-				ray.t = temp_intersection.t;
+			if(temp_intersection != null ){ //&& temp_intersection.t < ray.t
+				t = temp_intersection.t;
+				intersection = temp_intersection;
 			}
 		}
 
-		if(t2 != -1 && t2 < ray.t){
+		if(t2 != -1 && t2 <= ray.t){
 			Intersection temp_intersection = bbox2.intersect(ray);
-			if(temp_intersection != null && temp_intersection.t < ray.t){
-				ray.t = temp_intersection.t;
+			if(temp_intersection != null && temp_intersection.t < t){ //&& temp_intersection.t < ray.t
+				intersection = temp_intersection;
 			}
 		}
 
@@ -71,7 +72,7 @@ public class CompoundBox extends BoundingBox {
 		}
 
 */
-		
+		if(intersection != null){ ray.t = intersection.t;}
 		return intersection;
 	}
 

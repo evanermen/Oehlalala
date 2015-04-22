@@ -1,9 +1,11 @@
 package materials;
 
+import lights.AreaLight;
 import lights.Light;
 import lights.PointLight;
 import math.Ray;
 import math.Vector;
+import samplers.Sampler;
 import textures.ConstantColor;
 import textures.Texture;
 import utils.Intersection;
@@ -63,6 +65,39 @@ public class Matte extends Material {
 				if(!inShadow){
 					RGBColor l1 = light.getRadiance(intersection);
 					l = l.add((diffuse.f(intersection, w0, wi)).multiply(l1).scale(ndotwi));
+				}
+				//else System.out.println(intersection.shape + " is in shadow");
+			}
+
+		}
+		RGBColor m = l.maxToOne();
+		return l.maxToOne();
+	}
+
+	@Override
+	public RGBColor areaShade(Intersection intersection) {
+		Vector w0 = intersection.ray.direction.scale(-1).normalize();
+		RGBColor l = ambient.rho(intersection, w0).multiply(intersection.getWorld().ambientLight.getRadiance(intersection));
+		for(Light light : intersection.getWorld().lights){
+			
+			//hier komen de samples. LET OP SET EERST SAMPLE POINT en dan getdirection aanroepen
+			//ArrayLight<Point> samplePoints = 
+			
+			
+			Vector wi = light.getDirection(intersection).normalize();
+			Vector n = intersection.getNormal();
+			Vector normal = intersection.getNormal().normalize();//TODO normalize nodig?
+			if(wi.dot(n)> Math.PI) {normal = n.scale(-1);}
+			double ndotwi = normal.dot(wi); 
+			if(ndotwi > 0.0){
+				boolean inShadow = false;
+				if(light.castShadows()){
+					Ray shadowRay = new Ray(intersection.point, wi);
+					inShadow = ((AreaLight)light).inShadow(shadowRay, intersection);			
+				}
+				if(!inShadow){
+					RGBColor l1 = light.getRadiance(intersection);
+					l = l.add((diffuse.f(intersection, w0, wi)).multiply(l1).scale(((AreaLight)light).G(intersection)).scale(ndotwi/((AreaLight) light).pdf(intersection)));
 				}
 				//else System.out.println(intersection.shape + " is in shadow");
 			}

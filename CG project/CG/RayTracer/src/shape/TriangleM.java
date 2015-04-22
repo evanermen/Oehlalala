@@ -70,7 +70,7 @@ public class TriangleM extends Shape {
 
 	@Override
 	public Intersection intersect(Ray ray) {
-		Ray transformed = ray;
+		Ray transformed = ray.epsilonOffset();
 
 		double a = v0.x - v1.x;
 		double b = v0.x - v2.x;

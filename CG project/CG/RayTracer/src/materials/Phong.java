@@ -58,4 +58,12 @@ public class Phong extends Material {
 		return l0.maxToOne();
 	}
 
+
+
+	@Override
+	public RGBColor areaShade(Intersection rayIntersection) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

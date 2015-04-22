@@ -12,9 +12,15 @@ public class LightMaterial extends Material {
 
 	@Override
 	public RGBColor shade(Intersection intersection) {
-		return super.texture.getColor(intersection);
+		return texture.getColor(intersection);
 	}
 	
 	public boolean stopsLight(){return false;}
+
+	@Override
+	public RGBColor areaShade(Intersection rayIntersection) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

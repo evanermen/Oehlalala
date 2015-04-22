@@ -30,8 +30,6 @@ public class ShapeBox extends BoundingBox {
 	public Intersection intersect(Ray ray) {
 		return shape.intersect(ray);
 	}
-	
-	
 	//intersection method needs backtransformation of ray first!!! AH JA?? Transfomation zit in shape!!
 	
 }
