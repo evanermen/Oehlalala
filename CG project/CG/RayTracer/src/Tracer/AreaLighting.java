@@ -53,7 +53,7 @@ public class AreaLighting extends Tracer {
 			if(bigbox.hit(ray) != -1){
 				Intersection rayIntersection = bigbox.intersect(ray);
 				if(rayIntersection != null){
-					Vector c = new Vector(rayIntersection.shape.material.areaShade(rayIntersection));
+					Vector c = new Vector(rayIntersection.shape.material.areaShade(rayIntersection, shadowSampler));
 					colorsum = colorsum.add(c);
 				}
 			}

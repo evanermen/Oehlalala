@@ -403,7 +403,7 @@ public class World {
 		AreaLight arealight = new AreaLight(emissive1, rect); //aargh waarom hier ook emissive?????????????? en rect??
 		addLight(arealight);
 		//addLight(new PointLight(emissive1, new Point(0,5,0)));
-		Emissive emissive2 = new Emissive(2, new RGBColor(1.0,1.0,1.0));
+		Emissive emissive2 = new Emissive(3, new RGBColor(1.0,1.0,1.0));
 		this.ambientLight = new Ambient(emissive2);
 
 		Transformation turn2 =  Transformation.createRotationX(-90);

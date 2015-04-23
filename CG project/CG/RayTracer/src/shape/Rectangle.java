@@ -25,7 +25,6 @@ public class Rectangle extends Shape {
 	public double v2lenght;
 	public Vector normal; 
 	double kEpsilon = 0.0000001;
-	Sampler sampler = new Random(1);
 	
 	public Rectangle(Transformation transformation, Material material, Point corner, Vector v1, Vector v2) {
 		super(transformation, material);
@@ -120,7 +119,7 @@ public class Rectangle extends Shape {
 		}
 	}
 
-	public ArrayList<Point> sample() {
+	public ArrayList<Point> sample(Sampler sampler) {
 		//sampler is random met 1 sample
 		//System.out.println(sampler.getSamples(v1lenght, v2lenght));
 		ArrayList<Sample> samples = sampler.getSamples(v1lenght, v2lenght);

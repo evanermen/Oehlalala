@@ -21,7 +21,7 @@ public abstract class Material {
 
 
 
-	public abstract RGBColor areaShade(Intersection rayIntersection);
+	public abstract RGBColor areaShade(Intersection rayIntersection, Sampler sampler);
 	//Haal deel van de functie naar hier svp!!
 	
 }

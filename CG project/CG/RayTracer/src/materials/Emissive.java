@@ -1,6 +1,6 @@
 package materials;
 
-import math.Vector;
+import samplers.Sampler;
 import textures.ConstantColor;
 import textures.Texture;
 import utils.Intersection;
@@ -43,8 +43,8 @@ public class Emissive extends Material {
 
 
 
-	@Override
-	public RGBColor areaShade(Intersection rayIntersection) {
+	@Override   // er is geen schaduw op iets lichtgevends?
+	public RGBColor areaShade(Intersection rayIntersection, Sampler sampler) {
 		if(rayIntersection.normal.scale(-1).dot(rayIntersection.ray.direction) > 0.0){
 			return ce.scale(ls);
 		}

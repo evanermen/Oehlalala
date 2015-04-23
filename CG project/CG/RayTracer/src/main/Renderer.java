@@ -142,6 +142,7 @@ public class Renderer {
 		}
 
 		//drawLights(world, panel, camera, width, height);  //FAIL
+		
 		reporter.done();
 
 		// save the output

@@ -18,8 +18,7 @@ public class AreaLight extends Light {
 	public Rectangle rect;
 	public Vector normal;
 	public Vector wi;
-	Point samplePoint;
-	Sampler sampler;
+	public Point samplePoint;
 
 	public AreaLight(Emissive emissive, Rectangle rect){
 		super(emissive);
@@ -28,7 +27,6 @@ public class AreaLight extends Light {
 
 	@Override
 	public Vector getDirection(Intersection intersection) {
-		samplePoint = rect.sample().get(0);
 		normal = rect.getNormal(samplePoint);
 		wi = samplePoint.subtract(intersection.point);
 		return wi.normalize();
