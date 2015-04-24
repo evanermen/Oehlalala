@@ -121,8 +121,8 @@ public class Renderer {
 		
 		//----------------------------------TRACE------------------------------------//
 		
-		raySampler = new Jittered(1);
-		shadowSampler = new Random(16);
+		raySampler = new Jittered(16);
+		shadowSampler = new Random(1);
 		
 		
 		//tracer = new SimpleTracer(world, panel, camera);
