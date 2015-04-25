@@ -46,14 +46,16 @@ public class Emissive extends Material {
 	@Override   // er is geen schaduw op iets lichtgevends?
 	public RGBColor areaShade(Intersection rayIntersection, Sampler sampler) {
 		if(rayIntersection.normal.scale(-1).dot(rayIntersection.ray.direction) > 0.0){
-			return ce.scale(ls);
+			//return ce.scale(ls);
+			return ce;
 		}
 		else return new RGBColor(0,0,0);
 	}
 
 	
 	public RGBColor getLe(Intersection intersection){
-		return ce.scale(ls);
+		//return ce.scale(ls);  //u lampen worden grijs zo
+		return ce;
 	}
 
 

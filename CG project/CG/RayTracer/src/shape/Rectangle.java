@@ -81,11 +81,11 @@ public class Rectangle extends Shape {
 		ArrayList<Double> zs = new ArrayList<Double>();
 		Point a = transformation.transform(corner);
 		xs.add(a.x); ys.add(a.y); zs.add(a.z);
-		Point b = transformation.transform(corner.add(v1));
+		Point b = a.add(transformation.transform(v1));
 		xs.add(b.x); ys.add(b.y); zs.add(b.z);
-		Point c = transformation.transform(corner.add(v2));
+		Point c = a.add(transformation.transform(v2));
 		xs.add(c.x); ys.add(c.y); zs.add(c.z);
-		Point d = transformation.transform(corner.add(v1).add(v2));
+		Point d = c.add(transformation.transform(v1));
 		xs.add(d.x); ys.add(d.y); zs.add(d.z);
 		
 		
@@ -94,6 +94,8 @@ public class Rectangle extends Shape {
 		
 		ShapeBox bbox = new ShapeBox(min, max, this);
 		creator.shapeboxes.add(bbox); 
+		
+		//creator.shapeboxes.add(new ShapeBox(corner, corner.add(v1).add(v2), this));
 
 	}
 
@@ -120,13 +122,12 @@ public class Rectangle extends Shape {
 	}
 
 	public ArrayList<Point> sample(Sampler sampler) {
-		//sampler is random met 1 sample
-		//System.out.println(sampler.getSamples(v1lenght, v2lenght));
-		ArrayList<Sample> samples = sampler.getSamples(v1lenght, v2lenght);
+		ArrayList<Sample> samples = sampler.getSamples(Math.sqrt(v1lenght), Math.sqrt(v1lenght));
 		//HIER NOG TRANSFORMEREN ?????????
 		ArrayList<Point> points = new ArrayList<Point>();
 		for(Sample sample : samples){
-			points.add( new Point(corner.add(v1.scale(sample.x)).add(v2.scale(sample.y))));
+			//System.out.println("sample is " + sample.x + ", " + sample.y);
+			points.add( new Point(corner.add(v1.normalize().scale(sample.x)).add(v2.normalize().scale(sample.y))));
 		}
 		return points;  
 	}

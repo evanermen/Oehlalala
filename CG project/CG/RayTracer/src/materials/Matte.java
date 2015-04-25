@@ -21,7 +21,7 @@ public class Matte extends Material {
 	public Lambertian ambient;
 
 
-	
+
 	public Matte(Texture texture, double kd, double ka) {
 		super(texture);
 		if(ka + kd > 1.0)
@@ -35,7 +35,7 @@ public class Matte extends Material {
 		this.diffuse = new Lambertian(texture);
 		this.ambient = new Lambertian(texture);
 	}
-	
+
 	public Matte(){
 		super(new ConstantColor(new RGBColor(1,1,1)));
 		Texture texture = new ConstantColor(new RGBColor(1,1,1));
@@ -80,12 +80,12 @@ public class Matte extends Material {
 	@Override
 	public RGBColor areaShade(Intersection intersection, Sampler sampler) {
 		Vector w0 = intersection.ray.direction.scale(-1).normalize();
-		RGBColor color = new RGBColor(0,0,0);
+		RGBColor color = ambient.rho(intersection, w0).multiply(intersection.getWorld().ambientLight.getRadiance(intersection));	
 		for(Light light : intersection.getWorld().lights){
 			//hier komen de samples. LET OP SET EERST SAMPLE POINT en dan getdirection aanroepen
 			ArrayList<Point> samplePoints = ((AreaLight)light).rect.sample(sampler);
 			for(Point sample : samplePoints){
-				RGBColor l = ambient.rho(intersection, w0).multiply(intersection.getWorld().ambientLight.getRadiance(intersection));
+				RGBColor l = new RGBColor(0,0,0);
 				((AreaLight)light).samplePoint = sample;
 				Vector wi = light.getDirection(intersection).normalize();
 				Vector n = intersection.getNormal();
@@ -100,19 +100,23 @@ public class Matte extends Material {
 					}
 					if(!inShadow){
 						RGBColor l1 = light.getRadiance(intersection);
-						l = l.add((diffuse.f(intersection, w0, wi)).multiply(l1).scale(((AreaLight)light).G(intersection)).scale(ndotwi/((AreaLight)light).pdf(intersection)));
+						RGBColor l2 = (diffuse.f(intersection, w0, wi)).multiply(l1).scale(((AreaLight)light).G(intersection)).scale(ndotwi/((AreaLight)light).pdf(intersection));
+						if(l2.r>0 && l2.g>0 && l2.b>0){
+							l = l.add(l2);
+						}
+						
 						//System.out.println("L is = " + l.r + " "+ l.g + " "+ l.b);
 
 					}
 					//else System.out.println(intersection.shape + " is in shadow");
 				}
-				
-				color = color.add(l); //maxToOnebij?
+
+				color = color.add(l.scale(1.0/sampler.nbSamples)); //maxToOnebij?
 				//System.out.println("Color is = " + color.r + " "+ color.g + " "+ color.b);
 			}
 		}
-			
-		return color.scale(1.0/sampler.nbSamples).maxToOne();
+
+		return color.maxToOne();
 	}
 
 }

@@ -45,9 +45,9 @@ public class Renderer {
 		int width = 500;  //default 640
 		int height = 500;
 
-		Point cameraOrigin = new Point(5,5,5);
+		Point cameraOrigin = new Point(0,6,8);
 		//Point cameraOrigin = new Point(2,3,2);
-		Vector lookAt = new Vector(-1,-1,-1);
+		Vector lookAt = new Vector(0,-0.8,-1);
 		Vector up = new Vector(0,1,0);
 		double fov =90;
 		
@@ -109,7 +109,7 @@ public class Renderer {
 
 		//------------------------SET_WORLD-------------------------------//
 
-		world.createWorld9();   //  3 teapot (verander camera), 4 shadow, 7 house, 8 soo many apples
+		world.createWorld10();   //  3 teapot (verander camera), 4 shadow, 7 house, 8 soo many apples
 
 
 		
@@ -121,20 +121,20 @@ public class Renderer {
 		
 		//----------------------------------TRACE------------------------------------//
 		
-		raySampler = new Jittered(16);
-		shadowSampler = new Random(1);
+		raySampler = new Jittered(1);
+		shadowSampler = new Jittered(16);
 		
 		
 		//tracer = new SimpleTracer(world, panel, camera);
-		//tracer = new BBoxTracer(world, panel, camera, bigbox, sampler);
-		//tracer = new BBoxIntersectionTracer(world, panel, camera, 280 ,bigbox);  //bunny nope, teapot 280, sphere test
+		//tracer = new BBoxTracer(world, panel, camera, bigbox, raySampler);
+		//tracer = new BBoxIntersectionTracer(world, panel, camera, 50 ,bigbox);  //bunny nope, teapot 280, sphere test
 		tracer = new AreaLighting(world, panel, camera, bigbox, raySampler, shadowSampler); 
 
 		//render the scene
 		for (int x = 0; x < width; ++x) {
 			for (int y = 0; y < height; ++y) {
-				if(x==250 && y>250){
-				//System.out.println("ok go");
+				if(x==0 && y>250){
+				System.out.println("ok go");
 				}
 				tracer.trace(x, y);
 			}

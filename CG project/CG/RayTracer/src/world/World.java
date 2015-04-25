@@ -33,7 +33,7 @@ public class World {
 	//private Light ambient;
 	public List<Shape> objects;
 	public List<Light> lights;
-	public Ambient ambientLight = new Ambient(new Emissive(0, new RGBColor(1,1,1)));
+	public Ambient ambientLight = new Ambient(new Emissive(0, new RGBColor(0,0,0)));
 	
 	public World(){
 		bg = new RGBColor();
@@ -276,6 +276,8 @@ public class World {
 		Emissive emissive = new Emissive(2, new RGBColor(1.0,1.0,1.0));
 		addLight(new PointLight(emissive, new Point(4,4,0)));
 		
+		Rectangle rect2 = new Rectangle(identity, matte, new Point(-1,3,-1), new Vector(1,1,0), new Vector(0,1,1));
+		addObject(rect2);
 		
 		Transformation turn =  Transformation.createRotationX(-90);
 		Transformation t = Transformation.createTranslation(-8, -8, -8); 
@@ -394,16 +396,43 @@ public class World {
 		Sphere sphere = new Sphere(t6, mat, 0.8);
 		addObject(sphere);
 		
+		Matte matte3 =  new Matte(new ConstantColor(new RGBColor(0,0.7,0)), 0.5,0.2);
+		Emissive emissive1 = new Emissive(1, new RGBColor(1.0,1.0,1.0));
+		Rectangle rect = new Rectangle(id,emissive1, new Point(-1,4,-1), new Vector(2,0,0), new Vector(0,0,2));
+		Rectangle rect2 = new Rectangle(id, matte3, new Point(-1,3,-1), new Vector(1,1,0), new Vector(0,1,1));
+		//addObject(rect2);
+		addObject(rect);
+		AreaLight arealight = new AreaLight(emissive1, rect); 
+		addLight(arealight);
+		//addLight(new PointLight(emissive1, new Point(0,5,0)));
+		Emissive emissive2 = new Emissive(2, new RGBColor(1.0,1.0,1.0));
+		this.ambientLight = new Ambient(emissive2);
+
+		Transformation turn2 =  Transformation.createRotationX(-90);
+		Matte matte2 =  new Matte(new ConstantColor(new RGBColor(1.0,0.3,0.3)), 0.5,0.2);
+		//Phong matte2 = new Phong(new ConstantColor(new RGBColor(1,1,0)), 0.2,0.2,0.3, 10);
+		addObject(new Plane(turn2, matte2));
+		//addLight(new PointLight(new RGBColor(1,1,1), 1, new Point(-7,4,-7)));
+	}
+	
+	//plane met arealight er loodrecht op
+	public void createWorld10(){
+		Transformation id = Transformation.createIdentity();
+		Transformation t6 = Transformation.createTranslation(0, 2.5, 0);
+		Material mat = new Matte(new ConstantColor(new RGBColor(0,0.5,1)), 0.2,0.2);
+		Sphere sphere = new Sphere(t6, mat, 0.8);
+		//addObject(sphere);
 		
-		
-		Matte matte3 =  new Matte(new ConstantColor(new RGBColor(0,0.5,0)), 0.5,0.2);
-		Emissive emissive1 = new Emissive(6, new RGBColor(1.0,1.0,1.0));
-		Rectangle rect = new Rectangle(id,matte3, new Point(-1,5,-1), new Vector(1,0,0), new Vector(0,0,1));
-		//addObject(rect);
+		Matte matte3 =  new Matte(new ConstantColor(new RGBColor(0,0.7,0)), 0.5,0.2);
+		Emissive emissive1 = new Emissive(0.8, new RGBColor(1.0,1.0,1.0));
+		Rectangle rect = new Rectangle(id,emissive1, new Point(-2,0,0), new Vector(4,0,0), new Vector(0,4,0));
+		Rectangle rect2 = new Rectangle(id, matte3, new Point(-1,3,-1), new Vector(1,1,0), new Vector(0,1,1));
+		//addObject(rect2);
+		addObject(rect);
 		AreaLight arealight = new AreaLight(emissive1, rect); //aargh waarom hier ook emissive?????????????? en rect??
 		addLight(arealight);
 		//addLight(new PointLight(emissive1, new Point(0,5,0)));
-		Emissive emissive2 = new Emissive(3, new RGBColor(1.0,1.0,1.0));
+		Emissive emissive2 = new Emissive(2, new RGBColor(1.0,1.0,1.0));
 		this.ambientLight = new Ambient(emissive2);
 
 		Transformation turn2 =  Transformation.createRotationX(-90);
