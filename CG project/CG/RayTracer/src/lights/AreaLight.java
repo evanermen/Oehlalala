@@ -56,9 +56,16 @@ public class AreaLight extends Light {
 	}
 
 	public double G(Intersection intersection){
-		double ndotd = normal.scale(-1).dot(wi);
-		double dsquared = intersection.point.subtract(samplePoint).lengthSquared();
-		return (ndotd/dsquared);
+		//p234 in boek
+		
+		double cos1 = normal.dot(wi.scale(-1));
+		if(cos1 <= 0){
+			System.out.println("DOES THIS EVEN MATTER?? " + cos1);
+			return 0;
+		}
+		double cos2 = intersection.normal.dot(wi);  //transformed??
+ 		double dsquared = intersection.point.subtract(samplePoint).lengthSquared();
+		return (cos1*cos2/dsquared);
 
 	}
 

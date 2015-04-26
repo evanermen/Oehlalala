@@ -1,5 +1,7 @@
 package materials;
 
+import lights.Light;
+import math.Vector;
 import samplers.Sampler;
 import textures.ConstantColor;
 import textures.Texture;
@@ -57,6 +59,22 @@ public class Emissive extends Material {
 		//return ce.scale(ls);  //u lampen worden grijs zo
 		return ce;
 	}
+
+	@Override
+	public RGBColor specificShade(Light light, Intersection intersection,
+			Vector w0, Vector w1, double ndotwi) {
+		System.out.println("You're really not supposed to get here. Yay for bad inheritance");
+		return null;
+	}
+
+	@Override
+	public RGBColor specificAreaShade(Light light, Intersection intersection,
+			Vector w0, Vector wi, double ndotwi) {
+		System.out.println("You're really not supposed to get here. Yay for bad inheritance");
+		return null;
+	}
+
+
 
 
 

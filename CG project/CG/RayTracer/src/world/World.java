@@ -42,48 +42,6 @@ public class World {
 		lights = new ArrayList<Light>();	
 	}
 	
-	/**
-	//----------------OBJECTS----------------//
-	
-	Transformation turn =  Transformation.createRotationX(40);
-	Transformation turn2 =  Transformation.createRotationZ(60);
-	Transformation turn3 = Transformation.createRotationY(60);
-	Transformation t1 = Transformation.createTranslation(0, 0, 0).append(turn).append(turn2).append(turn3);
-	Transformation t2 = Transformation.createTranslation(4, -4, 12);
-	Transformation t3 = Transformation.createTranslation(15, 15, 0);
-	Transformation t4 = Transformation.createTranslation(4, 4, 12);
-	Transformation t5 = Transformation.createTranslation(-4, 4, 12);
-	Transformation t6 = Transformation.createTranslation(0, 0, 10);
-	Transformation identity = Transformation.createIdentity();
-	Transformation scale = Transformation.createScale(10, 10, 10);
-
-	Parser parser = new Parser();
-	try {
-		parser.processLineByLine();
-		parser.triangleMesh.setTransformation(turn);
-		world.addObject(parser.triangleMesh);
-	} catch (IOException e1) {
-		e1.printStackTrace();
-	}
-	
-	
-	//world.addObject(new Cube(t1.append(t6).append(turn3), 5));
-	//world.addObject(new Triangle(identity.append(turn2), new Point(0,-10,-10), new Point(0,10,0), new Point(0,0,10)));
-	//world.addObject(new Cube(t4, 1));
-	//world.addObject(new Sphere(t2, 4));
-	//world.addObject(new Hourglass(identity.append(turn3), Math.PI/6, 8));
-	//world.addObject(new TriangleM());
-	//world.addObject(new Sphere(t5.append(t6), 4));
-	//world.addObject(new Plane(turn3));
-	
-	//world.addObject(new TriangleMesh());
-	
-	
-	//----------------LIGHTS----------------//
-	
-	
-	
-	*/
 	
 	// Cube + Triangle + Hourglass + sphere hier zijn geen lichten of andere kleuren alles is gewoon groen en lelijk
 	//PLANE KAPOT
@@ -110,7 +68,9 @@ public class World {
 		Transformation t6 = Transformation.createTranslation(1, 1, 0);
 		Transformation turn =  Transformation.createRotationX(70);
 		Transformation identity =  Transformation.createIdentity();
-		Material mat = new Matte(new ConstantColor(new RGBColor(1,1,0)), 0.2,0.2);
+		//Material mat = new Matte(new ConstantColor(new RGBColor(1,1,0)), 0.2,0.2);
+		Texture tex = new ConstantColor(new RGBColor(0,0.8,1));
+		Phong mat = new Phong(tex, 0.6, 0.2, 0.5, 20 );
 		try {
 			parser.processLineByLine();
 			parser.triangleMesh.setTransformation(identity);
@@ -120,14 +80,14 @@ public class World {
 			e1.printStackTrace();
 		}
 		
-		Texture tex = new ConstantColor(new RGBColor(0,0.5,0));
-		Matte matte = new Matte(tex);
-		Rectangle rectangle = new Rectangle(t6,matte, new Point(0,0,0), new Vector(0,1,0), new Vector(1,0,0));
+		//Matte mat = new Matte(tex);
+		//Phong mat = new Phong(tex, 0.6, 0.2, 0.5, 20 );
+		Rectangle rectangle = new Rectangle(t6,mat, new Point(0,0,0), new Vector(0,1,0), new Vector(1,0,0));
 		//Cube rectangle = new Cube(t6, matte, 2);
 		//addObject(rectangle);
 		
 		Emissive emissive1 = new Emissive(1, new RGBColor(0.0,1.0,1.0));
-		addLight(new PointLight(emissive1, new Point(2,2,4)));
+		addLight(new PointLight(emissive1, new Point(2,2,2)));
 		Emissive emissive2 = new Emissive(1, new RGBColor(1.0,1.0,1.0));
 		this.ambientLight = new Ambient(emissive2);
 
@@ -139,7 +99,8 @@ public class World {
 	public void createWorld3(){
 		Parser parser = new Parser("teapot");
 		Transformation turn =  Transformation.createIdentity();
-		Matte material = new Matte(new ConstantColor(new RGBColor(1,0,0)), 0.8, 0.2);
+		//Matte material = new Matte(new ConstantColor(new RGBColor(1,0,0)), 0.8, 0.2);
+		Phong material = new Phong(new ConstantColor(new RGBColor(1,0,0)), 0.8, 0.2, 0.5, 50);
 		try {
 			parser.processLineByLine();
 			parser.triangleMesh.setTransformation(turn);
@@ -181,8 +142,8 @@ public class World {
 		//addObject(new Sphere(identity, matte, 4));
 		
 		Transformation t = Transformation.createTranslation(-8, -8, -8); 
-		Matte matte2 =  new Matte(new ConstantColor(new RGBColor(1.0,1.0,0.0)), 0.5,0.2);
-		//Phong matte2 = new Phong(new ConstantColor(new RGBColor(1,1,0)), 0.2,0.2,0.3, 10);
+		//Matte matte2 =  new Matte(new ConstantColor(new RGBColor(1.0,1.0,0.0)), 0.5,0.2);
+		Phong matte2 = new Phong(new ConstantColor(new RGBColor(1,1,0)), 0.2,0.2,0.3, 10);
 		addObject(new Plane(turn, matte2));
 		
 		Emissive emissive3 = new Emissive(2, new RGBColor(1.0,1.0,1.0));
@@ -391,14 +352,14 @@ public class World {
 	//plane - bol - arealight
 	public void createWorld9(){
 		Transformation id = Transformation.createIdentity();
-		Transformation t6 = Transformation.createTranslation(0, 2.5, 0);
-		Material mat = new Matte(new ConstantColor(new RGBColor(0,0.5,1)), 0.2,0.2);
-		Sphere sphere = new Sphere(t6, mat, 0.8);
+		Transformation t6 = Transformation.createTranslation(0,2, 0);
+		Material mat = new Matte(new ConstantColor(new RGBColor(0.5,0,1)), 0.8,0.2);
+		Sphere sphere = new Sphere(t6, mat, 1);
 		addObject(sphere);
 		
 		Matte matte3 =  new Matte(new ConstantColor(new RGBColor(0,0.7,0)), 0.5,0.2);
-		Emissive emissive1 = new Emissive(1, new RGBColor(1.0,1.0,1.0));
-		Rectangle rect = new Rectangle(id,emissive1, new Point(-1,4,-1), new Vector(2,0,0), new Vector(0,0,2));
+		Emissive emissive1 = new Emissive(2, new RGBColor(1.0,1.0,1.0));
+		Rectangle rect = new Rectangle(id,emissive1, new Point(-2,6,-2), new Vector(4,0,0), new Vector(0,0,2));
 		Rectangle rect2 = new Rectangle(id, matte3, new Point(-1,3,-1), new Vector(1,1,0), new Vector(0,1,1));
 		//addObject(rect2);
 		addObject(rect);
@@ -424,7 +385,7 @@ public class World {
 		//addObject(sphere);
 		
 		Matte matte3 =  new Matte(new ConstantColor(new RGBColor(0,0.7,0)), 0.5,0.2);
-		Emissive emissive1 = new Emissive(0.8, new RGBColor(1.0,1.0,1.0));
+		Emissive emissive1 = new Emissive(3, new RGBColor(1.0,1.0,1.0));
 		Rectangle rect = new Rectangle(id,emissive1, new Point(-2,0,0), new Vector(4,0,0), new Vector(0,4,0));
 		Rectangle rect2 = new Rectangle(id, matte3, new Point(-1,3,-1), new Vector(1,1,0), new Vector(0,1,1));
 		//addObject(rect2);
@@ -432,7 +393,7 @@ public class World {
 		AreaLight arealight = new AreaLight(emissive1, rect); //aargh waarom hier ook emissive?????????????? en rect??
 		addLight(arealight);
 		//addLight(new PointLight(emissive1, new Point(0,5,0)));
-		Emissive emissive2 = new Emissive(2, new RGBColor(1.0,1.0,1.0));
+		Emissive emissive2 = new Emissive(0.5, new RGBColor(1.0,1.0,1.0));
 		this.ambientLight = new Ambient(emissive2);
 
 		Transformation turn2 =  Transformation.createRotationX(-90);

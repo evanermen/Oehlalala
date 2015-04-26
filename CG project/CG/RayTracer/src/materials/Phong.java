@@ -14,27 +14,20 @@ import brdf.Lambertian;
 
 public class Phong extends Material {
 
-	private double kd;
-	private double ka;
+
 	private double exponent;
-	private Lambertian ambientBrdf;
-	private Lambertian diffuseBrdf;
 	private GlossySpecular specularBrdf;
 
 
 
-	public Phong(Texture color, double kd, double ka, double ks, double exponent){
-		super(color);
-		this.kd = kd;
-		this.ka = ka;
+	public Phong(Texture texture, double kd, double ka, double ks, double exponent){
+		super(texture, kd, ka);
 		this.exponent = exponent;
-		this.ambientBrdf = new Lambertian(color, ka);
-		this.diffuseBrdf = new Lambertian(color, kd);
-		this.specularBrdf = new GlossySpecular(color, ks, exponent);
+		this.specularBrdf = new GlossySpecular(texture, ks, exponent);
 	}
 	
 	
-
+/**
 	@Override
 	public RGBColor shade(Intersection intersection) {
 		Vector wo = intersection.ray.direction.scale(-1).normalize();
@@ -57,13 +50,24 @@ public class Phong extends Material {
 		}
 		return l0.maxToOne();
 	}
+*/
 
 
-
-	@Override
-	public RGBColor areaShade(Intersection rayIntersection) {
-		// TODO Auto-generated method stub
-		return null;
+	@Override  ///hier nog distance atuurniding bij
+	public RGBColor specificShade(Light light, Intersection intersection,
+			Vector w0, Vector wi, double ndotwi) {
+		RGBColor l0 = ((diffuse.f(intersection, w0, wi)).add(specularBrdf.f(intersection, wi, w0))).multiply(light.getRadiance(intersection).scale(ndotwi));
+		return l0;
 	}
+	
+	@Override  
+	public RGBColor specificAreaShade(Light light, Intersection intersection,
+			Vector w0, Vector wi, double ndotwi) {
+		RGBColor l0 = ((diffuse.f(intersection, w0, wi)).add(specularBrdf.f(intersection, wi, w0))).multiply(light.getRadiance(intersection).scale(ndotwi));
+		return l0;
+	}
+
+
+
 
 }

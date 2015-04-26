@@ -30,7 +30,7 @@ public class TriangleM extends Shape {
 
 
 	public TriangleM(Point v0, Point v1, Point v2, Vector vn0, Vector vn1, Vector vn2) {
-		super(Transformation.createIdentity(), new Matte(new ConstantColor(new RGBColor(255,255,255))));
+		super(Transformation.createIdentity(), new Matte(new ConstantColor(new RGBColor(1,1,1)), 0.8, 0.2));
 		this.v0 = v0;
 		this.v1 = v1;
 		this.v2 = v2;
@@ -42,7 +42,7 @@ public class TriangleM extends Shape {
 
 	
 	public TriangleM(Point v0, Point v1, Point v2, Vector vn0, Vector vn1, Vector vn2, Vector vt0, Vector vt1, Vector vt2) {
-		super(Transformation.createIdentity(), new Matte(new ConstantColor(new RGBColor(255,255,255))));
+		super(Transformation.createIdentity(), new Matte(new ConstantColor(new RGBColor(1,1,1)), 0.8 , 0.2));
 		this.v0 = v0;
 		this.v1 = v1;
 		this.v2 = v2;
@@ -57,7 +57,7 @@ public class TriangleM extends Shape {
 	
 	
 	public TriangleM(){
-		super(Transformation.createIdentity(), new Matte(new ConstantColor(new RGBColor(255,255,255))));
+		super(Transformation.createIdentity(), new Matte(new ConstantColor(new RGBColor(1,1,1)), 0.8,0.2));
 		this.v0 = new Point(0,0,5);
 		this.v1 = new Point(5,0,0);
 		this.v2 = new Point(5,0,5);

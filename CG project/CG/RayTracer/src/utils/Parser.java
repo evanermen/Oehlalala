@@ -16,7 +16,7 @@ import textures.ConstantColor;
 
 public class Parser {
 
-	public TriangleMesh triangleMesh = new TriangleMesh(Transformation.createIdentity(), new Matte(new ConstantColor(new RGBColor(0,1,1))));
+	public TriangleMesh triangleMesh = new TriangleMesh(Transformation.createIdentity(), new Matte(new ConstantColor(new RGBColor(0,1,1)), 0.8, 0.2));
 	
 	ArrayList<Point> vertices = new ArrayList<Point>();
 	ArrayList<Vector> normals = new ArrayList<Vector>();

@@ -45,9 +45,9 @@ public class Renderer {
 		int width = 500;  //default 640
 		int height = 500;
 
-		Point cameraOrigin = new Point(0,6,8);
+		Point cameraOrigin = new Point(5,5,5);
 		//Point cameraOrigin = new Point(2,3,2);
-		Vector lookAt = new Vector(0,-0.8,-1);
+		Vector lookAt = new Vector(-1,-1,-1);
 		Vector up = new Vector(0,1,0);
 		double fov =90;
 		
@@ -121,8 +121,8 @@ public class Renderer {
 		
 		//----------------------------------TRACE------------------------------------//
 		
-		raySampler = new Jittered(1);
-		shadowSampler = new Jittered(16);
+		raySampler = new Jittered(4);
+		shadowSampler = new Random(3);
 		
 		
 		//tracer = new SimpleTracer(world, panel, camera);

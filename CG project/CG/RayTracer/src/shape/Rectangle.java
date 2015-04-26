@@ -133,7 +133,7 @@ public class Rectangle extends Shape {
 	}
 
 	public double pdf(Intersection intersection) {
-		return 1/(v1lenght*v2lenght); //of getransformeerd????????
+		return 1/(Math.sqrt(v1lenght)*Math.sqrt(v2lenght)); //of getransformeerd????????
 	}
 
 }
